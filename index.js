@@ -353,7 +353,7 @@ function updatePantryDOM() {
     });
     pantryContents = ""
     for (i in pantry) {
-        pantryContents += "<div class='ingredient'><span>" + pantry[i].name + " <span style='color:" + cs.quantity + "'>"
+        pantryContents += "<div class='ingredient' tabindex='0'><span>" + pantry[i].name + " <span style='color:" + cs.quantity + "'>"
         pantryItemCounter += pantry[i].quantity
         if (pantry[i].quantity > 1) {
             pantryContents += "x " + pantry[i].quantity  
