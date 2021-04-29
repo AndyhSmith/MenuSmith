@@ -193,32 +193,37 @@ button:hover {
 
 #tutorial-step2 {
     display: none;
-    height: 60%;
+    height: 40%;
     bottom: 0px;
+    margin-bottom: 60px;
 }
 
 #tutorial-step3 {
     display: none;
-    height: 60%;
+    height: 40%;
     bottom: 0px;
+    margin-bottom: 60px;
 }
 
 #tutorial-step4 {
     display: none;
-    height: 60%;
+    height: 40%;
     bottom: 0px;
+    margin-bottom: 60px;
 }
 
 #tutorial-step5 {
     display: none;
-    height: 60%;
+    height: 40%;
     bottom: 0px;
+    margin-bottom: 60px;
 }
 
 #tutorial-step6 {
     display: none;
-    height: 60%;
+    height: 40%;
     bottom: 0px;
+    margin-bottom: 60px;
 }
 
 #tutorial-step7 {
@@ -266,11 +271,11 @@ button:hover {
 .tutorial-dots {
     position: fixed;
 
-    bottom: 20px;
+    bottom: 10px;
     left: 0px;
     text-align: center;
     width: 100%;
-      
+    z-index: 2;
 
   }
 
@@ -301,4 +306,14 @@ button:hover {
 #help-option:hover {
     opacity: 1;
     transition: opacity 0.2s ease;
+}
+
+.bottom-green {
+    position:fixed;
+    background-color: forestgreen;
+    left: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+    z-index: -1;
 }
