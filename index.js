@@ -38,7 +38,7 @@ function startDOM() {
         pantry = JSON.parse(localStorageContent)
     }
     else {
-        pantry = [{"name":"baking powder","quantity":1},{"name":"butter","quantity":1},{"name":"egg","quantity":4},{"name":"flour","quantity":1},{"name":"milk","quantity":1},{"name":"oil","quantity":1},{"name":"salt","quantity":1},{"name":"sugar","quantity":1}]
+        pantry = [{"name":"ground beef","quantity":1},{"name":"baking powder","quantity":1},{"name":"butter","quantity":1},{"name":"egg","quantity":4},{"name":"flour","quantity":1},{"name":"milk","quantity":1},{"name":"oil","quantity":1},{"name":"salt","quantity":1},{"name":"sugar","quantity":1}]
     }
 
     let localShoppingListStorage = localStorage.getItem('shoppingList')
@@ -46,11 +46,32 @@ function startDOM() {
         shoppingList = JSON.parse(localShoppingListStorage)
     }
     else {
-        shoppingList = [{"name":"rice","quantity":1}]
+        shoppingList = [{"name":"carrots","quantity":1},{"name":"onion","quantity":1},{"name":"rice","quantity":1}]
+    }
+
+    let localStorageFirstTime = localStorage.getItem('firstTime')
+    if (localStorageFirstTime != '') {
+        if (localStorageFirstTime == "true") {
+            skipTutorial()
+        }
+        else {
+            loadStartPage()
+        }
+        
     }
 
     viewRecipes()
     userAddFood()
+}
+
+function clearLocalSavedData() {
+    localStorage.clear();
+    location.reload();
+}
+
+function saveLocalStorage() {
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    localStorage.setItem('pantry', JSON.stringify(pantry));
 }
 
 //#################################################################################
@@ -151,6 +172,7 @@ function removeFromShoppingListByName(itemName) {
         shoppingList[itemShoppingListID].quantity -= 1;
     }
     selectRecipeDOM(currentRecipe)
+    saveLocalStorage()
 }
 
 function updateShoppingListDOM() {
@@ -223,12 +245,14 @@ function shoppingListToPantry() {
     }
     shoppingList = []
     updateShoppingListDOM()
+    
 }
 
 function singleItemFromShoppingListToPantry(itemShoppingListID) {
     let itemName = shoppingList[itemShoppingListID].name
     removeFromShoppingList(itemShoppingListID)  
     addToPantry(getItemID(itemName))
+    
 }
 
 function addToShoppingList(ingredientID) {
@@ -288,6 +312,7 @@ function removeFromPantryByName(itemName) {
         pantry[itemPantryID].quantity -= 1;
     }
     selectRecipeDOM(currentRecipe)
+    saveLocalStorage()
 }
 
 
@@ -371,6 +396,7 @@ function addToShoppingListFromRecipe(ingredientID) {
         shoppingList.push(itemToAdd)
     }
     selectRecipeDOM(currentRecipe)
+    saveLocalStorage()
 }
 
 function checkIfInPantry(itemName) {
@@ -811,6 +837,7 @@ function loadStartPage() {
 }
 
 function skipTutorial() {
+    localStorage.setItem('firstTime', "true");
     document.getElementById("tutorial-start").style.display = "none"
     document.getElementById("tutorial-step1").style.display = "none"
     document.getElementById("tutorial-step2").style.display = "none"
