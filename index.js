@@ -64,6 +64,16 @@ function startDOM() {
     userAddFood()
 }
 
+function isTouchDevice() {
+    return (('ontouchstart' in window) ||
+       (navigator.maxTouchPoints > 0) ||
+       (navigator.msMaxTouchPoints > 0));
+}
+var isMobile = isTouchDevice()
+if (isMobile) {
+    document.getElementsByClassName("add-subtract").style.display = "inline"
+}
+
 function clearLocalSavedData() {
     localStorage.clear();
     location.reload();
