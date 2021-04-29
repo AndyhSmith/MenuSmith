@@ -210,7 +210,7 @@ function updateShoppingListDOM() {
     });
     shoppingListContents = ""
     for (i in shoppingList) {
-        shoppingListContents += "<div class='ingredient'><span>" + shoppingList[i].name + " <span style='color:" + cs.quantity + "'>"
+        shoppingListContents += "<div class='ingredient' tabindex='0'><span>" + shoppingList[i].name + " <span style='color:" + cs.quantity + "'>"
         shoppingListItemCounter += shoppingList[i].quantity
         if (shoppingList[i].quantity > 1) {
             
