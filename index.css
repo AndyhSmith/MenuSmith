@@ -73,6 +73,10 @@ textarea {
     display: inline;
 }
 
+.ingredient:focus .add-subtract{
+    display: inline;
+}
+
 button {
     color: #494949;
     /* text-transform: uppercase; */
