@@ -69,6 +69,9 @@ textarea {
     display: inline;
 }
 
+.ingredient:active .add-subtract{
+    display: inline;
+}
 
 button {
     color: #494949;

@@ -64,15 +64,22 @@ function startDOM() {
     userAddFood()
 }
 
-function isTouchDevice() {
-    return (('ontouchstart' in window) ||
-       (navigator.maxTouchPoints > 0) ||
-       (navigator.msMaxTouchPoints > 0));
-}
-var isMobile = isTouchDevice()
-if (isMobile) {
-    document.getElementsByClassName("add-subtract").style.display = "inline"
-}
+// function isTouchDevice() {
+//     return (('ontouchstart' in window) ||
+//        (navigator.maxTouchPoints > 0) ||
+//        (navigator.msMaxTouchPoints > 0));
+// }
+// var isMobile = isTouchDevice()
+// if (isMobile) {
+//     let elements = document.getElementsByClassName("add-subtract")
+//     for (let i in elements) {
+//         console.log(elements)
+//         if (elements.hasOwnProperty(i)) {
+//             elements[i].style.display = 'show-class';
+//         }
+//         // elements[i].style.display = "inline"
+//     }
+// }
 
 function clearLocalSavedData() {
     localStorage.clear();
@@ -212,7 +219,7 @@ function updateShoppingListDOM() {
         shoppingListContents += "</span></span>";
         shoppingListContents += "<span class='add-subtract'><button onclick='addToShoppingList(" + getItemID(shoppingList[i].name) + ")'>+</button>"
         shoppingListContents += "<button onclick='removeFromShoppingList(" + i + ")'>-</button>"
-        shoppingListContents += "<button onclick='singleItemFromShoppingListToPantry(" + i + ")'>Move To Pantry</button></span></div>"
+        shoppingListContents += "<button onclick='singleItemFromShoppingListToPantry(" + i + ")'>To Pantry</button></span></div>"
 
     
     
