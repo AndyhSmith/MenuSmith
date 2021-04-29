@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-27751732-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-27751732-2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+	<meta name="description" content="A template website.">
+	<meta name="keywords" content="Template Website">
+    <meta name="author" content="Andy Smith">
+    <link rel=“canonical” href=“https://andyhsmith.com/” />
+    <title> Recipe Finder </title>
+    
+    <script src="https://kit.fontawesome.com/68a99d09f4.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="index.css"></link>
+    <LINK rel="stylesheet" type="text/css" href="index.css" title="Default Styles" media="screen">
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body onload="startDOM()">
+    <div id="tutorial-start" class="tutorial">
+        <div class="tutorial-content">
+            <i class="fas fa-carrot" style="font-size: 70px;"></i>
+            <h1>PANTRY</h1>
+            <p><b>Welcome! you seem to be new here!</b></p>
+            <p>'Pantry' suggests meals based on what is in your pantry.</p>
+            <p><b>Would you like a quick walkthrough?</b></p>
+            <button class="p-button" onclick="tutorialStep1()">Yes! Please lead the way!</button>
+            <button class="p-button" onclick="skipTutorial()">No thanks, I know what I am doing.</button>
+        </div>
+    </div>
+
+    <div id="tutorial-step1" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <i class="fas fa-caret-up"  style="font-size: 120px;"></i>
+            <p>At the top of your screen you should see navigation tabs. </p>
+            <p><i>Recipes</i>, <i>Pantry</i>, and <i>Shopping List</i> </p>
+            <button class="p-button" onclick="startTutorialRecipe()">Next</button><br>
+            
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="tutorial-step2" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <h2>Recipes</h2>
+            <p>'Recipes' lists all the recipes you can make with ingredients from your pantry.</p>
+            <button class="p-button" onclick="tutorialStep3()">Next</button><br>
+            
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-step3" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <p>The 'all' button lets you explore new recipes with ingredients missing from your pantry.</p>
+            <p>You can click on any recipe name to find it's preparation instructions.</p>
+            <button  class="p-button" onclick="tutorialStep4()">Next</button><br>
+    
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-step4" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <p>A recipe will list ingredients, instructions, and more.</p>
+            <p><i>Tip: When cooking if you use up an ingredient, click that ingredient twice and it will be added to your shopping list.</i></p>
+            <button  class="p-button" onclick="tutorialStep5()">Next</button><br>
+            
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-step5" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <h2>Pantry</h2>
+            <p>This is your pantry. Keep it updated with all the food you have in your house to get meal suggestions.</p>
+            <button class="p-button" onclick="tutorialStep6()">Next</button><br>
+   
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-step6" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <h2>Shopping List</h2>
+            <p>Easily manage your shopping list.</p>
+            <p>After shopping easily add everything to your pantry.</p>
+            <button class="p-button" onclick="tutorialStep7()">Next</button><br>
+         
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-step7" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <i class="fas fa-lock"  style="font-size: 70px;"></i>
+            <h2>Privacy</h2>
+            <p>All your data is stored locally on your device.</p>
+            <p>This protects your privacy but also means you need to do all you pantry managment on one device.</p>
+            <button class="p-button" onclick="tutorialStep8()">Next</button><br>
+          
+            <div class="tutorial-dots">
+                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-step8" class="tutorial">
+        <div class="no-click-protector"></div>
+        <div class="tutorial-content">
+            <i class="fas fa-carrot" style="font-size: 70px;"></i>
+            <h2>Eat Well!</h2>
+            <p>There is a lot more for you to discover.</p>
+            <p>We hope this helps you to meal prep, manage your pantry, and buy what you need.</p>
+         
+            <button class="p-button" onclick="skipTutorial()">Enter Pantry </button>
+
+            <div class="tutorial-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot" style="background-color:#444"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div onclick="viewHelp()" id="help-option">
+        <span>?</span>
+    </div>
+
+    <div class="flex-container">
+        <div class="flex-child">
+            <div id="navigation-container">
+                <div id="view-recipe" class="view-page-button" onclick="viewRecipes()"><div class="vertically-allign-text">RECIPES</div></div>
+                <div id="view-pantry" class="view-page-button" onclick="viewPantry()">PANTRY</div>
+                <div id="view-shopping-list" class="view-page-button" onclick="viewShoppingList()">SHOPPING LIST</div>
+                <div style="position:absolute; height:45px; width:100%;background-color:forestgreen;z-index:-1;"></div>
+            </div>
+
+            <div id="container-recipes" class="flex-child">
+                <h2 id="recipe-title">Recipes</h2>
+                <button onclick="showAvailableRecipes()">Available</button>
+                <button onclick="showAllRecipes()">All</button>
+                <button onclick="viewCustomRecipe()">+</button>
+                <button onclick="filterRecipes()">Filter</button>
+                <input id="filter-recipe-input" style="display:none;" placeholder="e.g. breakfast" onkeyup="updateRecipeDOM()"></input>
+                <div style="margin-top:10px;" id="filter-words"></div>
+                <div id="recipe-results"></div>
+            </div>
+
+            <div id="container-recipe-instructions" class="flex-child" style="display:none;">
+                <h2 id="recipe-selected-title">No Recipe Selected</h2>
+                <h3 id="recipe-selected-ingredients-title"></h3>
+                <div id="recipe-selected-ingredients"></div>
+    
+                <h3 id="recipe-selected-instructions-title"></h3>
+                <div id="recipe-selected-instructions"></div>
+    
+                <h3 id="recipe-selected-ingredients-optional-title"></h3>
+                <div id="recipe-selected-ingredients-optional"></div>
+
+                <h3 id="recipe-selected-tags-title"></h3>
+                <div id="recipe-selected-tags"></div>
+            </div>
+
+            <div id="container-add-ingredient" class="flex-child" style="display:none;">
+                <h2 id="add-ingredient-title">Add Ingredient</h2>
+                <input id="add-food" placeholder="e.g. Sugar" onkeyup="userAddFood()"></input>
+                <div id="ingredient-search-results"></div>
+            </div>
+
+            <div id="container-pantry" class="flex-child"  style="display:none;">
+                <h2 id="pantry-title">Pantry</h2>
+                <button onclick="ingredientToPantry()">Add Ingredient</button>
+                <div id="pantry-contents" style="margin-top:10px;"></div>
+            </div>
+
+            <div id="container-shopping" class="flex-child" style="display:none;">
+                <h2 id="shopping-list-title">Shopping List</h2>
+                <button onclick="ingredientToShoppingList()">Add Ingredient</button>
+                <button onclick="shoppingListToPantry()">Shopping List to Pantry</button>
+                <div id="shopping-list-contents"  style="margin-top:10px;"></div>
+            </div>
+
+            <div id="container-help" class="flex-child" style="display:none;">
+                <h2><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Help</h2>
+                <button onclick="loadStartPage()"> View Opening Walkthrough</button>
+                
+            </div>
+
+            <div id="container-custom-recipe" class="flex-child" style="display:none;">
+                <h2><i class='fas fa-arrow-left back-arrow' onclick='viewRecipes()'></i> Add Custom Recipe</h2>
+                <div style="color:red;"><i>*required</i></div>
+                <div>Recipe Name:<span style="color:red;">*</span></div>
+                <input placeholder="Macaroni & Cheese"></input>
+
+                <div>Required Ingredients:<span style="color:red;">*</span></div>
+                <input placeholder="Cheese Milk"></input>
+
+                <div>Instructions:</div>
+                <textarea placeholder="Add to bowl and mix..." name="paragraph_text" cols="50" rows="5"></textarea>
+
+                <!-- <div>Optional Ingredients:</div>
+                <input placeholder="Black Pepper"></input>
+
+                <div>Tags:</div>
+                <input placeholder="Breakfast"></input> -->
+
+                <br>
+                <button>Add Recipe</button><br>
+                <button>Remove All Custom Recipes</button>
+                <!-- <button onclick="ingredientToShoppingList()">Add Ingredient</button>
+                <button onclick="shoppingListToPantry()">Shopping List to Pantry</button>
+                <div id="shopping-list-contents"  style="margin-top:10px;"></div> -->
+            </div>
+
+           
+        </div>
+    </div>
+    <script src="./index.js"></script>
+    <script src="./ingredients.js"></script>
+</body>
+</html>
