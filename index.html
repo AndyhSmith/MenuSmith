@@ -22,7 +22,7 @@
     
     <script src="https://kit.fontawesome.com/68a99d09f4.js" crossorigin="anonymous"></script>
     <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="index.css?1"></link>
+    <link type="text/css" rel="stylesheet" href="index.css?2"></link>
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body onload="startDOM()">
@@ -151,8 +151,7 @@
     <div id="tutorial-step6" class="tutorial">
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
-            <p>Easily manage your shopping list.</p>
-            <p>After shopping easily add everything to your pantry.</p>
+            <p>After shopping you can easily add everything from your shopping list to your pantry.</p>
             <button class="p-button" onclick="tutorialStep7()">Next</button><br>
          
             <div class="tutorial-dots">
@@ -229,19 +228,24 @@
                 <div style="position:absolute; height:45px; width:100%;background-color:forestgreen;z-index:-1;"></div>
             </div>
 
+            <!-- RECIPES PAGE -->
             <div id="container-recipes" class="flex-child">
                 <h2 id="recipe-title">Recipes</h2>
-                <button onclick="showAvailableRecipes()">Available</button>
-                <button onclick="showAllRecipes()">All</button>
+                <button onclick="showAvailableRecipes()" id="show-available-recipes">Available</button>
+                <button onclick="showAllRecipes()" id="show-all-recipes">All</button>
+                <button onclick="filterFavoriteRecipes()"><div id="star-filled"><i class='far fa-star'></i></div></button>
                 <button onclick="viewCustomRecipe()">+</button>
-                <button onclick="filterRecipes()">Filter</button>
-                <input id="filter-recipe-input" style="display:none;" placeholder="e.g. breakfast" onkeyup="updateRecipeDOM()"></input>
+                <button onclick="filterRecipes()" id="show-filter">Filter</button>
+                <input id="filter-recipe-input" style="display:none;" placeholder="Filter: breakfast, egg" onkeyup="updateRecipeDOM()"></input>
                 <div style="margin-top:10px;" id="filter-words"></div>
                 <div id="recipe-results"></div>
             </div>
 
+            <!-- RECIPE PAGE -->
             <div id="container-recipe-instructions" class="flex-child" style="display:none;">
                 <h2 id="recipe-selected-title">No Recipe Selected</h2>
+                <div id="recipe-source" style="display:none;"></div>
+
                 <h3 id="recipe-selected-ingredients-title"></h3>
                 <div id="recipe-selected-ingredients"></div>
     
@@ -255,18 +259,23 @@
                 <div id="recipe-selected-tags"></div>
             </div>
 
+            <!-- Add INGREDIENT PAGE -->
             <div id="container-add-ingredient" class="flex-child" style="display:none;">
                 <h2 id="add-ingredient-title">Add Ingredient</h2>
                 <input id="add-food" placeholder="e.g. Sugar" onkeyup="userAddFood()"></input>
                 <div id="ingredient-search-results"></div>
+               
+                <!-- <div id="create-custom-ingredient-response"></div> -->
             </div>
 
+            <!-- PANTRY PAGE -->
             <div id="container-pantry" class="flex-child"  style="display:none;">
                 <h2 id="pantry-title">Pantry</h2>
                 <button onclick="ingredientToPantry()">Add Ingredient</button>
                 <div id="pantry-contents" style="margin-top:10px;"></div>
             </div>
 
+            <!-- SHOPPING PAGE -->
             <div id="container-shopping" class="flex-child" style="display:none;">
                 <h2 id="shopping-list-title">Shopping List</h2>
                 <button onclick="ingredientToShoppingList()">Add Ingredient</button>
@@ -274,44 +283,57 @@
                 <div id="shopping-list-contents"  style="margin-top:10px;"></div>
             </div>
 
+            <!-- HELP PAGE -->
             <div id="container-help" class="flex-child" style="display:none;">
                 <h2><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Help</h2>
-                <button onclick="loadStartPage()"> View Opening Walkthrough</button><br>
+                <h2>Options</h2>
+                <button onclick="loadStartPage()"> View Opening Walkthrough</button><br><br>
                 <button onclick="clearLocalSavedData()"> Clear Local Saved Data</button>
-                
-                
+                <h2>ChangeLog</h2>
+                <h3>5/1/2021 - Ben who? Ben why? Ben thanks! - 1700 LOC</h3>
+                <p>Added recipe favorites.</p>
+                <p>Added custom recipes and ingredients.</p>
+                <p>Added source to recipes.</p>
+                <p><i>Fixed tutorial not visible on mobile.</i></p>
+                <p><i>Fixed a broken shopping cart.</i></p>
+
+                <h3>4/27/2021 - The Beginning - 1500 LOC</h3>
+                <p>Will this even work?</p>
+                <p>Built the framework and added a few recipes and ingredients.</p>
+                <p>Added communication between Shopping Car and Pantry.</p>
+                <p>Interactive recipes, filtering, and tags. </p>
+                <p>Created the initial color scheme and design.</p>
             </div>
 
+            <!-- CUSTOM RECIPE PAGE -->
             <div id="container-custom-recipe" class="flex-child" style="display:none;">
                 <h2><i class='fas fa-arrow-left back-arrow' onclick='viewRecipes()'></i> Add Custom Recipe</h2>
                 <div style="color:red;"><i>*required</i></div>
-                <div>Recipe Name:<span style="color:red;">*</span></div>
-                <input placeholder="Macaroni & Cheese"></input>
+                <div><b>Recipe Name:</b><span style="color:red;">*</span></div>
+                <input id="custom-name-input" placeholder="Macaroni & Cheese"></input>
 
-                <div>Required Ingredients:<span style="color:red;">*</span></div>
-                <input placeholder="Cheese Milk"></input>
+                <div><b>Recipe Source:</b></div>
+                <input id="custom-source-input" placeholder=""></input>
 
-                <div>Instructions:</div>
-                <textarea placeholder="Add to bowl and mix..." name="paragraph_text" cols="50" rows="5"></textarea>
+                <div><b>Required Ingredients:</b><span style="color:red;">*</span></div>
+                <input id="custom-ingredients-input" onkeyup="suggestCustomIngredient()" placeholder="Search Ingredient"></input>
+                <div id="recipe-ingredients-custom-results"></div>
+                <div id="recipe-added-ingredients"></div>
+          
 
-                <!-- <div>Optional Ingredients:</div>
-                <input placeholder="Black Pepper"></input>
-
-                <div>Tags:</div>
-                <input placeholder="Breakfast"></input> -->
-
+                <div><b>Instructions:</b></div>
+                <textarea id="custom-instructions-input" placeholder="Add to bowl and mix..." name="paragraph_text" cols="50" rows="5"></textarea>
                 <br>
-                <button>Add Recipe</button><br>
-                <button>Remove All Custom Recipes</button>
-                <!-- <button onclick="ingredientToShoppingList()">Add Ingredient</button>
-                <button onclick="shoppingListToPantry()">Shopping List to Pantry</button>
-                <div id="shopping-list-contents"  style="margin-top:10px;"></div> -->
+                <button onclick="addCustomRecipe()">Add Recipe</button><br>
+             
+
             </div>
 
            
         </div>
     </div>
-    <script src="./index.js?1"></script>
-    <script src="./ingredients.js?1"></script>
+    <script src="./ingredients.js?2"></script>
+    <script src="./index.js?2"></script>
+    
 </body>
 </html>

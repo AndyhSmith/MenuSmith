@@ -13,7 +13,10 @@ var cs = {
     selectedBackgroundColor: "#1bb444",
     none: "none",
     normalBackgroundColor: "forestGreen",
-    normalNavTextColor: "#AFC5DF" 
+    normalNavTextColor: "#AFC5DF",
+    
+    activeButton: "lightblue",
+    inactiveButton: "white",
 }
 
 
@@ -31,8 +34,24 @@ if (!localStorage.shoppingList) {
     localStorage.shoppingList = []
 }
 
+var recipeFavorites = []
+if (!localStorage.recipeFavorites) {
+    localStorage.recipeFavorites = []
+}
+
+var customIngredients = []
+if (!localStorage.customIngredients) {
+    localStorage.customIngredients = []
+}
+
+var customRecipes = []
+if (!localStorage.customRecipes) {
+    localStorage.customRecipes = []
+}
+
 // Update DOM
 function startDOM() {
+    // Load Panty
     let localStorageContent = localStorage.getItem('pantry')
     if (localStorageContent != '') {
         pantry = JSON.parse(localStorageContent)
@@ -41,6 +60,7 @@ function startDOM() {
         pantry = [{"name":"ground beef","quantity":1},{"name":"baking powder","quantity":1},{"name":"butter","quantity":1},{"name":"egg","quantity":4},{"name":"flour","quantity":1},{"name":"milk","quantity":1},{"name":"oil","quantity":1},{"name":"salt","quantity":1},{"name":"sugar","quantity":1}]
     }
 
+    // Load  Shopping List
     let localShoppingListStorage = localStorage.getItem('shoppingList')
     if (localShoppingListStorage != '') {
         shoppingList = JSON.parse(localShoppingListStorage)
@@ -49,6 +69,7 @@ function startDOM() {
         shoppingList = [{"name":"carrots","quantity":1},{"name":"onion","quantity":1},{"name":"rice","quantity":1}]
     }
 
+    // Load Tutorial Data
     let localStorageFirstTime = localStorage.getItem('firstTime')
     if (localStorageFirstTime != '') {
         if (localStorageFirstTime == "true") {
@@ -57,29 +78,32 @@ function startDOM() {
         else {
             loadStartPage()
         }
-        
+    }
+
+    // Load Favorites
+    let recipeFavoriteLocalData = localStorage.getItem('recipeFavorites')
+    recipeFavorites = ["Crepes (fancy)", "Autumn Soup"]
+    if (recipeFavoriteLocalData != '') {
+        recipeFavorites = JSON.parse(recipeFavoriteLocalData)
+    }
+
+    // Load Custom Ingredients
+    let customIngredientsLocalData = localStorage.getItem('customIngredients') 
+    if (customIngredientsLocalData != '') {
+        customIngredients = JSON.parse(customIngredientsLocalData)
+        ingredients = ingredients.concat(customIngredients)
+    }
+
+    // Load Custom Recipes
+    let customRecipesLocalData = localStorage.getItem('customRecipes') 
+    if (customRecipesLocalData != '') {
+        customRecipes = JSON.parse(customRecipesLocalData)
+        recipes = recipes.concat(customRecipes)
     }
 
     viewRecipes()
     userAddFood()
 }
-
-// function isTouchDevice() {
-//     return (('ontouchstart' in window) ||
-//        (navigator.maxTouchPoints > 0) ||
-//        (navigator.msMaxTouchPoints > 0));
-// }
-// var isMobile = isTouchDevice()
-// if (isMobile) {
-//     let elements = document.getElementsByClassName("add-subtract")
-//     for (let i in elements) {
-//         console.log(elements)
-//         if (elements.hasOwnProperty(i)) {
-//             elements[i].style.display = 'show-class';
-//         }
-//         // elements[i].style.display = "inline"
-//     }
-// }
 
 function clearLocalSavedData() {
     localStorage.clear();
@@ -95,19 +119,23 @@ function saveLocalStorage() {
 // I N G R E D I E N T   F I N D E R
 //#################################################################################
 var ingredientWhere = "pantry"
+var numberOfIngredients = ingredients.length
 function userAddFood() { 
+    // Get Input
     userInput = document.getElementById("add-food").value.toLowerCase()
 
+    // Set Title
     if (ingredientWhere == "pantry") {
-        document.getElementById("add-ingredient-title").innerHTML = "<i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Add Ingredient to Pantry"
+        document.getElementById("add-ingredient-title").innerHTML = "<i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Add Ingredient to Pantry (" + numberOfIngredients + ")"
     } else if (ingredientWhere == "shoppingList") {
-        document.getElementById("add-ingredient-title").innerHTML = "<i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Add Ingredient to Shopping List"
+        document.getElementById("add-ingredient-title").innerHTML = "<i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Add Ingredient to Shopping List (" + numberOfIngredients + ")"
     }
     
 
     ingredientSearchResults = ""
     let counter = 0
-    for (i in ingredients) { // ingredient search
+    for (i in ingredients) { 
+        // If Match
         if ((userInput == ingredients[i].name.substring(0, userInput.length)) && (counter <= 9)) { // if input matches start of ingredient
             ingredientSearchResults += "<div class='ingredient' onclick='"
             if (ingredientWhere == "pantry") {
@@ -145,9 +173,36 @@ function userAddFood() {
             counter += 1;
         }
     }
+    
+    // if no results
+    if (ingredientSearchResults == '') {
+        ingredientSearchResults = '<button id="add-custom-ingredient-button" onclick="addCustomIngredient()">Add as Custom Ingredient</button>'
+    }
+
+
     document.getElementById("ingredient-search-results").innerHTML = ingredientSearchResults;
 }
 
+function addCustomIngredient() {
+    let customIngredientName = document.getElementById("add-food").value.toLowerCase()
+    let ingredientExists = checkIfIngredientExists(customIngredientName)
+    if (ingredientExists == -1) {
+        newIngredient = {name:customIngredientName}
+        customIngredients.push(newIngredient)
+        ingredients.push(newIngredient)
+        localStorage.setItem('customIngredients', JSON.stringify(customIngredients));
+    }
+    userAddFood()
+}
+
+function checkIfIngredientExists(ingredientName) {
+    for (let index in ingredients) {
+        if (ingredientName == ingredients[index].name) {
+            return index;
+        }
+    }
+    return -1;
+}
 
 function getItemID(itemName) {
     let itemID = -1
@@ -164,13 +219,15 @@ function getItemID(itemName) {
 // S H O P P I N G   L I S T  
 //#################################################################################
 function removeFromShoppingList(itemID) {
-    if (shoppingList[itemID].quantity == 1) {
+    console.log(shoppingList, shoppingList[itemID], shoppingList.length)
+    if (shoppingList[itemID].quantity <= 1) {
         shoppingList.splice(itemID, 1)
     }
     else {
         shoppingList[itemID].quantity -= 1;
     }
     updateShoppingListDOM()
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
 function removeFromShoppingListByName(itemName) {
@@ -190,6 +247,7 @@ function removeFromShoppingListByName(itemName) {
     }
     selectRecipeDOM(currentRecipe)
     saveLocalStorage()
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
 function updateShoppingListDOM() {
@@ -232,7 +290,6 @@ function updateShoppingListDOM() {
     }
     document.getElementById("shopping-list-title").innerHTML = "Shopping List (" + shoppingListItemCounter + ")";
     document.getElementById("shopping-list-contents").innerHTML = shoppingListContents;
-    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
     
 }
 
@@ -262,14 +319,19 @@ function shoppingListToPantry() {
     }
     shoppingList = []
     updateShoppingListDOM()
-    
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
 function singleItemFromShoppingListToPantry(itemShoppingListID) {
     let itemName = shoppingList[itemShoppingListID].name
-    removeFromShoppingList(itemShoppingListID)  
-    addToPantry(getItemID(itemName))
-    
+    console.log(shoppingList[itemShoppingListID])
+    const quantityOfItem = shoppingList[itemShoppingListID].quantity
+    for (let z = 0; z < quantityOfItem; z++) {
+        addToPantry(getItemID(itemName))
+    }
+    shoppingList.splice(itemShoppingListID, 1)    
+    updateShoppingListDOM() 
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
 function addToShoppingList(ingredientID) {
@@ -286,6 +348,22 @@ function addToShoppingList(ingredientID) {
         itemToAdd.quantity = 1
         shoppingList.push(itemToAdd)
     }
+
+    shoppingList.sort(function(a, b) {
+        // var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        // var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (a.name < b.name) {
+        return -1;
+        }
+        if (a.name > b.name) {
+        return 1;
+        }
+    
+        // names must be equal
+        return 0;
+    });
+
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
     updateShoppingListDOM()
     userAddFood()
 }
@@ -338,19 +416,7 @@ function removeFromPantryByName(itemName) {
 function updatePantryDOM() {
     let pantryItemCounter = 0
     // sort pantry by name
-    pantry.sort(function(a, b) {
-        // var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-        // var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-        if (a.name < b.name) {
-        return -1;
-        }
-        if (a.name > b.name) {
-        return 1;
-        }
     
-        // names must be equal
-        return 0;
-    });
     pantryContents = ""
     for (i in pantry) {
         pantryContents += "<div class='ingredient' tabindex='0'><span>" + pantry[i].name + " <span style='color:" + cs.quantity + "'>"
@@ -392,6 +458,21 @@ function addToPantry(ingredientID) {
         itemToAdd.quantity = 1
         pantry.push(itemToAdd)
     }
+
+    pantry.sort(function(a, b) {
+        // var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        // var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (a.name < b.name) {
+        return -1;
+        }
+        if (a.name > b.name) {
+        return 1;
+        }
+    
+        // names must be equal
+        return 0;
+    });
+
     updatePantryDOM()
     userAddFood()
 }
@@ -426,12 +507,19 @@ function checkIfInPantry(itemName) {
 }
 
 //#################################################################################
-// R E C I P E
+// R E C I P E   L I S T 
 //#################################################################################
 
-function removeFilterWord(filterWordID) {
-    filterWords.splice(filterWordID, 1)
-    updateRecipeDOM()
+var filterFavoriteRecipesBool = false
+function filterFavoriteRecipes() {
+    if (filterFavoriteRecipesBool) {
+        filterFavoriteRecipesBool = false
+        document.getElementById("star-filled").innerHTML = "<i class='far fa-star'></i>"
+    } else {
+        filterFavoriteRecipesBool = true;
+        document.getElementById("star-filled").innerHTML = "<i class='fas fa-star'></i>"
+    }
+    viewRecipes()
 }
 
 var showType = "Available";
@@ -442,9 +530,11 @@ function updateRecipeDOM() {
     let totalRecipeCount = 0
     let availableRecipeCount = 0
 
+
+
+
     document.getElementById("filter-words").innerHTML = ""
     if (filtering) {
-        console.log(filtering)
         userFilter = document.getElementById("filter-recipe-input").value.toLowerCase()
         if (userFilter == ' ') {
             document.getElementById("filter-recipe-input").value = ""
@@ -465,6 +555,15 @@ function updateRecipeDOM() {
     
     
     for (r in recipes) { // check all recipes
+        // filter favorites
+        let filterFavorites = true
+        if (filterFavoriteRecipesBool) {
+            if (!recipeFavorites.includes(recipes[parseInt(r)].name)) {
+                filterFavorites = false
+            }
+        }
+
+
         let recipeIngredients = recipes[r].ingredients
 
         let missingIngredient = false;
@@ -514,19 +613,44 @@ function updateRecipeDOM() {
             } 
         }
 
+
         // all ingredients
         totalRecipeCount += 1
-        if (!missingIngredient && matchesFilter) {
-            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")'>" + recipes[r].name + "</div>"
+        if (!missingIngredient && matchesFilter && filterFavorites) {
+            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")'><span>" + recipes[r].name 
+            if (recipeFavorites.includes(recipes[parseInt(r)].name)) {
+                availableRecipes += " <i class='fas fa-star'></i>"
+            }
+            availableRecipes += "</span></div>"
             availableRecipeCount += 1
         } 
-        else if ((showType == "All") && matchesFilter) {
-            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")' style='color:" + cs.missing + ";'>" + recipes[r].name + "</div>"
+        else if ((showType == "All") && matchesFilter && filterFavorites) {
+            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")' style='color:" + cs.missing + ";'><span>" + recipes[r].name 
+            if (recipeFavorites.includes(recipes[parseInt(r)].name)) {
+                availableRecipes += " <i class='fas fa-star'></i>"
+            }
+            availableRecipes += "</span></div>"
         }
     }
     
     document.getElementById("recipe-results").innerHTML = availableRecipes;
     document.getElementById("recipe-title").innerHTML = "Recipes (" + availableRecipeCount + "/" + totalRecipeCount + ")";
+}
+
+//#################################################################################
+// R E C I P E S
+//#################################################################################
+
+function addRemoveRecipeFromFavorites(recipeID) {
+    let recipeName = recipes[recipeID].name
+    let index = recipeFavorites.indexOf(recipeName);
+    if (index > -1) { // if favorite
+        recipeFavorites.splice(index, 1)
+    } else { // if not favorite
+        recipeFavorites.push(recipes[recipeID].name)
+    }
+    localStorage.setItem('recipeFavorites', JSON.stringify(recipeFavorites));
+    selectRecipeDOM(recipeID)
 }
 
 let currentRecipe = 0
@@ -535,13 +659,32 @@ function selectRecipeDOM(recipeID) {
     currentRecipe = recipeID
     document.getElementById("container-recipe-instructions").style.display = "block"
     document.getElementById("container-recipes").style.display = "none"
-    document.getElementById("recipe-selected-title").innerHTML = "<i class='fas fa-arrow-left back-arrow' onclick='viewRecipes()'></i> " + recipes[recipeID].name;
-    
+
+    // Title
+    recipeBackButton = "<i class='fas fa-arrow-left back-arrow' onclick='viewRecipes()'></i> "
+    recipeTitle = recipes[recipeID].name
+    recipeFavorite =  " <i class='far fa-star' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
+    if (recipeFavorites.includes(recipeTitle)) {
+        recipeFavorite =  " <i class='fas fa-star' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
+    }
+    document.getElementById("recipe-selected-title").innerHTML =  recipeBackButton + recipeTitle + recipeFavorite
+
+
+    // Recipe Source
+    document.getElementById("recipe-source").style.display = "none"
+    if (recipes[recipeID].source) {
+        document.getElementById("recipe-source").style.display = "block"
+        document.getElementById("recipe-source").innerHTML = "<i style='font-size: 14px;'>Source: " + recipes[recipeID].source + "</i>"
+        
+    }
+
     // Required Ingredients
     document.getElementById("recipe-selected-ingredients-title").innerHTML = "Required Ingredients:";
+
     missingIngredients = []
     let recipeIngredients = ""
     for (i in recipes[recipeID].ingredients) {
+
         let itemName = recipes[recipeID].ingredients[i]
         
         let inPantry = checkIfInPantry(itemName)
@@ -684,30 +827,154 @@ function addMissingIngredientsToShoppingCart() {
     selectRecipeDOM(currentRecipe)
 }
 
+//#################################################################################
+// C U S T O M   R E C I P E 
+//#################################################################################
+
+
+function addCustomRecipe() {
+    customSourceInput = document.getElementById("custom-source-input").value
+    customRecipeName = document.getElementById("custom-name-input").value
+    // check if title taken
+    // let titleAlreadyExists = false
+    // for (let aRecipeI in recipes) {
+    //     if (customRecipeName == )
+    // }
+
+    customIngredients = customApprovedIngredients
+    customInstructions = document.getElementById("custom-instructions-input").value
+
+
+    newRecipe = {
+        name: customRecipeName,
+        ingredients: customIngredients,
+        instructions: customInstructions,
+        source: customSourceInput,
+    }
+    customRecipes.push(newRecipe)
+    recipes = recipes.concat(newRecipe)
+    localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
+    viewRecipes()
+}
+
+var customApprovedIngredients = []
+
+function addIngredientToCustomRecipe(theIndex) {
+    let theIngredientName = ingredients[theIndex].name
+    document.getElementById("custom-ingredients-input").value = ""
+    if (!customApprovedIngredients.includes(theIngredientName)) {
+        customApprovedIngredients.push(theIngredientName)
+    }
+    updateCustomIngredientsDOM()
+}
+
+function addIngredientToCustomRecipeByName(theName) {
+
+    let theIngredientName = theName
+    document.getElementById("custom-ingredients-input").value = ""
+    if (!customApprovedIngredients.includes(theIngredientName)) {
+        customApprovedIngredients.push(theIngredientName)
+    }
+    updateCustomIngredientsDOM()
+}
+
+
+function removeCustomIngredient(theIndex){
+    customApprovedIngredients.splice(customApprovedIngredients.indexOf(theIndex), 1)
+    updateCustomIngredientsDOM()
+}
+
+function updateCustomIngredientsDOM() {
+    let ingredientTags = ""
+    for (let index in customApprovedIngredients) {
+        ingredientTags += '<span class="tag filter-word" onclick="removeCustomIngredient(\'' + customApprovedIngredients[index] + '\')">' + customApprovedIngredients[index] + '</span>'
+    }
+    document.getElementById("recipe-added-ingredients").innerHTML = ingredientTags
+}
+
+function suggestCustomIngredient() {
+    let customIngredientName = document.getElementById("custom-ingredients-input").value.toLowerCase()
+    
+    let ingredientSearchResults = ""
+    let counter = 0
+    for (let i in ingredients) { 
+        // If Match
+        
+        if (customIngredientName == ingredients[i].name.substring(0, customIngredientName.length)) { // if input matches start of ingredient
+            ingredientSearchResults += "<div class='ingredient' onclick='addIngredientToCustomRecipe"
+            
+            ingredientSearchResults += "(" + i + ")'><span> + " + ingredients[i].name 
+            ingredientSearchResults += "</div>";
+            counter += 1;
+        }
+        if (counter == 4) {
+            break;
+        }
+    }
+    
+    // if no results
+    if (ingredientSearchResults == '') {
+        ingredientSearchResults = '<button id="add-custom-ingredient-button" onclick="addCustomIngredientFromCustomRecipe()">Add as Custom Ingredient</button><br>'
+    }
+
+    document.getElementById("recipe-ingredients-custom-results").innerHTML = ingredientSearchResults
+}
+
+function addCustomIngredientFromCustomRecipe() {
+    let customIngredientName = document.getElementById("custom-ingredients-input").value.toLowerCase()
+    let newIngredient = {name:customIngredientName}
+    customIngredients.push(newIngredient)
+    ingredients.push(newIngredient)
+    localStorage.setItem('customIngredients', JSON.stringify(customIngredients));
+    document.getElementById("custom-ingredients-input").value = ""
+    // console.log(ingredients)
+    // console.log(ingredients.indexOf(newIngredient.name))
+    addIngredientToCustomRecipeByName(newIngredient.name)
+
+    
+}
+
+//#################################################################################
+// R E C I P E   F I L T E R
+//#################################################################################
 var filtering = false;
 function filterRecipes() {
     filtering = !filtering
     if (filtering) {
         document.getElementById("filter-recipe-input").style.display = "block"
         document.getElementById("filter-recipe-input").value = ""
+        document.getElementById("show-filter").style.backgroundColor = cs.activeButton
     } else {
         document.getElementById("filter-recipe-input").style.display = "none"
+        document.getElementById("show-filter").style.backgroundColor = cs.inactiveButton
     }
     updateRecipeDOM()
     
 }
 
+function removeFilterWord(filterWordID) {
+    filterWords.splice(filterWordID, 1)
+    updateRecipeDOM()
+}
+
+
+
 //#################################################################################
 // P A G E   C O N T R O L L E R
 //#################################################################################
 
+document.getElementById("show-available-recipes").style.backgroundColor = cs.activeButton
 function showAvailableRecipes() {
     showType = "Available"
+    document.getElementById("show-available-recipes").style.backgroundColor = cs.activeButton
+    document.getElementById("show-all-recipes").style.backgroundColor = cs.inactiveButton
     updateRecipeDOM() 
 }
 
 function showAllRecipes() {
     showType = "All"
+    document.getElementById("show-available-recipes").style.backgroundColor = cs.inactiveButton
+    document.getElementById("show-all-recipes").style.backgroundColor = cs.activeButton
     updateRecipeDOM() 
 }
 
@@ -877,7 +1144,7 @@ function startTutorialRecipe() {
 }
 
 function tutorialStep3() {
-    showType = "All"
+    showAllRecipes()
     updateRecipeDOM() 
     document.getElementById("tutorial-step2").style.display = "none"
     document.getElementById("tutorial-step3").style.display = "flex"
