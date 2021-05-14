@@ -38,6 +38,7 @@ textarea {
     caret-color: steelblue;
     font-size: 16px;
     color: steelblue;
+    width: 80%;
 }
 
 .ingredient {
@@ -132,6 +133,7 @@ button:hover {
     flex-grow: 1;
     color: #AFC5DF;
     height: 45px;
+    font-size: 20px;
 }
 
 .view-page-button:hover {
@@ -145,6 +147,128 @@ button:hover {
     justify-content: center;
 }
 
+
+
+
+.back-arrow {
+    cursor: pointer;
+}
+
+.back-arrow:hover {
+    color: #444
+}
+
+#help-option {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: forestgreen;
+    opacity: .5;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#help-option:hover {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.bottom-green {
+    position:fixed;
+    background-color: forestgreen;
+    left: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+    z-index: -1;
+}
+
+.fa-star {
+    color: steelblue;
+    cursor: pointer;
+}
+
+.fa-star:hover {
+    color: rgb(41, 162, 202);
+    transition: all 0.2s ease;
+}
+
+#recipe-added-ingredients {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#share {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    width: 80%;
+    max-width: 800px;
+    height: 80%;
+    border: 1px solid black;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    z-index: 2;
+}
+
+#close-share {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#close-share:hover {
+    color: steelblue;
+}
+
+#dim-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    
+    top: 0px;
+    left: 0px;
+    background-color: black;
+    opacity: .5;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.a-option {
+    font-size: 25px;
+    margin: 0px 5px;
+}
+
+.a-option:hover {
+    color: #444
+}
+
+/* ############################################# */
+/* T U T O R I A L */
+/* ############################################# */
+
+.close-tutorial {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.close-tutorial:hover {
+    color: black;
+    transition: all 0.15s ease; 
+}
+
 .tutorial {
     background-color: forestgreen;
     position: fixed;
@@ -155,13 +279,23 @@ button:hover {
     bottom: 0px;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
     color: white;
     font-size: 18px;
 }
 
 #tutorial-start {
     display: none;
+    width: 80%;
+    height: 80%;
+    max-width: 800px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    top: 50%;
+    left: 50%;
+
+    
+    transform: translate(-50%, -50%);
 }
 
 .no-click-protector {
@@ -238,14 +372,16 @@ button:hover {
     bottom: 0px;
 }
 
+
 .p-button {
     border-radius: 20px;
     border-width: 2px;
     border: none;
     margin: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: bold;
 }
 
 .p-button:hover {
@@ -282,56 +418,166 @@ button:hover {
 
   }
 
-.back-arrow {
+/* ############################################# */
+/* C O L L A P S I B L E */
+/* ############################################# */
+
+/* Collapsible */
+input[type='checkbox'] { display: none; } 
+.lbl-toggle { 
+    display: block; 
+    font-weight: bold; 
+    font-family: monospace; 
+    font-size: 15px; 
+    text-transform: uppercase; 
+    text-align: center; 
+    padding: 20px; 
+    color: #DDD; 
+    background: steelblue; 
+    cursor: pointer; 
+    /* border-radius: 7px;  */
+    transition: all 0.25s ease-out; 
+} 
+.lbl-toggle:hover { color: #FFF; } 
+.collapsible-content { max-height: 0px; overflow: hidden;}  
+.toggle:checked + .lbl-toggle + .collapsible-content { max-height: 10000px; } 
+
+
+/* ############################################# */
+/* I N S T R U C T I O N S */
+/* ############################################# */
+
+.instructions {
+    position: relative;
+    width: calc(100% - 90px);
+    min-height: 20px;
+    background-color: rgba(66,180,68,.8);
+    margin: 20px;
+    border: 2px solid forestgreen;
+    border-top: 5px solid forestgreen;
+    padding: 10px;
+    padding-right: 40px;
+    color: white;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+.instructions:hover {
+    background-color:rgba(66,180,68,.7);
+    transition: all 0.2s ease 0s;
+}
+
+.close-info {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-info:hover {
+    color: black;
+    transition: all 0.1s ease 0s;
+}
+
+.instruction-tip {
+    /* line-height: 20px; */
+    padding-bottom:8px;
+}
+
+
+/* ############################################# */
+/* C A T E G O R Y   C H O O S E R */
+/* ############################################# */
+
+#category {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    width: 80%;
+    max-width: 800px;
+    /* height: 80%; */
+    border: 1px solid black;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    z-index: 2;
+}
+
+#close-category {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
     cursor: pointer;
 }
 
-.back-arrow:hover {
-    color: #444
+#close-category:hover {
+    color: steelblue;
+}
+.a-dot {
+    background-color: grey;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    color: red;
+    top: 0px;
+    margin-right: 5px;
+    border: 2px solid rgba(0,0,0,0);
 }
 
-#help-option {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
+.a-dot:hover {
+    border: 2px solid #333;
+}
+
+.s-dot {
     border-radius: 50%;
-    background-color: forestgreen;
+    height: calc(10vh + 10vw);
+    width: calc(10vh + 10vw);
+    max-height: 100px;
+    max-width: 100px;
+    color: red;
+    top: 0px;
+    margin-right: 5px;
+    border: 5px solid rgba(0,0,0,0);
+    margin: 5px;
+}
+
+.s-dot:hover {
+    border: 5px solid #333;
+    cursor: pointer;
     opacity: .5;
-    color: white;
-    font-weight: bold;
+}
+
+.c-grey {
+    background-color: grey;
+}
+
+.c-red {
+    background-color: darkred;
+}
+
+.c-orange {
+    background-color: darksalmon;
+}
+
+.c-yellow {
+    background-color: goldenrod;
+}
+
+.c-green {
+    background-color: forestgreen;
+}
+
+.c-blue {
+    background-color: steelblue;
+}
+
+#dot-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-}
-
-#help-option:hover {
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
-
-.bottom-green {
-    position:fixed;
-    background-color: forestgreen;
-    left: 0px;
-    bottom: 0px;
-    height: 60px;
-    width: 100%;
-    z-index: -1;
-}
-
-.fa-star {
-    color: steelblue;
-    cursor: pointer;
-}
-
-.fa-star:hover {
-    color: rgb(41, 162, 202);
-    transition: all 0.2s ease;
-}
-
-#recipe-added-ingredients {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
 }

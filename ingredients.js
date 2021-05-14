@@ -15,6 +15,7 @@ var ingredients = [
     {name:"basil"},
     {name:"beets"},
     {name:"bell pepper"},
+    {name:"berries"},
     {name:"blackberries"},
     {name:"blueberries"},
     {name:"black beans"},
@@ -171,6 +172,7 @@ var ingredients = [
     {name:"vanilla"},
     {name:"vegetable oil"},
     {name:"vinegar"},
+    {name:"walnuts"},
     {name:"water"},
     {name:"watermelon"},
     {name:"wine"},
@@ -180,6 +182,12 @@ var ingredients = [
     {name:"yogurt"},
     {name:"zucchini"},
 ]
+
+const ingredientsIndex = []
+for (let i in ingredients) {
+    ingredientsIndex.push(ingredients[i].name)
+}
+
 
 var recipes = [
     {

@@ -23,18 +23,21 @@
     <script src="https://kit.fontawesome.com/68a99d09f4.js" crossorigin="anonymous"></script>
     <!-- CSS -->
     <link type="text/css" rel="stylesheet" href="index.css?2"></link>
+    <link type="text/css" rel="stylesheet" href="js-snackbar.min.css"></link>
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body onload="startDOM()">
+    
     <div id="tutorial-start" class="tutorial">
         <div class="tutorial-content">
             <i class="fas fa-carrot" style="font-size: 70px;"></i>
             <h1>PANTRY</h1>
+            <div class="close-tutorial" onclick="skipTutorial()">X</div>
             <p><b>Welcome! You seem to be new here!</b></p>
             <p>'Pantry' suggests meals based on what is in your pantry.</p>
             <p><b>Would you like a quick walkthrough?</b></p>
-            <button class="p-button" onclick="tutorialStep1()">Yes! Please lead the way!</button>
-            <button class="p-button" onclick="skipTutorial()">No thanks, I know what I am doing.</button>
+            <button class="p-button" onclick="tutorialStep1()">Yes</button>
+            <button class="p-button" onclick="skipTutorial()">No</button>
         </div>
     </div>
 
@@ -43,7 +46,7 @@
         <div class="tutorial-content">
             <i class="fas fa-caret-up"  style="font-size: 120px;"></i>
             <p>At the top of your screen you should see navigation tabs. </p>
-            <p><i>Recipes</i>, <i>Pantry</i>, and <i>Shopping List</i> </p>
+            <p><i>Recipes</i> ( <i class="fas fa-folder-open"></i> ), <i>Pantry</i> ( <i class="fas fa-carrot"></i> ) , and <i>Shopping List</i> ( <i class="fas fa-shopping-cart"></i> ) </p>
             <button class="p-button" onclick="startTutorialRecipe()">Next</button><br>
             
             <div class="tutorial-dots">
@@ -65,7 +68,7 @@
     <div id="tutorial-step2" class="tutorial">
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
-            <p>'Recipes' lists all the recipes you can make with ingredients from your pantry.</p>
+            <p>Recipes ( <i class="fas fa-folder-open"></i> ) lists all the recipes you can make with ingredients from your pantry.</p>
             <button class="p-button" onclick="tutorialStep3()">Next</button><br>
             
             <div class="tutorial-dots">
@@ -87,7 +90,7 @@
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
             <!-- <p>The 'all' button lets you explore new recipes with ingredients missing from your pantry.</p> -->
-            <p>You can click on any recipe name to find it's preparation instructions.</p>
+            <p>'Available' when selected lists all the recipes you can cook with the contents of your pantry.</p>
             <button  class="p-button" onclick="tutorialStep4()">Next</button><br>
     
             <div class="tutorial-dots">
@@ -108,7 +111,7 @@
     <div id="tutorial-step4" class="tutorial">
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
-            <p>A recipe will list ingredients, instructions, and more.</p>
+            <p>Selecting a recipe will show preparation instructions and missing ingredients.</p>
             <!-- <p><i>Tip: When cooking if you use up an ingredient, click that ingredient twice and it will be added to your shopping list.</i></p> -->
             <button  class="p-button" onclick="tutorialStep5()">Next</button><br>
             
@@ -130,7 +133,7 @@
     <div id="tutorial-step5" class="tutorial">
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
-            <p>This is your pantry. Keep it updated with all the food you have in your house to get meal suggestions.</p>
+            <p>Keep your online pantry ( <i class="fas fa-carrot"></i> ) updated to get possible meal suggestions.</p>
             <button class="p-button" onclick="tutorialStep6()">Next</button><br>
    
             <div class="tutorial-dots">
@@ -151,7 +154,7 @@
     <div id="tutorial-step6" class="tutorial">
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
-            <p>After shopping you can easily add everything from your shopping list to your pantry.</p>
+            <p>Add food to your shopping list ( <i class="fas fa-shopping-cart"></i> ) and take it with you shopping.</p>
             <button class="p-button" onclick="tutorialStep7()">Next</button><br>
          
             <div class="tutorial-dots">
@@ -174,8 +177,8 @@
         <div class="tutorial-content">
             <i class="fas fa-lock"  style="font-size: 70px;"></i>
             <h2>Privacy</h2>
-            <p>All your data is stored locally on your device.</p>
-            <p>This protects your privacy but also means you need to do all you pantry managment on one device.</p>
+            <p>All your data is stored locally on <b>one</b> device.</p>
+            <p>Share your shopping list and recipes using a link with other devices, family, and friends.</p>
             <button class="p-button" onclick="tutorialStep8()">Next</button><br>
           
             <div class="tutorial-dots">
@@ -197,8 +200,8 @@
         <div class="tutorial-content">
             <i class="fas fa-carrot" style="font-size: 70px;"></i>
             <h2>Eat Well!</h2>
-            <p>There is a lot more for you to discover.</p>
-            <p>We hope this helps you to meal prep, manage your pantry, and buy what you need.</p>
+            <p>When you feel like you have nothing to cook 'Pantry' will suggest meals using the ingredients you have.</p>
+            <!-- <p>We hope this helps you to meal prep, manage your pantry, and buy what you need.</p> -->
          
             <button class="p-button" onclick="skipTutorial()">Enter Pantry </button>
 
@@ -219,25 +222,38 @@
         <span>?</span>
     </div>
 
+    
     <div class="flex-container">
         <div class="flex-child">
+            <div id="dim-background" onclick="closePopUp()"  style="display:none;">test</div>
             <div id="navigation-container">
-                <div id="view-recipe" class="view-page-button" onclick="viewRecipes()"><div class="vertically-allign-text">RECIPES</div></div>
-                <div id="view-pantry" class="view-page-button" onclick="viewPantry()">PANTRY</div>
-                <div id="view-shopping-list" class="view-page-button" onclick="viewShoppingList()">SHOPPING LIST</div>
+                <div id="view-recipe" class="view-page-button" onclick="viewRecipes()"><div class="vertically-allign-text"><i class="fas fa-folder-open"></i></div></div>
+                <div id="view-pantry" class="view-page-button" onclick="viewPantry()"><i class="fas fa-carrot"></i></div>
+                <div id="view-shopping-list" class="view-page-button" onclick="viewShoppingList()"> <i class="fas fa-shopping-cart"></i></div>
                 <div style="position:absolute; height:45px; width:100%;background-color:forestgreen;z-index:-1;"></div>
             </div>
 
             <!-- RECIPES PAGE -->
             <div id="container-recipes" class="flex-child">
+                
                 <h2 id="recipe-title">Recipes</h2>
+                
                 <button onclick="showAvailableRecipes()" id="show-available-recipes">Available</button>
                 <button onclick="showAllRecipes()" id="show-all-recipes">All</button>
                 <button onclick="filterFavoriteRecipes()"><div id="star-filled"><i class='far fa-star'></i></div></button>
-                <button onclick="viewCustomRecipe()">+</button>
-                <button onclick="filterRecipes()" id="show-filter">Filter</button>
-                <input id="filter-recipe-input" style="display:none;" placeholder="Filter: breakfast, egg" onkeyup="updateRecipeDOM()"></input>
+                <button onclick="viewCustomRecipe()"><i class="fas fa-plus"></i></button>
+                <button onclick="filterRecipes()" id="show-filter"><i class="fas fa-search"></i></button>
+                <input id="filter-recipe-input" style="display:none;" placeholder="Search" onkeyup="updateRecipeDOM()"></input>
                 <div style="margin-top:10px;" id="filter-words"></div>
+                <div class="instructions">
+                    <div class="close-info" onclick="closeShare()">X</div>    
+                    <div class="instruction-tip"><b>'Available'</b> - Displays only recipes that you have ingredients for.</div>
+                    <div class="instruction-tip"><b>'All'</b> - Displays all recipes in your cook book.</div>
+                    <div class="instruction-tip"><i class='fas fa-star' style="color:white;cursor:default;"></i> - Displays only favorite recipes.</div>
+                    <div class="instruction-tip"><b><i class="fas fa-plus"></i></b> - Add a custom recipe.</div>
+                    <div class="instruction-tip"><b><i class="fas fa-search"></i></b> - Search for recipes, ingredients, or tags.</div>
+                </div>
+                
                 <div id="recipe-results"></div>
             </div>
 
@@ -272,6 +288,12 @@
             <div id="container-pantry" class="flex-child"  style="display:none;">
                 <h2 id="pantry-title">Pantry</h2>
                 <button onclick="ingredientToPantry()">Add Ingredient</button>
+                <div class="instructions">
+                    <div class="close-info" onclick="closeShare()">X</div>    
+                    <div class="instruction-tip"><b>Select an ingredient below to see the following options.</b></div>
+                    <div class="instruction-tip"><b><i class="fas fa-plus"></i></b> - Add another selected item to pantry.</div>
+                    <div class="instruction-tip"><b><i class="fas fa-minus"></i></b> - Remove selected item from pantry.</div>
+                </div>
                 <div id="pantry-contents" style="margin-top:10px;"></div>
             </div>
 
@@ -280,7 +302,43 @@
                 <h2 id="shopping-list-title">Shopping List</h2>
                 <button onclick="ingredientToShoppingList()">Add Ingredient</button>
                 <button onclick="shoppingListToPantry()">Shopping List to Pantry</button>
+                <button onclick="shareShoppingList()"><div id="star-filled">Share <i class="fas fa-share-square"></i></div></button>
+                <div class="instructions">
+                    <div class="close-info" onclick="closeShare()">X</div>    
+                    <div class="instruction-tip"><b>Select an ingredient below to see the following options.</b></div>
+                    <div class="instruction-tip"><b><i class="fas fa-plus"></i></b> - Add another selected item to shopping list.</div>
+                    <div class="instruction-tip"><b><i class="fas fa-minus"></i></b> - Remove selected item from shopping list.</div>
+                    <div class="instruction-tip"><i class="fas fa-carrot"></i> - Move all of selected item to pantry.</div>
+                    <div class="instruction-tip"><i class="fas fa-circle"></i> - Group ingredients together with a color.</div>
+                </div>
                 <div id="shopping-list-contents"  style="margin-top:10px;"></div>
+            </div>
+
+            <!-- SHARE PAGE -->
+            <div id="share" style="display:none;">
+                <div id="close-share" onclick="closeShare()">X</div>
+                <h2>Share this link:</h2>
+                <textarea id="share-area" placeholder="This should contain a link." name="paragraph_text" cols="25" rows="5"></textarea><br>
+                <button onclick="copyToClipboard('share-area')">Copy Link</button>
+            </div>
+
+            <!-- CATEGORY PAGE -->
+            <div id="category"  style="display:none;">
+                
+                <div id="close-category" onclick="closeCategory()">X</div>
+                <h2>Choose a color:</h2>
+
+                <div id="dot-container">
+                    <div onclick="selectColor('grey')" class='s-dot c-grey'></div>
+                    <div onclick="selectColor('red')" class='s-dot c-red'></div>
+                    <div onclick="selectColor('orange')" class='s-dot c-orange'></div>
+                    <div onclick="selectColor('yellow')" class='s-dot c-yellow'></div>
+                    <div onclick="selectColor('green')" class='s-dot c-green'></div>
+                    <div onclick="selectColor('blue')" class='s-dot c-blue'></div>
+                </div>
+                
+                <!-- <textarea id="share-area" placeholder="This should contain a link." name="paragraph_text" cols="25" rows="5"></textarea><br> -->
+                <!-- <button onclick="copyToClipboard('share-area')">Copy Link</button> -->
             </div>
 
             <!-- HELP PAGE -->
@@ -288,21 +346,44 @@
                 <h2><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Help</h2>
                 <h2>Options</h2>
                 <button onclick="loadStartPage()"> View Opening Walkthrough</button><br><br>
-                <button onclick="clearLocalSavedData()"> Clear Local Saved Data</button>
-                <h2>ChangeLog</h2>
-                <h3>5/1/2021 - Ben who? Ben why? Ben thanks! - 1700 LOC</h3>
-                <p>Added recipe favorites.</p>
-                <p>Added custom recipes and ingredients.</p>
-                <p>Added source to recipes.</p>
-                <p><i>Fixed tutorial not visible on mobile.</i></p>
-                <p><i>Fixed a broken shopping cart.</i></p>
+                <button onclick="clearLocalSavedData()"> Clear Local Saved Data</button><br><br>
 
-                <h3>4/27/2021 - The Beginning - 1500 LOC</h3>
-                <p>Will this even work?</p>
-                <p>Built the framework and added a few recipes and ingredients.</p>
-                <p>Added communication between Shopping Car and Pantry.</p>
-                <p>Interactive recipes, filtering, and tags. </p>
-                <p>Created the initial color scheme and design.</p>
+                <div class="wrap-collabsible">
+                    <input id="collapsible" class="toggle" type="checkbox">
+                    <label for="collapsible" class="lbl-toggle">Q & A</label>
+                    <div class="collapsible-content">
+                        <div class="content-inner">
+                            <p>Here's a question. Why is there nothing here?</p>
+                        </div>
+                    </div>
+                </div><br>
+
+                <div class="wrap-collabsible">
+                    <input id="collapsible2" class="toggle" type="checkbox">
+                    <label for="collapsible2" class="lbl-toggle">Change Log</label>
+                    <div class="collapsible-content">
+                        <div class="content-inner">
+                            <h3>5/-/2021 - The Dalaurian -  LOC</h3>
+                            <p>Added ability to share shopping cart. </p>
+                            <p>Added more icons.</p>
+                            <p>Hired some pest control for all the bugs.</p>
+
+                            <h3>5/1/2021 - Ben who? Ben why? Ben thanks! - 1700 LOC</h3>
+                            <p>Added recipe favorites.</p>
+                            <p>Added custom recipes and ingredients.</p>
+                            <p>Added source to recipes.</p>
+                            <p><i>Fixed tutorial not visible on mobile.</i></p>
+                            <p><i>Fixed a broken shopping cart.</i></p>
+
+                            <h3>4/27/2021 - The Beginning - 1500 LOC</h3>
+                            <p>Will this even work?</p>
+                            <p>Built the framework and added a few recipes and ingredients.</p>
+                            <p>Added communication between Shopping Car and Pantry.</p>
+                            <p>Interactive recipes, filtering, and tags. </p>
+                            <p>Created the initial color scheme and design.</p>
+                        </div>
+                    </div>
+                </div>   
             </div>
 
             <!-- CUSTOM RECIPE PAGE -->
@@ -332,6 +413,7 @@
            
         </div>
     </div>
+    <script src="./js-snackbar.min.js"></script>
     <script src="./ingredients.js?2"></script>
     <script src="./index.js?2"></script>
     
