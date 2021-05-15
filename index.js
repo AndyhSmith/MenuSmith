@@ -96,7 +96,8 @@ function sortColor(theList) {
 // L O C A L   S T O R A G E   &   S E T U P
 //#################################################################################
 
-var siteURL = "http://localhost:8000/"
+// var siteURL = "http://localhost:8000/"
+var siteURL = "https://pantry.andyhsmith.com/"
 // Clear Parameters
 
 
