@@ -63,19 +63,23 @@ textarea {
 }
 
 .add-subtract {
-    display: none;
+    /* display: none; */
+    color: #ddd
 }
 
 .ingredient:hover .add-subtract{
     display: inline;
+    color: #000
 }
 
 .ingredient:active .add-subtract{
     display: inline;
+    color: #000
 }
 
 .ingredient:focus .add-subtract{
     display: inline;
+    color: #000
 }
 
 button {
