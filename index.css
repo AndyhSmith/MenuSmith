@@ -158,6 +158,11 @@ button:hover {
     color: #444
 }
 
+.go-back:hover {
+    color: #444;
+    cursor: pointer;
+}
+
 #help-option {
     position: fixed;
     bottom: 20px;
@@ -172,6 +177,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 22px;
 }
 
 #help-option:hover {
@@ -574,6 +580,10 @@ input[type='checkbox'] { display: none; }
     background-color: steelblue;
 }
 
+.c-imported {
+    background-color: #795548;
+}
+
 #dot-container {
     display: flex;
     flex-wrap: wrap;
@@ -581,3 +591,24 @@ input[type='checkbox'] { display: none; }
     align-items: center;
     margin: 10px;
 }
+
+/* ############################################# */
+/* L O A D I N G   S C R E E N */
+/* ############################################# */
+
+#loading {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: forestgreen;
+    z-index: 4;
+    top: 0px;
+    left: 0px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+}
+
