@@ -629,7 +629,7 @@ input[type='checkbox'] { display: none; }
 }
 
 .pin-icon:hover {
-    color: steelblue;
+    color: #888;
     transition: all .3s ease 0s;
 }
 
@@ -641,7 +641,7 @@ input[type='checkbox'] { display: none; }
 }
 
 .pin-icon-active:hover {
-    color: #ccc;
+    color: rgb(41, 162, 202);
     transition: all .3s ease 0s;
 }
 

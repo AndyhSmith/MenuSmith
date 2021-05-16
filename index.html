@@ -272,7 +272,8 @@
                 <div id="recipe-source" style="display:none;"></div>
                 <div class="instructions" id="tip-3">
                     <div class="close-info" onclick="closeTip(3)">X</div>    
-                    <div class="instruction-tip">Click or tap the star ( <i class='fas fa-star'></i> ) above to favorite or unfavorite a recipe.</div>
+                    <div class="instruction-tip"><i class='fas fa-star' style="color:white;cursor:default;"></i> - Favorite or unfavorite a recipe.</div>
+                    <div class="instruction-tip"><i class="fas fa-thumbtack"></i> - Pin a recipe to the top of your cookbook.</div>
                 </div>
 
                 <div class="instructions" id="tip-4">
@@ -419,6 +420,7 @@
                             <p> - Remove custom ingredients.</p>
                             <p> - Option to see recipes with ingredients in shopping list and pantry.</p>
                             <p> - Add phone app icon and instructions.</p>
+                            <p> - Bug: uncategorized shopping cart items grey is different then c-grey.</p>
                             <p></p>
                         </div>
                     </div>
@@ -472,7 +474,7 @@
                 <div><b>Required Ingredients:</b></div>
                 <div class="instructions" id="tip-1">
                     <div class="close-info" onclick="closeTip(1)">X</div>    
-                    <div class="instruction-tip"><b>'Quantity Prefix'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>Not included in ingredient search.</i> </div>
+                    <div class="instruction-tip"><b>'Quantity Prefix'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>The prefix is not included in ingredient search.</i> </div>
                 </div>
                 <input id="custom-ingredients-prefix" placeholder="Quantity Prefix (Optional)"></input>
                 <input id="custom-ingredients-input" onkeyup="suggestCustomIngredient()" placeholder="Search Ingredient"></input>
