@@ -34,6 +34,7 @@ var ingredients = [
     {name:"brown sugar"},
     {name:"brussels sprouts"},
     {name:"butter"},
+    {name:"butterbeer"},
     {name:"buttermilk"},
     {name:"cabbage"},
     {name:"cake mix"},
@@ -54,6 +55,7 @@ var ingredients = [
     {name:"chives"},
     {name:"chocolate"},
     {name:"chocolate chips"},
+    {name:"chorus fruit"},
     {name:"cilantro"},
     {name:"cinnamon"},
     {name:"clams"},
@@ -90,6 +92,7 @@ var ingredients = [
     {name:"fruit snacks"},
     {name:"garlic"},
     {name:"garlic powder"},
+    {name:"gillyweed"},
     {name:"ginger"},
     {name:"gold"},
     {name:"grapes"},
@@ -115,6 +118,7 @@ var ingredients = [
     {name:"kiwi"},
     {name:"kidney beans"},
     {name:"leeks"},
+    {name:"lembas bread"},
     {name:"lemon"},
     {name:"lemon juice"},
     {name:"lentils"},
@@ -185,6 +189,7 @@ var ingredients = [
     {name:"shortening"},
     {name:"shrimp"},
     {name:"snap peas"},
+    {name:"snozzcumbers"},
     {name:"sour cream"},
     {name:"soy sauce"},
     {name:"spinach"},
@@ -238,7 +243,7 @@ var recipes = [
         pre:["1 lb.", "1 Cup chopped", "1 Cup", "1 Cup cubed", "1/4 tsp.", "1/4 tsp", "28 oz.", "1 tsp."], 
         instructions:"Cook onions and ground beef. Mix in everything else as well as 3 Cups of water.",
         optional:["salt", "celery","sweet potatoes"],
-        tags:["dinner", "soup"],
+        tags:["dinner", "soup", "savory"],
     },
      {
         name:"Banana Bread", 
@@ -246,6 +251,7 @@ var recipes = [
         pre:[ "1 cup", "1/2 cup", "2", "2 cups", "1/2 tsp.", "1 tsp.", "4 mashed"],
         instructions:"Cream sugar and shortening, add eggs, drys, bananas, and optional nuts. Bake 1 hour at 325 degrees in a 13x14 loaf pan, or less in two smaller pans",
         optional:["nuts"],
+        tags:["sweet", "baking"],
     },
     {
         name:"Beans (Black) & Rice", 
@@ -253,19 +259,21 @@ var recipes = [
         pre:["", ""], 
         instructions:"Cook both and serve with desired toppings",
         optional:["salt", "tomatoes", "cheese", "lettuce"],
-        tags:["easy"],
+        tags:["easy", "savory"],
     },
      {
         name:"Biscuits", 
         ingredients:["flour", "salt", "baking soda", "baking powder", "butter", "milk", "vinegar"], 
         pre:[ "2 cups", "1/2 teaspoon", "1/2 teaspoon", "1 1/2 teaspoon", "1/2 cups", "1/2 cup", "1 Tablespoon"],
         instructions:"Combine dry ingredients, then cut butter in. Add vinegar to milk -can substitute lemon juice for vinegar- mix in. Knead 10 times, shape and place on cookie sheet. Bake at 450 degrees until golden.",
+        tags:["baking", "bread"],
     },
      {
         name:"Bread", 
         ingredients:["yeast", "brown sugar", "shortening", "salt", "flour"], 
         pre:[ "1 Tablespoon", "1/2 cup", "1/3 cup", "1 Tablespoon", "6-8 Cups"],
         instructions:"Soften yeast in 3/4 cups water, heat remaining 2 cups of water shortening sugar and salt. Add to 3 cups flour and yeast with water, then add remaining flour incrementally as needed, knead, rise until double, shape, let rise, then bake at 350 degrees for 50 minutes.",
+        tags:["baking"],
     },
      {
         name:"Bread Sticks", 
@@ -273,7 +281,7 @@ var recipes = [
         pre:[ "1 T.", "1/4 cup", "1 T.", "1 tsp.", "4- 4 1/2 cups"],
         instructions:"Dissolve yeast in 1 1/4 cups warm water, stir in everything but flour, mix well. Gradually add flour until dough forms a ball, then knead lightly and shape into desired breadsticks. Place on greased cookie sheet, sprinkle with melted butter and seasonings if desired. allow to rise for 15-20 minutes, then bake at 400 degrees for 15 minutes",
         optional:["garlic", "parmesan", "butter", "onion powder"],
-        tags:["bread"],
+        tags:["bread", "baking"],
     },
      {
         name:"Brownie Pudding Cake", 
@@ -281,7 +289,7 @@ var recipes = [
         pre:[ "2 cups", "4 tsp.", "1 1/2 cup", "1 tsp.", "4 T.", "1 cup", "4 T.", "2 tsp.", "1 1/4 cup", "1/3 cup"],
         instructions:"Mix together the flour, baking powder, sugar, salt, cocoa powder, milk, oil, and vanilla, pour into a greased 10x14 pan. Then mix together brown sugar and 1/3 cup cocoa powder, sprinkle over top of batter in pan. Pour 3 1/2 cups boiling water over the top- DO NOT MIX! Bake at 350 degrees about 45 minutes.",
         optional:["nuts"],
-        tags:["dessert"],
+        tags:["dessert", "baking", "sweet"],
         source:"Grandma Deanna Slade"
     },
     {
@@ -289,7 +297,7 @@ var recipes = [
         ingredients:["flour", "milk", "egg", "oil"],
         pre:["1 Cup", "1 1/2 Cup", "2", "1 T"], 
         instructions:"Blend in blender. Pour 1/4 cup or so onto a buttered frying pan.",
-        tags:["breakfast"],
+        tags:["breakfast", "easy"],
     },
     {
         name:"Crepes (fancy)", 
@@ -303,15 +311,15 @@ var recipes = [
         ingredients:["chicken", "rice", "broccoli", "mayonnaise", "cream of mushroom soup", "cheese", "lemon juice", "curry powder", "parmesan"], 
         pre:[ "2-3 lb, cooked and cubed", "4 cups cooked", "3 cups cooked", "1/2 cup", "1 can", "1/2 cup grated", "3-4 T.", "2 T", "1/4 cup grated"],
         instructions:"lay rice in 9x13 pan, cover with chicken and brocoli. Mix together sauce and spread next, with grated cheese on top. Bake at 350 degrees for 30 min or until bubbly",
-        tags:["dinner", "casserole"],
+        tags:["dinner", "casserole", "savory"],
     },
     {
         name:"Curry (Thai)", 
         ingredients:["curry paste", "coconut milk", "carrots", "potatoes", "chicken", "onion", "rice"],
         pre:["1 can", "2 cans", "4", "3", "2 breasts", "1/2 diced", ""],
         instructions:"Cook onions and chicken together then add coconut milk and 4 cups of water. Add everything and boil. Once cooked serve with rice.",
-        optional:["salt", "broccoli"],
-        tags:["dinner"],
+        optional:["salt", "broccoli", "pineapple"],
+        tags:["dinner", "savory"],
     },
      {
         name:"Frosting", 
@@ -327,7 +335,7 @@ var recipes = [
         pre:["1/2 Cup", "1/2 Cup", "2 T", "3"],
         instructions:"Preheat oven to 400. Place butter in 9x13 and melt in oven. Mix well and pour into the hot buttered pan. Bake for about 25 minutes or until brown.",
         optional:["salt"],
-        tags:["breakfast"],
+        tags:["breakfast", "baking"],
     },
     {
         name:"Emma Noodle Sauce", 
@@ -335,7 +343,7 @@ var recipes = [
         pre:["1 Cup", "1/2 Cup", "1/2 Cup", "4 cloves", "1 tsp.", "2 T", "1/2 tsp.", "2 T"],
         instructions:"Mix and cook together. Server with noodles or stir fry.",
         optional:["rice", "pasta", "chicken", "mixed vegetables", "peanuts"],
-        tags:["dinner"],
+        tags:["dinner", "savory"],
     },
     {
         name:"Potato Soup", 
@@ -343,7 +351,7 @@ var recipes = [
         pre:[ "1 diced", "5 diced", "10 diced", "12 tsp.", "5 T", "1 Cup", "2 Cups"],
         instructions:"Fry bacon until crisp, remove bacon and pour out most of the grease. Add onions carrots and celery and stir fry in remaining bacon grease for 5 min. In soup pot add broth, potatoes, onions, carrots, and celery. Cook until potatoes are getting soft. Whisk together flour and milk and pour into the soup. Cook for another 5 minutes. Blend about 1/2 of the soup and mix back in. Stir in cream. Add in cheese, parsley, and spices to taste.",
         optional:["bacon", "parsley","cheese", "celery", "salt", "black pepper", "cajun spice"],
-        tags:["dinner", "soup"],
+        tags:["dinner", "soup", "savory"],
         source:"Pioneer Women (Adapted)"
     },
     {
@@ -359,12 +367,14 @@ var recipes = [
         ingredients:["milk", "yeast", "sugar", "salt", "shortening", "flour"], 
         pre:[ "2 cups", "1 T.", "1/4 cup", "2 tsp.", "1/4 cup", "6 cups"],
         instructions:"Mix together drys, knead in wets. Can substitute 1/4 cup olive oil for butter if decrease milk.",
+        tags:["baking"],
     },
     {
         name:"Rolls", 
         ingredients:["yeast", "shortening", "sugar", "flour", "egg", "salt"],
         pre: ["1 Tablespoon", "1/4 cup", "1/2 cup", "6 1/2 - 7 cups", "1, beaten", "1 1/2 teaspoon"],
         instructions: "Soften yeast in 2 cups of warm water. Mix remaining ingredients, add yeast, and knead. Let rise, shape, let rise again. Bake at 350 degrees.",
+        tags:["baking"],
     },
     {
         name:"Sheepherder Pie", 
@@ -372,7 +382,7 @@ var recipes = [
         pre:["1 lb", "1 Can", "2 Small Cans", "", "1/2 Cup Diced", "2 Cans", "5 lbs.", ""],
         instructions:"Brown hamburger, onions, and garlic. Drain. Add sauce and soup. Pour into 9x13 baking dish. Spread a layer of beans, potatoes, and then cheese. Bake at 350 for 20 minutes.",
         optional:["butter", "salt"],
-        tags:["dinner"],
+        tags:["dinner", "baking", "casserole"],
     },
      {
         name:"Stake Visitors Cake", 
@@ -380,7 +390,7 @@ var recipes = [
         pre:[ "1 cup", "1/2 cup", "1 T.", "2 beaten", "1 1/2 cups", "1 cup", "1 tsp.", "1 cup", "1 cup", "1/2 tsp."],
         instructions:"Pour 1 1/2 cup boiling water over oats and butter, let rest 10 minutes. Add sugar and eggs, beat together, then add dry ingredients and half the chocolate chips. Pour into greased 9x13, sprinkle remaining chocloate chips and optional nuts on top. Bake at 350 degrees for 30-40 minutes",
         optional:["nuts"],
-        tags:["dessert", "cake"],
+        tags:["dessert", "cake", "baking"],
         source:"Grandma Deanna Slade"
     },
      {
@@ -388,7 +398,7 @@ var recipes = [
         ingredients:["butter", "sugar", "vegetable oil", "egg", "sour cream", "vanilla", "almond extract", "baking soda", "salt", "flour"], 
         pre:[ "1 cup softened", "2 cups", "3/4 cup", "2", "1/4 cups", "1 tsp.", "1/2 tsp.", "1/2 tsp.", "1 tsp.", "5-6 cups"],
         instructions:"Cream butter and sugar, add oil, eggs and sour cream, mix well. Add vanilla, almond extract, baking soda and salt, combine completely. add flour slowly until not longer sticky. Shape cookies and place on ungreased baking sheet, bake at 350 degrees",
-        tags:["cookies", "dessert"],
+        tags:["cookies", "dessert", "baking"],
         source:"Brilynn Ellsworth"
     },
     {
@@ -397,6 +407,6 @@ var recipes = [
         pre:["", "2 T", "1 tsp", "1 tsp"],
         instructions:"Heat the over to 400. Peel and slice the sweet potatoes. Mix potatoes with oil and spices and lay on tray. Cook for about 10 minutes on each side or until done.",
         optional:["salt", "ketchup", "black pepper", "oil"],
-        tags:["dinner", "side"],
+        tags:["dinner", "side", "baking", "savory"],
     },
 ]

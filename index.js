@@ -157,8 +157,8 @@ function sortPinned(theList) {
 // L O C A L   S T O R A G E   &   S E T U P
 //#################################################################################
 
-// var siteURL = "http://localhost:8000/"
-var siteURL = "https://pantry.andyhsmith.com/"
+var siteURL = "http://localhost:8000/"
+// var siteURL = "https://pantry.andyhsmith.com/"
 // Clear Parameters
 
 
@@ -345,6 +345,16 @@ function checkURLParams() {
         toast("loaded shopping list", successToast);
         viewShoppingList()
     }
+
+    // Recipe
+    let r = params.get("r")
+    let newRecipe = null
+    if (r != null) {
+        newRecipe = JSON.parse(r)
+        addAndValidateCustomRecipe(newRecipe)
+    }
+
+
     window.history.replaceState({}, document.title, "/" + ""); 
 }
 
@@ -988,8 +998,8 @@ function selectRecipeDOM(recipeID) {
     if (pinnedRecipes.includes(recipeTitle)) {
         pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon-active' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
     }
-
-    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + pinnedRecipeDOM
+    let shareOption = " <i class='fas fa-share-square share-hover' onclick='shareRecipe()' style='padding-left:5px;cursor:pointer;'></i>"
+    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + pinnedRecipeDOM + shareOption
 
 
     // Recipe Source
@@ -1170,7 +1180,7 @@ function addCustomRecipe() {
     customInstructions = document.getElementById("custom-instructions-input").value
 
 
-    newRecipe = {
+    let newRecipe = {
         name: customRecipeName,
         ingredients: customIngredients,
         pre: customApprovedIngredientPrefix,
@@ -1179,7 +1189,11 @@ function addCustomRecipe() {
         tags: document.getElementById("custom-recipe-tags").value.toLowerCase().split(' ')
         
     }
+    addAndValidateCustomRecipe(newRecipe)
+    
+}
 
+function addAndValidateCustomRecipe(newRecipe) {
     let passesRequirements = true
     console.log(newRecipe)
     if (passesRequirements) {
@@ -1314,13 +1328,18 @@ function copyToClipboard(id) {
 function shareShoppingList() {
     let value = serializeJsonToArray(shoppingList)
     value = ingredientsToNumbers(value)
-
-    console.log(value)
-    // value = numbersToIngredients(value)
-    // console.log(value)
-
     let builtURL = siteURL + "?sl=" + JSON.stringify(value)
     console.log(builtURL)
+    document.getElementById("share-area").value = builtURL
+    document.getElementById("share").style.display = "block"
+    document.getElementById("dim-background").style.display = "block"
+}
+
+function shareRecipe() {
+    console.log("Sharing Recipe", currentRecipe)
+    let builtURL = siteURL + "?r=" + JSON.stringify(recipes[currentRecipe])
+    console.log(builtURL)
+    console.log(builtURL.length)
     document.getElementById("share-area").value = builtURL
     document.getElementById("share").style.display = "block"
     document.getElementById("dim-background").style.display = "block"
