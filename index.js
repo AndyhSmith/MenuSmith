@@ -197,7 +197,9 @@ if (!localStorage.hiddenTips) {
     localStorage.hiddenTips = []
 }
 
-var settings = {}
+var settings = {
+    darkMode: false,
+}
 if (!localStorage.settings) {
     localStorage.settings = {
         darkMode: false,
@@ -275,8 +277,9 @@ function startDOM() {
     // Load Settings
     // localStorage.setItem('settings', JSON.stringify({}));
     let settingsLocalData = localStorage.getItem('settings') 
+    // console.log(settingsLocalData)
     if (settingsLocalData != '') {
-        console.log(settingsLocalData)
+        // console.log(settingsLocalData)
         settings = JSON.parse(settingsLocalData)
     }
     initSettings()
