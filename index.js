@@ -25,9 +25,14 @@ var cs = {
 
 
 function toast(textMessage, chosenOption) {
-    let toastCopy = chosenOption
-    toastCopy.message = textMessage
-    SnackBar(toastCopy)
+    try {
+        let toastCopy = chosenOption
+        toastCopy.message = textMessage
+        SnackBar(toastCopy)
+    } catch {
+        console.log("Toaster is Broken!")
+    }
+    
 }
 
 // toasts
@@ -662,9 +667,10 @@ function addToPantry(ingredientID) {
         // names must be equal
         return 0;
     });
-    toast(itemToAdd.name + " added to pantry", successToast)
+    
     updatePantryDOM()
     userAddFood()
+    toast(itemToAdd.name + " added to pantry", successToast)
 }
 
 
