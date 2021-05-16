@@ -198,12 +198,12 @@ if (!localStorage.hiddenTips) {
 }
 
 var settings = {
-    darkMode: false,
+    darkMode: false
 }
 if (!localStorage.settings) {
-    localStorage.settings = {
-        darkMode: false,
-    }
+    localStorage.settings = JSON.stringify({
+        darkMode: false
+    })
 }
 
 // Update DOM
@@ -277,9 +277,9 @@ function startDOM() {
     // Load Settings
     // localStorage.setItem('settings', JSON.stringify({}));
     let settingsLocalData = localStorage.getItem('settings') 
-    // console.log(settingsLocalData)
+    console.log(settingsLocalData)
     if (settingsLocalData != '') {
-        // console.log(settingsLocalData)
+        console.log(settingsLocalData)
         settings = JSON.parse(settingsLocalData)
     }
     initSettings()
