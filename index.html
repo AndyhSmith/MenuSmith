@@ -376,6 +376,19 @@
                 <h2><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Help</h2>
                 <h2>Options</h2>
                 
+                <!-- <button onclick="exportLocalSavedData()"> Export Data</button>
+                <button onclick="importLocalSavedData()"> Import Data</button><br><br>
+                Export and import all of your local data.
+                <hr> -->
+                <!-- Rounded switch -->
+                <label class="switch">
+                    <input id="dark-mode-setting" type="checkbox" onchange="darkModeSwitch()">
+                    <span class="slider round"></span>
+                </label> 
+                <br>
+                Darkmode
+                <hr>
+
                 <button onclick="loadStartPage()"> View Opening Walkthrough</button><br><br>
                 Shows the opening tutorial.
                 <hr>
@@ -383,9 +396,11 @@
                 Shows all of the mini tutorials that you have hidden. They will remain visible until you close them again.
                 <hr>
                 <button onclick="clearLocalSavedData()"> Clear Local Saved Data</button><br><br>
-                <span style="color:darkred">Warning</span> - This will factory reset 'panty'. You will loose all custom ingredients 
+                <span style="color:darkred"><b>Warning</b></span> - This will factory reset 'panty'. You will loose all custom ingredients 
                 all custom recipes, all custom ingredients, your pantry, and your shopping list. 
                 <hr>
+
+                
 
                 <div class="wrap-collabsible">
                     <input id="collapsible" class="toggle" type="checkbox">
@@ -395,11 +410,9 @@
                             <p><b>What are some planned features?</b></p>
                             <p> - Export and import all data. </p> 
                             <p> - Share Recipe. </p> 
-                            <p> - Dark mode & support for color themes.</p>
                             <p> - Delete & Edit Recipes. </p>
-                            <p> - Pin recipes to top of cookbook. </p>
                             <p> - Pin ingredients to shopping list. </p>
-                            <p> - Clean custom recipes.</p>
+                            <p> - Custom recipe validation.</p>
                             <p> - Search by second word in an ingredient.</p>
                             <p> - Alternate searchable options for ingredients e.g. spice, hamburger</p>
                             <p> - Possible support for photos using link.</p>
@@ -423,7 +436,9 @@
                             <p>Added ability to share shopping cart. </p>
                             <p>Added more icons.</p>
                             <p>Clear ingredient search button.</p>
+                            <p>Pin recipes to top of cookbook. </p>
                             <p>Hired some pest control for all the bugs.</p>
+                            <p>Dark mode & support for color themes.</p>
 
                             <h3>5/1/2021 - Ben who? Ben why? Ben thanks! - 1700 LOC</h3>
                             <p>Added recipe favorites.</p>

@@ -1,8 +1,12 @@
-window.scrollTo(0,1);
 //#################################################################################
 // S T Y L E S
 //#################################################################################
 var cs = {
+    backgroundColor: "white",
+    textColor: "black",
+
+    popUpBackgroundColor: "white",
+
     inCart:"blue",
     inPantry:"black",
     missing:"darkred",
@@ -19,6 +23,42 @@ var cs = {
     activeButton: "lightblue",
     inactiveButton: "white",
 }
+
+function applyColorScheme() {
+    document.getElementsByTagName("body")[0].style.backgroundColor = cs.backgroundColor
+    document.getElementsByTagName("body")[0].style.color = cs.textColor
+    document.getElementById("category").style.backgroundColor = cs.popUpBackgroundColor
+    document.getElementById("share").style.backgroundColor = cs.popUpBackgroundColor
+}
+
+function darkMode() {
+    cs.backgroundColor = "black"
+    cs.textColor = "white"
+    cs.inPantry = "white"
+    cs.popUpBackgroundColor = "#333"
+}
+
+function lightMode() {
+    cs.backgroundColor = "white"
+    cs.textColor = "black"
+    cs.inPantry = "black"
+    cs.popUpBackgroundColor = "white"
+}
+
+function darkModeSwitch() {
+    console.log(settings)
+    if (settings.darkMode) {
+        settings.darkMode = false
+        lightMode()
+    } else {
+        settings.darkMode = true
+        darkMode()
+    }
+    localStorage.setItem('settings', JSON.stringify(settings));
+    applyColorScheme() 
+}
+
+
 
 //#################################################################################
 // T O A S T S
@@ -69,7 +109,7 @@ const infoToast = {
 };
 
 //#################################################################################
-// H E L P E R   F U N C T I O N S
+// S O R T
 //#################################################################################
 
 function sortAlphabetically(theList) {
@@ -94,6 +134,21 @@ function sortColor(theList) {
         }
         
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+}
+
+function sortPinned(theList) {
+    console.log("Trying to sort")
+    theList.sort(function(a, b) {
+        let test1 = pinnedRecipes.includes(a.name)
+        let test2 = pinnedRecipes.includes(b.name)
+        if (test1) {
+            return -1
+        } else {
+            return 1
+        }
+
+        return 0
     });
 }
 
@@ -122,6 +177,11 @@ if (!localStorage.recipeFavorites) {
     localStorage.recipeFavorites = []
 }
 
+var pinnedRecipes = []
+if (!localStorage.pinnedRecipes) {
+    localStorage.pinnedRecipes = []
+}
+
 var customIngredients = []
 if (!localStorage.customIngredients) {
     localStorage.customIngredients = []
@@ -135,6 +195,13 @@ if (!localStorage.customRecipes) {
 var hiddenTips = []
 if (!localStorage.hiddenTips) {
     localStorage.hiddenTips = []
+}
+
+var settings = {}
+if (!localStorage.settings) {
+    localStorage.settings = {
+        darkMode: false,
+    }
 }
 
 // Update DOM
@@ -175,6 +242,15 @@ function startDOM() {
         recipeFavorites = JSON.parse(recipeFavoriteLocalData)
     }
 
+    // Load Pins
+    let pinnedRecipesLocalData = localStorage.getItem('pinnedRecipes')
+    pinnedRecipes = []
+    if (pinnedRecipesLocalData != '') {
+        pinnedRecipes = JSON.parse(pinnedRecipesLocalData)
+    }
+
+    
+
     // Load Custom Ingredients
     let customIngredientsLocalData = localStorage.getItem('customIngredients') 
     if (customIngredientsLocalData != '') {
@@ -194,8 +270,17 @@ function startDOM() {
     if (hiddenTipsLocalData != '') {
         hiddenTips = JSON.parse(hiddenTipsLocalData)
     }
-
     hideTips()
+
+    // Load Settings
+    // localStorage.setItem('settings', JSON.stringify({}));
+    let settingsLocalData = localStorage.getItem('settings') 
+    if (settingsLocalData != '') {
+        console.log(settingsLocalData)
+        settings = JSON.parse(settingsLocalData)
+    }
+    initSettings()
+    
     viewRecipes()
     userAddFood()
     checkURLParams()
@@ -209,7 +294,14 @@ function clearLocalSavedData() {
     } 
 }
 
-
+function initSettings() {
+    console.log("Init Settings")
+    if (settings.darkMode) {
+        darkMode()
+        applyColorScheme()
+        document.getElementById("dark-mode-setting").checked = true;
+    }
+}
 
 function saveLocalStorage() {
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
@@ -722,6 +814,7 @@ function updateRecipeDOM() {
     let totalRecipeCount = 0
     let availableRecipeCount = 0
     sortAlphabetically(recipes)
+    sortPinned(recipes)
 
     document.getElementById("filter-words").innerHTML = ""
     if (filtering) {
@@ -798,18 +891,34 @@ function updateRecipeDOM() {
         // all ingredients
         totalRecipeCount += 1
         if (!missingIngredient && matchesFilter && filterFavorites) {
-            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")'><span>" + recipes[r].name 
+            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")'><span>" 
+            
+            // pin 
+            if (pinnedRecipes.includes(recipes[parseInt(r)].name)) {
+                availableRecipes += " <i class='fas fa-thumbtack pin-icon-active'></i> "
+            }
+            availableRecipes += recipes[r].name 
+            // favorite
             if (recipeFavorites.includes(recipes[parseInt(r)].name)) {
                 availableRecipes += " <i class='fas fa-star'></i>"
             }
+            
             availableRecipes += "</span></div>"
             availableRecipeCount += 1
         } 
         else if ((showType == "All") && matchesFilter && filterFavorites) {
-            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")' style='color:" + cs.missing + ";'><span>" + recipes[r].name 
+            availableRecipes += "<div class='ingredient' onclick='selectRecipeDOM(" + r + ")' style='color:" + cs.missing + ";'><span>"
+            
+            // pin 
+            if (pinnedRecipes.includes(recipes[parseInt(r)].name)) {
+                availableRecipes += " <i class='fas fa-thumbtack pin-icon-active'></i> "
+            }
+            availableRecipes += recipes[r].name 
+            // favorite
             if (recipeFavorites.includes(recipes[parseInt(r)].name)) {
                 availableRecipes += " <i class='fas fa-star'></i>"
             }
+            
             availableRecipes += "</span></div>"
         }
     }
@@ -842,6 +951,20 @@ function addRemoveRecipeFromFavorites(recipeID) {
     selectRecipeDOM(recipeID)
 }
 
+function addRemoveRecipeFromPinnedRecipes(recipeID) {
+    let recipeName = recipes[recipeID].name
+    let index = pinnedRecipes.indexOf(recipeName);
+    if (index > -1) { // if favorite
+        pinnedRecipes.splice(index, 1)
+    } else { // if not favorite
+        pinnedRecipes.push(recipes[recipeID].name)
+    }
+    localStorage.setItem('pinnedRecipes', JSON.stringify(pinnedRecipes));
+    selectRecipeDOM(recipeID)
+}
+
+
+
 let currentRecipe = 0
 let missingIngredients = []
 function selectRecipeDOM(recipeID) {
@@ -856,7 +979,14 @@ function selectRecipeDOM(recipeID) {
     if (recipeFavorites.includes(recipeTitle)) {
         recipeFavorite =  " <i class='fas fa-star' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
     }
-    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite
+
+    // add pin
+    let pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
+    if (pinnedRecipes.includes(recipeTitle)) {
+        pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon-active' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
+    }
+
+    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + pinnedRecipeDOM
 
 
     // Recipe Source
@@ -1259,6 +1389,26 @@ function hideTips() {
     for (let index in hiddenTips) {
         document.getElementById("tip-" + hiddenTips[index]).style.display = "none"
     }
+}
+
+//#################################################################################
+// E X P O R T   &   I M P O R T
+//#################################################################################
+function exportLocalSavedData() {
+    let objectToExport = {
+        yourCustomRecipes:customRecipes,
+        yourCustomIngredients:customIngredients,
+    }
+
+    document.getElementById("share-area").value = JSON.stringify(objectToExport)
+    document.getElementById("share").style.display = "block"
+    document.getElementById("dim-background").style.display = "block"
+}
+
+function importLocalSavedData() {
+    document.getElementById("share-area").value = "test"
+    document.getElementById("share").style.display = "block"
+    document.getElementById("dim-background").style.display = "block"
 }
 
 //#################################################################################
