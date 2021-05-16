@@ -275,7 +275,7 @@ function startDOM() {
     hideTips()
 
     // Load Settings
-    // localStorage.setItem('settings', JSON.stringify({}));
+    localStorage.setItem('settings', JSON.stringify({}));
     let settingsLocalData = localStorage.getItem('settings') 
     console.log(settingsLocalData)
     if (settingsLocalData != '') {
