@@ -157,8 +157,8 @@ function sortPinned(theList) {
 // L O C A L   S T O R A G E   &   S E T U P
 //#################################################################################
 
-// var siteURL = "http://localhost:8000/"
-var siteURL = "https://pantry.andyhsmith.com/"
+var siteURL = "http://localhost:8000/"
+// var siteURL = "https://pantry.andyhsmith.com/"
 // Clear Parameters
 
 
@@ -536,6 +536,7 @@ function closeCategory() {
 }
 
 function removeFromShoppingList(itemID) {
+    let itemName = shoppingList[itemID].name
     console.log(shoppingList, shoppingList[itemID], shoppingList.length)
     if (shoppingList[itemID].quantity <= 1) {
         shoppingList.splice(itemID, 1)
@@ -543,9 +544,10 @@ function removeFromShoppingList(itemID) {
     else {
         shoppingList[itemID].quantity -= 1;
     }
-    toast(shoppingList[itemID].name + " removed from shopping list", successToast)
+    
     updateShoppingListDOM()
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    toast(itemName + " removed from shopping list", successToast)
 }
 
 function removeFromShoppingListByName(itemName) {
@@ -655,6 +657,7 @@ function singleItemFromShoppingListToPantry(itemShoppingListID) {
 
 function addToShoppingList(ingredientID) {
     itemToAdd = ingredients[ingredientID]
+    let itemName = itemToAdd.name
     let itemFound = false;
     for (i in shoppingList) { // check if item already in pantry
         if (itemToAdd.name == shoppingList[i].name) {
@@ -668,11 +671,12 @@ function addToShoppingList(ingredientID) {
         shoppingList.push(itemToAdd)
     }
 
-    toast(itemToAdd.name + " added to shopping list", successToast);
+    
     sortAlphabetically(shoppingList)
     saveLocalStorage()
     updateShoppingListDOM()
     userAddFood()
+    toast(itemName + " added to shopping list", successToast);
 }
 
 
@@ -682,14 +686,15 @@ function addToShoppingList(ingredientID) {
 // P A N T R Y  
 //#################################################################################
 function removeFromPantry(itemID) {
+    let itemName = pantry[itemID].name
     if (pantry[itemID].quantity == 1) {
         pantry.splice(itemID, 1)
     }
     else {
         pantry[itemID].quantity -= 1;
     }
-    toast(pantry[itemID].name + " removed from pantry", successToast)
     updatePantryDOM()
+    toast(itemName + " removed from pantry", successToast)
 }
 
 function removeFromPantryByName(itemName) {
@@ -992,14 +997,14 @@ function selectRecipeDOM(recipeID) {
     if (recipeFavorites.includes(recipeTitle)) {
         recipeFavorite =  " <i class='fas fa-star' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
     }
+    let shareOption = " <i class='fas fa-share-square share-hover' onclick='shareRecipe()'></i>"
 
     // add pin
     let pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
     if (pinnedRecipes.includes(recipeTitle)) {
         pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon-active' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
     }
-    let shareOption = " <i class='fas fa-share-square share-hover' onclick='shareRecipe()' style='padding-left:5px;cursor:pointer;'></i>"
-    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + pinnedRecipeDOM + shareOption
+    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + shareOption + pinnedRecipeDOM 
 
 
     // Recipe Source
@@ -1190,6 +1195,8 @@ function addCustomRecipe() {
         
     }
     addAndValidateCustomRecipe(newRecipe)
+    customApprovedIngredients = []
+    customApprovedIngredientPrefix = []
     
 }
 
@@ -1197,15 +1204,16 @@ function addAndValidateCustomRecipe(newRecipe) {
     let passesRequirements = true
     console.log(newRecipe)
     if (passesRequirements) {
+        console.log(recipes)
         customRecipes.push(newRecipe)
         recipes = recipes.concat(newRecipe)
         localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
-        customApprovedIngredients = []
-        customApprovedIngredientPrefix = []
+        viewRecipes()
+        selectRecipeDOM(recipes.indexOf(newRecipe))
         toast("Added custom recipe", successToast)
     }
     
-    viewRecipes()
+    
 }
 
 var customApprovedIngredients = []

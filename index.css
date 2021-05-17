@@ -647,12 +647,13 @@ input[type='checkbox'] { display: none; }
     transition: all .3s ease 0s;
 }
 
-.share-hover:hover {
-    color: #ccc
+.share-hover {
+    color: steelblue;
+    cursor: pointer;
 }
 
 .share-hover:hover {
-    color: #888;
+    color: rgb(41, 162, 202);
     transition: all .3s ease 0s;
 }
 
