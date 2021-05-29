@@ -1,48 +1,193 @@
 //#################################################################################
 // S T Y L E S
 //#################################################################################
-var cs = {
+var csNormal = {
     backgroundColor: "white",
     textColor: "black",
-
     popUpBackgroundColor: "white",
+    userInputs: "#eee",
 
     inCart:"blue",
     inPantry:"black",
     missing:"darkred",
-    quantity:"blue",
+    quantity:"#1bb444",
     selected: "#A2C0D9",
 
-    selectedNavTextShadow: "0px 0px 15px white, 0px 0px 15px white",
-    selectedNavTextColor: "white",
-    selectedBackgroundColor: "#1bb444",
     none: "none",
-    normalBackgroundColor: "forestGreen",
-    normalNavTextColor: "#AFC5DF",
+
+
+    // N A V
+    // nav-bar text color
+    normalNavTextColor: "#111",
+    // selected nav-bar text color
+    selectedNavTextColor: "white",
     
-    activeButton: "lightblue",
-    inactiveButton: "white",
+    // Background color of nav button
+    normalBackgroundColor: "#999",
+    
+    // border bottom color
+    normalColor: "4px solid rgba(0,0,0,0)",
+    // border bottom active color
+    // highlightColor: "4px solid #1bb444",
+    highlightColor: "4px solid white",
+    
+    // button colors
+    activeButton: "rgba(27,180,68, .3)",
+    inactiveButton: "#eee",
+
+    miniTutorial: "#eee"
 }
+
+var csDarkMode = {
+    backgroundColor: "rgb(33,33,33)",
+    textColor: "white",
+    popUpBackgroundColor: "rgb(45,45,45)",
+    userInputs: "rgb(53,53,53)",
+
+    inCart:"rgb(179,199,255)",
+    inPantry:"white",
+    missing:"pink",
+    quantity:"#1bb444",
+    selected: "#A2C0D9",
+
+    none: "none",
+
+
+    // N A V
+    // nav-bar text color
+    normalNavTextColor: "rgb(100,100,100)",
+    // selected nav-bar text color
+    selectedNavTextColor: "white",
+    
+    // Background color of nav button
+    normalBackgroundColor: "rgb(18,18,18)",
+    
+    // border bottom color
+    normalColor: "4px solid rgba(0,0,0,0)",
+    // border bottom active color
+    highlightColor: "4px solid #1bb444",
+    
+    // button colors
+    activeButton: "rgba(27,180,68, .3)",
+    inactiveButton: "rgb(75,75,75)",
+
+    miniTutorial: "rgb(50,50,50)"
+}
+
+var cs = csNormal
+document.getElementById("background-top-bar").style.backgroundColor = cs.normalBackgroundColor
 
 function applyColorScheme() {
     document.getElementsByTagName("body")[0].style.backgroundColor = cs.backgroundColor
     document.getElementsByTagName("body")[0].style.color = cs.textColor
     document.getElementById("category").style.backgroundColor = cs.popUpBackgroundColor
     document.getElementById("share").style.backgroundColor = cs.popUpBackgroundColor
+    document.getElementById("background-top-bar").style.backgroundColor = cs.normalBackgroundColor
+
+    // input fields
+    let list = document.getElementsByTagName("input");
+    for (let index in list) {
+        try {
+            list[index].style.backgroundColor = cs.userInputs
+        } catch {
+
+        } 
+    }
+
+    // textarea
+    // input fields
+    list = document.getElementsByTagName("textarea");
+    for (let index in list) {
+        try {
+            list[index].style.backgroundColor = cs.userInputs
+        } catch {
+
+        } 
+    }
+
+    // nav buttons
+    list = document.getElementsByClassName("view-page-button");
+    for (let index in list) {
+        try {
+            list[index].style.backgroundColor = cs.normalBackgroundColor
+            list[index].style.color = cs.normalNavTextColor
+        } catch {
+
+        } 
+    }
+    if (previousPage == "recipes") {
+        document.getElementById("view-recipe").style.color = cs.selectedNavTextColor
+    } else if (previousPage == "pantry") {
+        document.getElementById("view-pantry").style.color = cs.selectedNavTextColor
+    } else if (previousPage == "shoppingList") {
+        document.getElementById("view-shopping-list").style.color = cs.selectedNavTextColor
+    }
+
+
+
+    // buttons
+    list = document.getElementsByTagName("button");
+    for (let index in list) {
+        try {
+            list[index].style.backgroundColor = cs.inactiveButton
+            list[index].style.color = cs.textColor
+        } catch {
+
+        } 
+    }
+
+    // mini tutorials
+    list = document.getElementsByClassName("instructions");
+    for (let index in list) {
+        try {
+            list[index].style.backgroundColor = cs.miniTutorial
+            list[index].style.color = cs.textColor
+        } catch {
+
+        } 
+    }
+
+    // correct buttons
+    if (showType == "Available") {
+        console.log("filtering available")
+        showAvailableRecipes()
+    } else if (showType == "All") {
+        showAllRecipes()
+    } 
+    
+    if (!filterFavoriteRecipesBool) {
+        filterFavoriteRecipesBool = false
+        document.getElementById("star-filled").innerHTML = "<i class='far fa-star'></i>"
+        document.getElementById("star-filled-button").style.backgroundColor = cs.inactiveButton
+    } else {
+        filterFavoriteRecipesBool = true;
+        document.getElementById("star-filled").innerHTML = "<i class='fas fa-star'></i>"
+        document.getElementById("star-filled-button").style.backgroundColor = cs.activeButton
+    }
+
+    if (filtering) {
+        document.getElementById("filter-recipe-input").style.display = "block"
+        document.getElementById("filter-recipe-input").value = ""
+        document.getElementById("show-filter").style.backgroundColor = cs.activeButton
+    } else {
+        document.getElementById("filter-recipe-input").style.display = "none"
+        document.getElementById("show-filter").style.backgroundColor = cs.inactiveButton
+    }
+
+    // mini tutorial options
+    document.getElementById("pantry-color").style.color = cs.inPantry
+    document.getElementById("missing-color").style.color = cs.missing
+    document.getElementById("shopping-list-color").style.color = cs.inCart
+
+
 }
 
 function darkMode() {
-    cs.backgroundColor = "black"
-    cs.textColor = "white"
-    cs.inPantry = "white"
-    cs.popUpBackgroundColor = "#333"
+    cs = csDarkMode
 }
 
 function lightMode() {
-    cs.backgroundColor = "white"
-    cs.textColor = "black"
-    cs.inPantry = "black"
-    cs.popUpBackgroundColor = "white"
+    cs = csNormal
 }
 
 function darkModeSwitch() {
@@ -157,8 +302,8 @@ function sortPinned(theList) {
 // L O C A L   S T O R A G E   &   S E T U P
 //#################################################################################
 
-// var siteURL = "http://localhost:8000/"
-var siteURL = "https://pantry.andyhsmith.com/"
+var siteURL = "http://localhost:8000/"
+// var siteURL = "https://pantry.andyhsmith.com/"
 // Clear Parameters
 
 
@@ -283,7 +428,7 @@ function startDOM() {
         settings = JSON.parse(settingsLocalData)
     }
     initSettings()
-    
+    applyColorScheme()
     viewRecipes()
     userAddFood()
     checkURLParams()
@@ -291,7 +436,7 @@ function startDOM() {
 }
 
 function clearLocalSavedData() {
-    if (confirm('Are you sure you want to clear all your data?')) {
+    if (confirm('Are you sure you want to clear all your data? This will reset the website and you will loose all your custom data.')) {
         localStorage.clear();
         location.reload();
     } 
@@ -321,7 +466,12 @@ function checkURLParams() {
     let sl = params.get("sl")
     let newShoppingList = []
     if (sl != null) {
-        sl = numbersToIngredients(JSON.parse(sl))
+        sl = "[" + sl + "]"
+        sl = sl.replace(/a~/g, " ")
+        sl = sl.replace(/b~/g, ",")
+        sl = sl.replace(/c~/g, "\"")
+        sl = numbersToIngredients(JSON.parse(sl)) 
+     
         let newIngredient = {}
         for (let i in sl) {
             if (i % 2) {
@@ -339,7 +489,6 @@ function checkURLParams() {
                 newShoppingList.push(newIngredient)
             }
         }
-        console.log(newShoppingList)
         shoppingList = shoppingList.concat(newShoppingList)
         localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
         toast("loaded shopping list", successToast);
@@ -350,6 +499,16 @@ function checkURLParams() {
     let r = params.get("r")
     let newRecipe = null
     if (r != null) {
+        r = r.replace(/a~/g, " ")
+        r = r.replace(/b~/g, ",")
+        r = r.replace(/c~/g, "\"")
+        r = r.replace(/d~/g, "{")
+        r = r.replace(/e~/g, "}")
+        r = r.replace(/f~/g, "[")
+        r = r.replace(/g~/g, "]")
+        r = r.replace(/h~/g, ":")
+        r = r.replace(/i~/g, "/")
+        console.log(r)
         newRecipe = JSON.parse(r)
         addAndValidateCustomRecipe(newRecipe)
     }
@@ -413,7 +572,7 @@ function userAddFood() {
             }
             
             if (foundInLocation) {
-                ingredientSearchResults += "<span style='color:" + cs.quantity + "'>" + " x " + locationCount + "</span></span></div>"; 
+                ingredientSearchResults += "<span style='color:" + cs.quantity + "; font-weight: bold;'>" + " x " + locationCount + "</span></span></div>"; 
             }
             ingredientSearchResults += "</div>";
             counter += 1;
@@ -497,6 +656,7 @@ function closePopUp() {
     document.getElementById("category").style.display = "none"
     skipTutorial()
     document.getElementById("dim-background").style.display = "none"
+    
 }
 
 //#################################################################################
@@ -505,10 +665,31 @@ function closePopUp() {
 
 var userSelectedDot = null
 function clickedACategoryDot(itemName) {
+    console.log(shoppingList)
     userSelectedDot = itemName
+    document.getElementById("dark-mode-setting").checked = true;
     document.getElementById("category").style.display = "inline"
     document.getElementById("dim-background").style.display = "inline"
-    console.log(ingredients[userSelectedDot])
+
+    document.getElementById("category-header").innerHTML = ingredients[itemName].name
+
+    // Check pinned box
+    for (let aIngredient in shoppingList) {
+        if (shoppingList[aIngredient].name == ingredients[userSelectedDot].name) {
+            if(shoppingList[aIngredient].pin) {
+                if (shoppingList[aIngredient].pin == "t") {
+                    document.getElementById("ingredient-pin").checked = true;
+                } else {
+                    document.getElementById("ingredient-pin").checked = false;
+                }
+            } else {
+                document.getElementById("ingredient-pin").checked = false;
+            }
+            
+            break
+        }
+    }
+    
 }
 
 var userSelectedColor = null
@@ -523,12 +704,33 @@ function selectColor(chosen_color) {
             break
         }
     }
-    console.log(shoppingList)
     closeCategory()
     
 }
 
+function pinToShoppingListSwitch() {
+    // pin shopping list items
+    for (let aIngredient in shoppingList) {
+        if (shoppingList[aIngredient].name == ingredients[userSelectedDot].name) {
+            if (shoppingList[aIngredient].pin) {
+                console.log("Pin Exists")
+                if (shoppingList[aIngredient].pin == "f") {
+                    shoppingList[aIngredient].pin = "t"
+                } else {
+                    shoppingList[aIngredient].pin = "f"
+                }       
+            } else {
+                shoppingList[aIngredient].pin = "t"
+            } 
+            console.log(shoppingList)
+            break
+        }
+    }
+    // saveLocalStorage()
+}
+
 function closeCategory() {
+    console.log(shoppingList)
     document.getElementById("category").style.display = "none";
     document.getElementById("dim-background").style.display = "none";
     updateShoppingListDOM()
@@ -577,9 +779,23 @@ function updateShoppingListDOM() {
     sortAlphabetically(shoppingList)
     sortColor(shoppingList)
 
-    shoppingListContents = ""
-    for (i in shoppingList) {
-        shoppingListContents += "<div class='ingredient' tabindex='0'><span>" + shoppingList[i].name + " <span style='color:" + cs.quantity + "'>"
+    let shoppingListContents = ""
+    
+    for (let i in shoppingList) {
+        shoppingListContents += "<div class='ingredient' tabindex='0'><span>" 
+        //pin
+        if (shoppingList[i].pin) {
+            if (shoppingList[i].pin == "t") {
+                shoppingListContents += "<i class='fas fa-thumbtack recipe-pin'></i>"
+            }
+        }
+        
+
+        shoppingListContents += shoppingList[i].name + " <span style='color:" + cs.quantity + "; font-weight: bold;'>"
+        
+        
+        
+        
         shoppingListItemCounter += shoppingList[i].quantity
         if (shoppingList[i].quantity > 1) {
             
@@ -605,7 +821,7 @@ function updateShoppingListDOM() {
     if (shoppingList.length == 0) {
         shoppingListContents = "You have nothing in your shopping List."
     } else {
-        shoppingListContents += "<button onclick='emptyShoppingList()'>Empty Shopping List</button>"
+        shoppingListContents += "<button onclick='emptyShoppingList()'>Delete Contents</button>"
     }
     document.getElementById("shopping-list-title").innerHTML = "Shopping List (" + shoppingListItemCounter + ")";
     document.getElementById("shopping-list-contents").innerHTML = shoppingListContents;
@@ -617,8 +833,10 @@ function emptyShoppingList() {
     updateShoppingListDOM()
 }
 
+
+var runTwice = true
 function shoppingListToPantry() {
-    for (i in shoppingList) {
+    for (let i in shoppingList) {
         let nameOfItem = shoppingList[i].name
         let idOfItem = 0
         
@@ -635,8 +853,26 @@ function shoppingListToPantry() {
                 addToPantry(idOfItem)
             }
         }
+
     }
-    shoppingList = []
+
+
+    for (let i = 0; i < shoppingList.length; i++) {
+        // Check if pinned
+        console.log("Starting deleting for " + shoppingList[i].name, i)
+        if (shoppingList[i].pin) {
+            if (shoppingList[i].pin == "f") {
+                shoppingList.splice(i, 1)  
+                i = i - 1
+            }
+        } else {
+            shoppingList.splice(i, 1) 
+            i = i - 1
+        }
+    }
+
+    
+
     toast("contents of shopping list moved to pantry", successToast);
     updateShoppingListDOM()
     saveLocalStorage()
@@ -644,15 +880,23 @@ function shoppingListToPantry() {
 
 function singleItemFromShoppingListToPantry(itemShoppingListID) {
     let itemName = shoppingList[itemShoppingListID].name
-    // toast(itemName + " added to pantry", successToast);
-    console.log(shoppingList[itemShoppingListID])
     const quantityOfItem = shoppingList[itemShoppingListID].quantity
     for (let z = 0; z < quantityOfItem; z++) {
         addToPantry(getItemID(itemName))
     }
-    shoppingList.splice(itemShoppingListID, 1)    
+
+    // Check if pinned
+    if (shoppingList[itemShoppingListID].pin) {
+        if (shoppingList[itemShoppingListID].pin == "f") {
+            shoppingList.splice(itemShoppingListID, 1)  
+        }
+    } else {
+        shoppingList.splice(itemShoppingListID, 1)  
+    }
+      
     updateShoppingListDOM() 
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    toast(itemName + " added to pantry", successToast)
 }
 
 function addToShoppingList(ingredientID) {
@@ -676,7 +920,7 @@ function addToShoppingList(ingredientID) {
     saveLocalStorage()
     updateShoppingListDOM()
     userAddFood()
-    toast(itemName + " added to shopping list", successToast);
+    toast(itemName + " added", successToast);
 }
 
 
@@ -725,7 +969,7 @@ function updatePantryDOM() {
     
     pantryContents = ""
     for (i in pantry) {
-        pantryContents += "<div class='ingredient' tabindex='0'><span>" + pantry[i].name + " <span style='color:" + cs.quantity + "'>"
+        pantryContents += "<div class='ingredient' tabindex='0'><span>" + pantry[i].name + " <span style='color:" + cs.quantity + "; font-weight: bold;'>"
         pantryItemCounter += pantry[i].quantity
         if (pantry[i].quantity > 1) {
             pantryContents += "x " + pantry[i].quantity  
@@ -737,7 +981,7 @@ function updatePantryDOM() {
     if (pantry.length == 0) {
         pantryContents = "You have nothing in your pantry."
     } else {
-        pantryContents += "<button onclick='emptyPantry()'>Empty Pantry</button>"
+        pantryContents += "<button onclick='emptyPantry()'>Delete Pantry Contents</button>"
     }
     document.getElementById("pantry-contents").innerHTML = pantryContents;
     document.getElementById("pantry-title").innerHTML = "Pantry (" + pantryItemCounter + ")"
@@ -781,7 +1025,7 @@ function addToPantry(ingredientID) {
     
     updatePantryDOM()
     userAddFood()
-    toast(itemToAdd.name + " added to pantry", successToast)
+    // toast(itemToAdd.name + " added to pantry", successToast)
 }
 
 
@@ -913,7 +1157,7 @@ function updateRecipeDOM() {
             
             // pin 
             if (pinnedRecipes.includes(recipes[parseInt(r)].name)) {
-                availableRecipes += " <i class='fas fa-thumbtack pin-icon-active'></i> "
+                availableRecipes += " <i class='fas fa-thumbtack recipe-pin'></i> "
             }
             availableRecipes += recipes[r].name 
             // favorite
@@ -929,7 +1173,7 @@ function updateRecipeDOM() {
             
             // pin 
             if (pinnedRecipes.includes(recipes[parseInt(r)].name)) {
-                availableRecipes += " <i class='fas fa-thumbtack pin-icon-active'></i> "
+                availableRecipes += " <i class='fas fa-thumbtack recipe-pin'></i> "
             }
             availableRecipes += recipes[r].name 
             // favorite
@@ -967,6 +1211,13 @@ function addRemoveRecipeFromFavorites(recipeID) {
     }
     localStorage.setItem('recipeFavorites', JSON.stringify(recipeFavorites));
     selectRecipeDOM(recipeID)
+    if (index > -1) { // if favorite
+        toast("Removed from favorites", successToast)
+    } else { // if not favorite
+        toast("Added to favorites", successToast)
+    }
+    
+
 }
 
 function addRemoveRecipeFromPinnedRecipes(recipeID) {
@@ -979,6 +1230,11 @@ function addRemoveRecipeFromPinnedRecipes(recipeID) {
     }
     localStorage.setItem('pinnedRecipes', JSON.stringify(pinnedRecipes));
     selectRecipeDOM(recipeID)
+    if (index > -1) { // if favorite
+        toast("Removed pin", successToast)
+    } else { // if not favorite
+        toast("Added pin", successToast)
+    }
 }
 
 
@@ -993,18 +1249,18 @@ function selectRecipeDOM(recipeID) {
     // Title
     recipeBackButton = "<i class='fas fa-arrow-left back-arrow' onclick='viewRecipes()'></i> "
     recipeTitle = recipes[recipeID].name
-    recipeFavorite =  " <i class='far fa-star' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
+    recipeFavorite =  " <i class='far fa-star icon-button' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
     if (recipeFavorites.includes(recipeTitle)) {
-        recipeFavorite =  " <i class='fas fa-star' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
+        recipeFavorite =  " <i class='fas fa-star icon-button' onclick='addRemoveRecipeFromFavorites(" + recipeID + ")'></i>"
     }
-    let shareOption = " <i class='fas fa-share-square share-hover' onclick='shareRecipe()'></i>"
+    let shareOption = " <i class='fas fa-share-square icon-button' onclick='shareRecipe()'></i>"
 
     // add pin
-    let pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
+    let pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon icon-button' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
     if (pinnedRecipes.includes(recipeTitle)) {
-        pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon-active' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
+        pinnedRecipeDOM = "<i class='fas fa-thumbtack pin-icon-active icon-button' onclick='addRemoveRecipeFromPinnedRecipes(" + recipeID + ")'></i>"
     }
-    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + shareOption + pinnedRecipeDOM 
+    document.getElementById("recipe-selected-title").innerHTML = "<span class='go-back' onclick='viewRecipes()'>" + recipeBackButton + recipeTitle + "</span>" + recipeFavorite + pinnedRecipeDOM + shareOption
 
 
     // Recipe Source
@@ -1012,6 +1268,19 @@ function selectRecipeDOM(recipeID) {
     if (recipes[recipeID].source) {
         document.getElementById("recipe-source").style.display = "block"
         document.getElementById("recipe-source").innerHTML = "<i style='font-size: 14px;'>Source: " + recipes[recipeID].source + "</i>"
+        
+    }
+
+
+    // Recipe Image
+    document.getElementById("recipe-image").style.display = "none"
+    if (recipes[recipeID].image) {
+        document.getElementById("recipe-image").style.display = "block"
+        let builtContents = ""
+        for (let srcLink in recipes[recipeID].image) {
+            builtContents += "<img class='recipe-img' src='" + recipes[recipeID].image[srcLink] + "'>"
+        }
+        document.getElementById("recipe-image").innerHTML = builtContents
         
     }
 
@@ -1165,6 +1434,7 @@ function addMissingIngredientsToShoppingCart() {
     }
     selectRecipeDOM(currentRecipe)
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    toast("Missing ingredients added to shopping list.", successToast)
 }
 
 //#################################################################################
@@ -1336,8 +1606,15 @@ function copyToClipboard(id) {
 function shareShoppingList() {
     let value = serializeJsonToArray(shoppingList)
     value = ingredientsToNumbers(value)
-    let builtURL = siteURL + "?sl=" + JSON.stringify(value)
+    let stringValue = JSON.stringify(value)
+    stringValue = stringValue.substring(1, stringValue.length - 1)
+    stringValue = stringValue.replace(/ /g, "a~")
+    stringValue = stringValue.replace(/,/g, "b~")
+    stringValue = stringValue.replace(/"/g, "c~")
+
+    let builtURL = siteURL + "?sl=" + stringValue
     console.log(builtURL)
+    document.getElementById("share-header").innerHTML = "Share Shopping List"
     document.getElementById("share-area").value = builtURL
     document.getElementById("share").style.display = "block"
     document.getElementById("dim-background").style.display = "block"
@@ -1345,9 +1622,21 @@ function shareShoppingList() {
 
 function shareRecipe() {
     console.log("Sharing Recipe", currentRecipe)
-    let builtURL = siteURL + "?r=" + JSON.stringify(recipes[currentRecipe])
-    console.log(builtURL)
-    console.log(builtURL.length)
+    let stringValue = JSON.stringify(recipes[currentRecipe])
+    stringValue = stringValue.replace(/ /g, "a~")
+    stringValue = stringValue.replace(/,/g, "b~")
+    stringValue = stringValue.replace(/"/g, "c~")
+    stringValue = stringValue.replace(/{/g, "d~")
+    stringValue = stringValue.replace(/}/g, "e~")
+    stringValue = stringValue.replace(/\[/g, "f~")
+    stringValue = stringValue.replace(/\]/g, "g~")
+    stringValue = stringValue.replace(/:/g, "h~")
+    stringValue = stringValue.replace(/\//g, "i~")
+    
+    let builtURL = siteURL + "?r=" + stringValue
+
+    
+    document.getElementById("share-header").innerHTML = "Share " + recipes[currentRecipe].name
     document.getElementById("share-area").value = builtURL
     document.getElementById("share").style.display = "block"
     document.getElementById("dim-background").style.display = "block"
@@ -1405,6 +1694,7 @@ function showMiniTutorials() {
     for (let i = 1; i < 8; i++) {
         document.getElementById("tip-" + i).style.display = "block"
     }
+    toast("Showing Mini Tutorials", successToast)
 }
 
 function closeTip(tipID) {
@@ -1512,75 +1802,58 @@ function viewPantry() {
     previousPage = currentPage
     currentPage = "pantry"
     updatePantryDOM()
-    document.getElementById("container-add-ingredient").style.display = "none"
+    clearStyle()
     document.getElementById("container-pantry").style.display = "block"
-    document.getElementById("container-shopping").style.display = "none"
-    document.getElementById("container-recipe-instructions").style.display = "none"
-    document.getElementById("container-recipes").style.display = "none" 
-    document.getElementById("container-custom-recipe").style.display = "none"
-    document.getElementById("container-help").style.display = "none"
 
-    document.getElementById("view-recipe").style.textShadow = cs.none
-    document.getElementById("view-recipe").style.color = cs.normalNavTextColor
-    document.getElementById("view-recipe").style.backgroundColor = cs.normalBackgroundColor
-    document.getElementById("view-shopping-list").style.textShadow = cs.none
-    document.getElementById("view-shopping-list").style.color = cs.normalNavTextColor
-    document.getElementById("view-shopping-list").style.backgroundColor = cs.normalBackgroundColor
 
-    document.getElementById("view-pantry").style.textShadow = cs.selectedNavTextShadow
     document.getElementById("view-pantry").style.color = cs.selectedNavTextColor
-    document.getElementById("view-pantry").style.backgroundColor = cs.selectedBackgroundColor
+    document.getElementById("view-pantry").style.borderBottom = cs.highlightColor
 }
 
 function viewShoppingList() {
+    console.log(shoppingList)
     previousPage = currentPage
     currentPage = "shoppingList"
     updateShoppingListDOM()
-    document.getElementById("container-add-ingredient").style.display = "none"
-    document.getElementById("container-pantry").style.display = "none"
+    clearStyle()
+
     document.getElementById("container-shopping").style.display = "block"
-    document.getElementById("container-recipe-instructions").style.display = "none"
-    document.getElementById("container-recipes").style.display = "none" 
-    document.getElementById("container-custom-recipe").style.display = "none"
-    document.getElementById("container-help").style.display = "none"
-
-    document.getElementById("view-recipe").style.textShadow = cs.none
-    document.getElementById("view-recipe").style.color = cs.normalNavTextColor
-    document.getElementById("view-recipe").style.backgroundColor = cs.normalBackgroundColor
-    document.getElementById("view-pantry").style.textShadow = cs.none
-    document.getElementById("view-pantry").style.color = cs.normalNavTextColor
-    document.getElementById("view-pantry").style.backgroundColor = cs.normalBackgroundColor
-
-    document.getElementById("view-shopping-list").style.textShadow = cs.selectedNavTextShadow
     document.getElementById("view-shopping-list").style.color = cs.selectedNavTextColor
-    document.getElementById("view-shopping-list").style.backgroundColor = cs.selectedBackgroundColor
+    document.getElementById("view-shopping-list").style.borderBottom = cs.highlightColor
 }
 
 function viewRecipes() {
     previousPage = currentPage
     currentPage = "recipes"
     updateRecipeDOM()
+    clearStyle()
+
+    document.getElementById("container-recipes").style.display = "block" 
+    document.getElementById("view-recipe").style.color = cs.selectedNavTextColor
+    document.getElementById("view-recipe").style.borderBottom = cs.highlightColor
+}
+
+function clearStyle() {
     document.getElementById("container-add-ingredient").style.display = "none"
     document.getElementById("container-pantry").style.display = "none"
     document.getElementById("container-shopping").style.display = "none"
     document.getElementById("container-recipe-instructions").style.display = "none"
-    document.getElementById("container-recipes").style.display = "block" 
+    document.getElementById("container-recipes").style.display = "none" 
     document.getElementById("container-custom-recipe").style.display = "none"
     document.getElementById("container-help").style.display = "none"
     
-
-    document.getElementById("view-shopping-list").style.textShadow = cs.none
-    document.getElementById("view-shopping-list").style.color = cs.normalNavTextColor
     document.getElementById("view-shopping-list").style.backgroundColor = cs.normalBackgroundColor
-    document.getElementById("view-pantry").style.textShadow = cs.none
-    document.getElementById("view-pantry").style.color = cs.normalNavTextColor
     document.getElementById("view-pantry").style.backgroundColor = cs.normalBackgroundColor
+    document.getElementById("view-recipe").style.backgroundColor = cs.normalBackgroundColor
 
-    document.getElementById("view-recipe").style.textShadow = cs.selectedNavTextShadow
-    document.getElementById("view-recipe").style.color = cs.selectedNavTextColor
-    document.getElementById("view-recipe").style.backgroundColor = cs.selectedBackgroundColor
+    document.getElementById("view-shopping-list").style.color = cs.normalNavTextColor
+    document.getElementById("view-pantry").style.color = cs.normalNavTextColor
+    document.getElementById("view-recipe").style.color = cs.normalNavTextColor
+
+    document.getElementById("view-shopping-list").style.borderBottom = cs.normalColor
+    document.getElementById("view-pantry").style.borderBottom = cs.normalColor
+    document.getElementById("view-recipe").style.borderBottom = cs.normalColor
 }
-
 
 
 

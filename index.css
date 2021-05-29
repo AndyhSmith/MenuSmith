@@ -1,3 +1,46 @@
+.recipe-img {
+    width: 20%;
+    min-width: 200px;
+}
+
+.recipe-pin {
+    position: absolute;
+    transform: translate(-80%, -70%);
+    font-size: 15px;
+    
+}
+
+.min-button {
+    color: #1bb444;
+    cursor: pointer;
+    width: 100px !important;
+    min-width: 60px;
+    text-align: center;
+    border-right: 1px solid #333;
+    margin-right: 20px;
+}
+
+.min-button:hover {
+    font-weight: bold;
+}
+
+.button-options {
+    padding: 10px 10px;
+    margin:0px;
+    display: flex;
+
+    /* justify-content: space-between; */
+    align-items: center;
+}
+
+.spacer {
+    padding: 10px 10px;
+    margin:0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 body {
     max-height: 100%;
     margin: 0px;
@@ -20,25 +63,27 @@ input {
     margin: 5px;
     /* border: none; */
     border: none;
-    border-bottom: 2px solid steelblue;
+    border-bottom: 2px solid #1bb444;
     outline: none;
     padding: 10px;
-    caret-color: steelblue;
+    caret-color: #1bb444;
     font-size: 16px;
-    color: steelblue;
+    color: #1bb444;
+    background-color: #eee
 }
 
 textarea {
     margin: 5px;
     /* border: none; */
     border: none;
-    border-bottom: 2px solid steelblue;
+    border-bottom: 2px solid #1bb444;
     outline: none;
     padding: 10px;
-    caret-color: steelblue;
+    caret-color: #1bb444;
     font-size: 16px;
-    color: steelblue;
-    width: 80%;
+    color: #1bb444;
+    
+    background-color: #eee;
 }
 
 .ingredient {
@@ -54,59 +99,61 @@ textarea {
     justify-content: space-between;
     align-items: center;
     height: 40px;
-
 }
 
 
 
+
 .ingredient:hover {
-    background-color: #bbb;
+    background-color: rgba(128,128,128,.3);
     font-weight: bold;
 }
 
 .add-subtract {
     /* display: none; */
-    color: #ddd
+    /* color: #ddd */
 }
 
 .ingredient:hover .add-subtract{
     display: inline;
-    color: #000
+    /* color: #ddd; */
 }
 
 .ingredient:active .add-subtract{
     display: inline;
-    color: #000
+    /* color: #ddd; */
 }
 
 .ingredient:focus .add-subtract{
     display: inline;
-    color: #000
+    /* color: #ddd; */
 }
 
 button {
-    color: #494949;
+    /* color: rgb(128,128,128) !important; */
     /* text-transform: uppercase; */
     text-decoration: none;
-    background-color: #ffffff;
-    padding: 5px;
-    border: 2px solid #494949;
+    background-color: #eee;
+    padding: 7px;
+    /* border: 2px solid #494949; */
+    border: none;
     display: inline-block;
     transition: all 0.4s ease 0s;
     cursor: pointer;
     min-width: 30px;
     margin: 0px;
+    font-weight: bold;
 }
 
 button:hover {
-    color: #ffffff;
-    background-color: steelblue !important;
-    border-color: steelblue;
+    color: #ffffff !important;
+    background-color: rgba(27,180,68, .7) !important;
+    /* border-color: steelblue; */
     transition: all 0.2s ease 0s;
 }
 
 .tag {
-    background-color: lightskyblue;
+    background-color: forestgreen;
     border-radius: 10px;
     padding: 3px 8px;
     margin: 5px;
@@ -126,7 +173,7 @@ button:hover {
 }
 
 #navigation-container {
-    background-color: forestgreen;
+    background-color: white;
     display: flex;
     justify-content: space-evenly;
 }
@@ -137,15 +184,21 @@ button:hover {
     align-items: center;
     cursor: pointer;
     flex-grow: 1;
-    color: #AFC5DF;
-    height: 45px;
+    color: #444;
+    height: 35px;
     font-size: 20px;
+    border: 0px solid rgba(0,0,0,0);
+    border-bottom: 5px solid rgba(0,0,0,0);
+    border-top: 5px solid rgba(0,0,0,0);
 }
 
 .view-page-button:hover {
     /* background: forestgreen !important; */
-    transition: all 0.2s ease 0s;
+    opacity: .9;
+    transition: all .3s ease;
     color: white !important;
+    /* border-bottom-color: #1bb444; */
+    /* border-bottom: 4px solid #1bb444; */
 }
 
 .vertically-allign-text {
@@ -156,16 +209,9 @@ button:hover {
 
 
 
-.back-arrow {
-    cursor: pointer;
-}
-
-.back-arrow:hover {
-    color: #444
-}
 
 .go-back:hover {
-    color: #444;
+    color: rgb(128,128,128);
     cursor: pointer;
 }
 
@@ -184,6 +230,7 @@ button:hover {
     justify-content: center;
     align-items: center;
     font-size: 22px;
+    z-index: 1;
 }
 
 #help-option:hover {
@@ -201,15 +248,7 @@ button:hover {
     z-index: -1;
 }
 
-.fa-star {
-    color: steelblue;
-    cursor: pointer;
-}
 
-.fa-star:hover {
-    color: rgb(41, 162, 202);
-    transition: all 0.2s ease;
-}
 
 #recipe-added-ingredients {
     margin-top: 10px;
@@ -224,7 +263,7 @@ button:hover {
     width: 80%;
     max-width: 800px;
     height: 80%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     transform: translate(-50%, -50%);
     padding: 10px;
     z-index: 2;
@@ -234,14 +273,14 @@ button:hover {
 
 #close-share {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 5px;
+    right: 10px;
     font-size: 30px;
     cursor: pointer;
 }
 
 #close-share:hover {
-    color: steelblue;
+    color: #1bb444;
 }
 
 #dim-background {
@@ -263,7 +302,10 @@ button:hover {
 }
 
 .a-option:hover {
-    color: #444
+    /* color: #444; */
+    /* font-weight: bold; */
+    /* font-size: 27px; */
+    opacity: .6;
 }
 
 /* ############################################# */
@@ -440,19 +482,19 @@ button:hover {
 input[type='checkbox'] { display: none; } 
 .lbl-toggle { 
     display: block; 
-    font-weight: bold; 
     font-family: monospace; 
     font-size: 15px; 
     text-transform: uppercase; 
-    text-align: center; 
-    padding: 20px; 
-    color: #DDD; 
-    background: steelblue; 
+    padding-top: 10px; 
+    color: #1bb444; 
+    /* background: #1bb444;  */
     cursor: pointer; 
     /* border-radius: 7px;  */
     transition: all 0.25s ease-out; 
+    text-align: center;
+    margin: 0px;
 } 
-.lbl-toggle:hover { color: #FFF; } 
+.lbl-toggle:hover { font-weight:bold; } 
 .collapsible-content { max-height: 0px; overflow: hidden;}  
 .toggle:checked + .lbl-toggle + .collapsible-content { max-height: 10000px; } 
 
@@ -465,19 +507,19 @@ input[type='checkbox'] { display: none; }
     position: relative;
     width: calc(100% - 90px);
     min-height: 20px;
-    background-color: rgba(66,180,68,.8);
+    background-color: #eee;
     margin: 20px;
-    border: 2px solid forestgreen;
-    border-top: 5px solid forestgreen;
+    border: 2px solid #ddd;
+    border-top: 5px solid #ddd;
     padding: 10px;
     padding-right: 40px;
-    color: white;
+    color: black;
     border-radius: 10px;
     z-index: 0;
 }
 
 .instructions:hover {
-    background-color:rgba(66,180,68,.7);
+    opacity: .6;
     transition: all 0.2s ease 0s;
 }
 
@@ -528,7 +570,7 @@ input[type='checkbox'] { display: none; }
 }
 
 #close-category:hover {
-    color: steelblue;
+    color: #1bb444;
 }
 .a-dot {
     background-color: grey;
@@ -624,38 +666,43 @@ input[type='checkbox'] { display: none; }
 /* P I N  */
 /* ############################################# */
 .pin-icon {
-    padding-left: 5px;
-    color: #ccc;
+    margin-left: 5px;
+    /* color: #ccc;
     font-size: 22px;
+    cursor: pointer; */
+}
+
+/* .pin-icon:hover {
+    color: #888;
+    transition: all .3s ease 0s;
+} */
+
+.icon-button {
+    opacity: 1;
     cursor: pointer;
 }
 
-.pin-icon:hover {
-    color: #888;
-    transition: all .3s ease 0s;
+.icon-button:hover {
+    opacity: .6;
+    transition: opacity .3s ease 0s;
 }
 
 .pin-icon-active {
-    padding-left: 5px;
-    color: steelblue;
-    font-size: 22px;
-    cursor: pointer;
+    margin-left: 5px;
+    /* color: #1bb444; */
+    /* font-size: 22px; */
+    /* cursor: pointer; */
+    /* opacity: .8; */
+    border-radius: 10%;
+    border-bottom: 3px solid forestgreen;
 }
 
 .pin-icon-active:hover {
-    color: rgb(41, 162, 202);
-    transition: all .3s ease 0s;
+    /* color: rgba(27,180,68, .3); */
+    /* transition: all .3s ease 0s; */
 }
 
-.share-hover {
-    color: steelblue;
-    cursor: pointer;
-}
 
-.share-hover:hover {
-    color: rgb(41, 162, 202);
-    transition: all .3s ease 0s;
-}
 
 /* ############################################# */
 /* S L I D E R S  */
@@ -702,7 +749,7 @@ input[type='checkbox'] { display: none; }
   }
   
   input:checked + .slider {
-    background-color: steelblue;
+    background-color: #1bb444;
   }
   
   input:focus + .slider {

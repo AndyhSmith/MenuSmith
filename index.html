@@ -15,17 +15,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
-	<meta name="description" content="A template website.">
-	<meta name="keywords" content="Template Website">
+	<meta name="description" content="'Pantry' suggests meals based on what is in your pantry.">
+	<meta name="keywords" content="food, pantry, manager, cookbook">
     <meta name="author" content="Andy Smith">
     <link rel=“canonical” href=“https://andyhsmith.com/” />
-    <title>Pantry</title>
+    <title>Pantry Manager</title>
     
     <script src="https://kit.fontawesome.com/68a99d09f4.js" crossorigin="anonymous"></script>
     <!-- CSS -->
     <link type="text/css" rel="stylesheet" href="index.css?2"></link>
     <link type="text/css" rel="stylesheet" href="js-snackbar.min.css"></link>
-    <link rel="shortcut icon" href="favicon.ico" />
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body onload="startDOM()">
     
@@ -44,8 +61,8 @@
             <p><b>Welcome! You seem to be new here!</b></p>
             <p>'Pantry' suggests meals based on what is in your pantry.</p>
             <p><b>Would you like a quick walkthrough?</b></p>
-            <button class="p-button" onclick="tutorialStep1()">Yes</button>
-            <button class="p-button" onclick="skipTutorial()">No</button>
+            <button class="p-button" onclick="tutorialStep1()">YES</button>
+            <button class="p-button" onclick="skipTutorial()">NO</button>
         </div>
     </div>
 
@@ -55,11 +72,11 @@
             <i class="fas fa-caret-up"  style="font-size: 120px;"></i>
             <p>At the top of your screen you should see navigation tabs. </p>
             <p><i>Recipes</i> ( <i class="fas fa-folder-open"></i> ), <i>Pantry</i> ( <i class="fas fa-carrot"></i> ) , and <i>Shopping List</i> ( <i class="fas fa-shopping-cart"></i> ) </p>
-            <button class="p-button" onclick="startTutorialRecipe()">Next</button><br>
+            <button class="p-button" onclick="startTutorialRecipe()">NEXT</button><br>
             
             <div class="tutorial-dots">
                 
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <span class="dot" style="background-color:#444"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -81,7 +98,7 @@
             
             <div class="tutorial-dots">
                 <div class="bottom-green"></div>
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <span class="dot"></span>
                 <span class="dot" style="background-color:#444"></span>
                 <span class="dot"></span>
@@ -99,11 +116,11 @@
         <div class="tutorial-content">
             <!-- <p>The 'all' button lets you explore new recipes with ingredients missing from your pantry.</p> -->
             <p>When selected 'Available' lists all the recipes you can cook with the contents of your pantry.</p>
-            <button  class="p-button" onclick="tutorialStep4()">Next</button><br>
+            <button  class="p-button" onclick="tutorialStep4()">NEXT</button><br>
     
             <div class="tutorial-dots">
                 <div class="bottom-green"></div>
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot" style="background-color:#444"></span>
@@ -121,10 +138,10 @@
         <div class="tutorial-content">
             <p>Selecting a recipe will show preparation instructions and missing ingredients.</p>
             <!-- <p><i>Tip: When cooking if you use up an ingredient, click that ingredient twice and it will be added to your shopping list.</i></p> -->
-            <button  class="p-button" onclick="tutorialStep5()">Next</button><br>
+            <button  class="p-button" onclick="tutorialStep5()">NEXT</button><br>
             
             <div class="tutorial-dots">
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <div class="bottom-green"></div>
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -142,11 +159,11 @@
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
             <p>Keep your online pantry ( <i class="fas fa-carrot"></i> ) updated to get possible meal suggestions.</p>
-            <button class="p-button" onclick="tutorialStep6()">Next</button><br>
+            <button class="p-button" onclick="tutorialStep6()">NEXT</button><br>
    
             <div class="tutorial-dots">
                 <div class="bottom-green"></div>
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -162,12 +179,12 @@
     <div id="tutorial-step6" class="tutorial">
         <div class="no-click-protector"></div>
         <div class="tutorial-content">
-            <p>Add food to your shopping list ( <i class="fas fa-shopping-cart"></i> ) and take it with you shopping.</p>
-            <button class="p-button" onclick="tutorialStep7()">Next</button><br>
+            <p>Add food to your shopping list ( <i class="fas fa-shopping-cart"></i> ) and take that list with you shopping.</p>
+            <button class="p-button" onclick="tutorialStep7()">NEXT</button><br>
          
             <div class="tutorial-dots">
                 <div class="bottom-green"></div>
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -187,10 +204,10 @@
             <h2>Privacy</h2>
             <p>All your data is stored locally on your <b>one</b> device.</p>
             <p>Share your shopping list and recipes with other devices, family, and friends.</p>
-            <button class="p-button" onclick="tutorialStep8()">Next</button><br>
+            <button class="p-button" onclick="tutorialStep8()">NEXT</button><br>
           
             <div class="tutorial-dots">
-                <button class="skip-button" onclick="skipTutorial()">Skip Tutorial </button><br>
+                <button class="skip-button" onclick="skipTutorial()">SKIP </button><br>
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
@@ -208,10 +225,10 @@
         <div class="tutorial-content">
             <i class="fas fa-carrot" style="font-size: 70px;"></i>
             <h2>Eat Well!</h2>
-            <p>When you feel like you have nothing to cook 'Pantry' will suggest meals using the ingredients you have.</p>
+            <p>When you feel like you have nothing to cook, 'Pantry' will suggest meals using the ingredients you have.</p>
             <!-- <p>We hope this helps you to meal prep, manage your pantry, and buy what you need.</p> -->
          
-            <button class="p-button" onclick="skipTutorial()">Enter Pantry </button>
+            <button class="p-button" onclick="skipTutorial()">START </button>
 
             <div class="tutorial-dots">
                 <span class="dot"></span>
@@ -233,12 +250,12 @@
     
     <div class="flex-container">
         <div class="flex-child">
-            <div id="dim-background" onclick="closePopUp()"  style="display:none;">test</div>
+            <div id="dim-background" onclick="closePopUp()"  style="display:none;"></div>
             <div id="navigation-container">
                 <div id="view-recipe" class="view-page-button" onclick="viewRecipes()"><div class="vertically-allign-text"><i class="fas fa-folder-open"></i></div></div>
                 <div id="view-pantry" class="view-page-button" onclick="viewPantry()"><i class="fas fa-carrot"></i></div>
                 <div id="view-shopping-list" class="view-page-button" onclick="viewShoppingList()"> <i class="fas fa-shopping-cart"></i></div>
-                <div style="position:absolute; height:45px; width:100%;background-color:forestgreen;z-index:-1;"></div>
+                <div id="background-top-bar" style="position:absolute; height:45px; width:100%;background-color:#444;z-index:-1;"></div>
             </div>
 
             <!-- RECIPES PAGE -->
@@ -249,15 +266,16 @@
                 <button onclick="showAvailableRecipes()" id="show-available-recipes">Available</button>
                 <button onclick="showAllRecipes()" id="show-all-recipes">All</button>
                 <button id="star-filled-button" onclick="filterFavoriteRecipes()"><div id="star-filled"><i class='far fa-star'></i></div></button>
-                <button onclick="viewCustomRecipe()"><i class="fas fa-plus"></i></button>
                 <button onclick="filterRecipes()" id="show-filter"><i class="fas fa-search"></i></button>
+
+                <button onclick="viewCustomRecipe()"><i class="fas fa-plus"></i></button>
                 <input id="filter-recipe-input" style="display:none;" placeholder="Search" onkeyup="updateRecipeDOM()"></input>
                 <div style="margin-top:10px;" id="filter-words"></div>
                 <div class="instructions" id="tip-2">
                     <div class="close-info" onclick="closeTip(2)">X</div>    
                     <div class="instruction-tip"><b>'Available'</b> - Displays only recipes that you have ingredients for.</div>
                     <div class="instruction-tip"><b>'All'</b> - Displays all recipes in your cook book.</div>
-                    <div class="instruction-tip"><i class='fas fa-star' style="color:white;cursor:default;"></i> - Displays only favorite recipes.</div>
+                    <div class="instruction-tip"><i class='fas fa-star' style="cursor:default;"></i> - Displays only favorite recipes.</div>
                     <div class="instruction-tip"><b><i class="fas fa-plus"></i></b> - Add a custom recipe.</div>
                     <div class="instruction-tip"><b><i class="fas fa-search"></i></b> - Search for recipes, ingredients, or tags.</div>
                 </div>
@@ -271,20 +289,28 @@
             <div id="container-recipe-instructions" class="flex-child" style="display:none;">
                 <h2 id="recipe-selected-title">No Recipe Selected</h2>
                 <div id="recipe-source" style="display:none;"></div>
+
+                
+
+
                 <div class="instructions" id="tip-3">
                     <div class="close-info" onclick="closeTip(3)">X</div>    
-                    <div class="instruction-tip"><i class='fas fa-star' style="color:white;cursor:default;"></i> - Favorite or unfavorite a recipe.</div>
+                    <div class="instruction-tip"><i class='fas fa-star' style="cursor:default;"></i> - Favorite or unfavorite a recipe.</div>
                     <div class="instruction-tip"><i class="fas fa-share-square"></i> - Share this recipe.</div>
                     <div class="instruction-tip"><i class="fas fa-thumbtack"></i> - Pin a recipe to the top of your cookbook.</div> 
                 </div>
 
+                
+
                 <div class="instructions" id="tip-4">
                     <div class="close-info" onclick="closeTip(4)">X</div>    
                     <div class="instruction-tip"> <b>Required and optional ingredients can be manipulated by clicking or tapping.</b> </div>
-                    <div class="instruction-tip"> <span style="color:black;"><b>'In Pantry'</b></span> - Item is in your panty. Select to remove from pantry.</div>
-                    <div class="instruction-tip"> <span style="color:darkred;"><b>'Missing'</b></span> - Item is not in your pantry or on your shopping list. Select to add to shopping list.</div>
-                    <div class="instruction-tip"> <span style="color:blue;"><b>'On Shopping List'</b></span> - Item is on your shopping list. Select to mark as missing.</div>
+                    <div class="instruction-tip"> <span id="pantry-color"><b>'In Pantry'</b></span> - Item is in your panty. Select to remove from pantry.</div>
+                    <div class="instruction-tip"> <span id="missing-color"><b>'Missing'</b></span> - Item is not in your pantry or on your shopping list. Select to add to shopping list.</div>
+                    <div class="instruction-tip"> <span id="shopping-list-color"><b>'On Shopping List'</b></span> - Item is on your shopping list. Select to mark as missing.</div>
                 </div>
+
+                
 
                 <h3 id="recipe-selected-ingredients-title"></h3>
                 <div id="recipe-selected-ingredients"></div>
@@ -295,12 +321,18 @@
                 <h3 id="recipe-selected-ingredients-optional-title"></h3>
                 <div id="recipe-selected-ingredients-optional"></div>
 
+                <div id="recipe-image"></div>
+
                 <h3 id="recipe-selected-tags-title"></h3>
                 <div id="recipe-selected-tags"></div>
                 <div class="instructions" id="tip-5">
                     <div class="close-info" onclick="closeTip(5)">X</div>    
                     <div class="instruction-tip">Click or tap a tag to search by it. Not all recipes have tags.</div>
                 </div>
+
+                
+                <br>
+                <br>
             </div>
 
             <!-- Add INGREDIENT PAGE -->
@@ -350,16 +382,22 @@
             <!-- SHARE PAGE -->
             <div id="share" style="display:none;">
                 <div id="close-share" onclick="closeShare()">X</div>
-                <h2>Share this link:</h2>
-                <textarea id="share-area" placeholder="This should contain a link." name="paragraph_text" cols="25" rows="5"></textarea><br>
-                <button onclick="copyToClipboard('share-area')">Copy Link</button>
+                <h2 id="share-header">Share this link:</h2>
+
+                <div class="button-options">
+                    <div class="min-button" onclick="copyToClipboard('share-area')"> <i class="fas fa-clipboard"></i> COPY</div>
+                    <i>Copy link and send to family or friend over text, social media, or email.</i>
+                </div>
+                <!-- <button onclick="copyToClipboard('share-area')">Copy</button> -->
+                <textarea id="share-area" placeholder="This should contain a link." name="paragraph_text" style="width: calc(100% - 30px);" rows="7"></textarea><br>
+                
             </div>
 
             <!-- CATEGORY PAGE -->
             <div id="category"  style="display:none;">
                 
                 <div id="close-category" onclick="closeCategory()">X</div>
-                <h2>Choose a color:</h2>
+                <h2 id="category-header">Choose a color:</h2>
 
                 <div id="dot-container">
                     <div onclick="selectColor('grey')" class='s-dot c-grey'></div>
@@ -369,14 +407,21 @@
                     <div onclick="selectColor('green')" class='s-dot c-green'></div>
                     <div onclick="selectColor('blue')" class='s-dot c-blue'></div>
                 </div>
-                
+
+                <div class="spacer" style="padding: 5px 5;cursor:default;">
+                    Pin To Shopping List
+                    <label class="switch">
+                        <input id="ingredient-pin" type="checkbox" onchange="pinToShoppingListSwitch()">
+                        <span class="slider round"></span>
+                    </label> 
+                </div>
                 <!-- <textarea id="share-area" placeholder="This should contain a link." name="paragraph_text" cols="25" rows="5"></textarea><br> -->
                 <!-- <button onclick="copyToClipboard('share-area')">Copy Link</button> -->
             </div>
 
             <!-- HELP PAGE -->
             <div id="container-help" class="flex-child" style="display:none;">
-                <h2><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Help</h2>
+                <h2 class="go-back"  onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow'></i> Help</h2>
                 <h2>Options</h2>
                 
                 <!-- <button onclick="exportLocalSavedData()"> Export Data</button>
@@ -384,47 +429,60 @@
                 Export and import all of your local data.
                 <hr> -->
                 <!-- Rounded switch -->
-                <label class="switch">
-                    <input id="dark-mode-setting" type="checkbox" onchange="darkModeSwitch()">
-                    <span class="slider round"></span>
-                </label> 
-                <br>
-                Darkmode
+                <hr>
+                <div class="spacer" style="padding: 5px 5;cursor:default;">
+                    Darkmode
+                    <label class="switch">
+                        <input id="dark-mode-setting" type="checkbox" onchange="darkModeSwitch()">
+                        <span class="slider round"></span>
+                    </label> 
+                </div>
+
+             
                 <hr>
 
-                <button onclick="loadStartPage()"> View Opening Walkthrough</button><br><br>
-                Shows the opening tutorial.
-                <hr>
-                <button onclick="showMiniTutorials()"> Show all mini tutorials</button><br><br>
-                Shows all of the mini tutorials that you have hidden. They will remain visible until you close them again.
-                <hr>
-                <button onclick="clearLocalSavedData()"> Clear Local Saved Data</button><br><br>
-                <span style="color:darkred"><b>Warning</b></span> - This will factory reset 'panty'. You will loose all custom ingredients 
-                all custom recipes, all custom ingredients, your pantry, and your shopping list. 
+                <div class="button-options">
+                    <div class="min-button" onclick="loadStartPage()"> VIEW</div>
+                    View introduction.
+                </div>
+
+                <div class="button-options">
+                    <div class="min-button" onclick="showMiniTutorials()"> SHOW</div>
+                    Show mini tutorials.
+                </div>
+
+                <div class="button-options">
+                    <div class="min-button" onclick="clearLocalSavedData()"> CLEAR</div>
+                    Clear all data.
+                </div>
+
                 <hr>
 
                 
 
                 <div class="wrap-collabsible">
                     <input id="collapsible" class="toggle" type="checkbox">
-                    <label for="collapsible" class="lbl-toggle">Q & A</label>
+                    <label for="collapsible" class="lbl-toggle">Planned Features</label>
                     <div class="collapsible-content">
                         <div class="content-inner">
                             <p><b>What are some planned features?</b></p>
-                            <p> - Export and import all data. </p> 
-                            <p> - Delete & Edit Recipes. </p>
-                            <p> - Pin ingredients to shopping list. </p>
-                            <p> - Custom recipe validation.</p>
-                            <p> - Search by second word in an ingredient.</p>
-                            <p> - Alternate searchable options for ingredients e.g. spice, hamburger</p>
-                            <p> - Possible support for photos using link.</p>
-                            <p> - Remove custom ingredients.</p>
-                            <p> - Add phone app icon and instructions.</p>
-                            <p> - Add achievements.</p>
-                            <p> - X next to search bar.</p>
-                            <p> - When going to a new page scroll to top.</p>
-                            <p> - Bug: uncategorized shopping cart items grey is different then c-grey.</p>
-                            <p> - Bug: could not remove last rice from pantry.</p>
+                            <p>Export and import all data. </p> 
+                            <p>Delete & Edit Recipes. </p>
+                            <p>Pin ingredients to shopping list. </p>
+                            <p>Custom recipe validation.</p>
+                            <p>Search by second word in an ingredient.</p>
+                            <p>Alternate searchable options for ingredients e.g. spice, hamburger</p>
+                            <p>Refine photo use.</p>
+                            <p>Remove custom ingredients.</p>
+                            <p>Add phone app icon and instructions.</p>
+                            <p>Add achievements.</p>
+                            <p>X next to search bar.</p>
+                            <p>When going to a new page scroll to top.</p>
+                            <p>School App Competition.</p>
+                            <p>More colors, image splashes etc...</p>
+                            <p>Bug: uncategorized shopping cart items grey is different then c-grey.</p>
+                            <p>Bug: Should check URLs for not safe characters. </p>
+
                             <p></p>
                         </div>
                     </div>
@@ -435,6 +493,13 @@
                     <label for="collapsible2" class="lbl-toggle">Change Log</label>
                     <div class="collapsible-content">
                         <div class="content-inner">
+                            <h3>5/-/2021 - Beta? - 3000 LOC</h3>
+                            <p>Color schemes improved and better implemented.</p>
+                            <p>Initial support for photos using link.</p>
+                            <p>Improved notifications.</p>
+                            <p>Bug Fixed: Could not remove last ingredient from pantry.</p>
+                            <p>Bug Fixed: URLs to share now use only unreserved characters.</p>
+
                             <h3>5/16/2021 - The Dalaurian - 3000 LOC</h3>
                             <p>Added sorted categories to shopping cart. </p>
                             <p>Added mini tutorials. </p>
@@ -470,25 +535,25 @@
                 <h2 class="go-back" onclick='viewRecipes()'><i class='fas fa-arrow-left back-arrow'></i> Add Custom Recipe</h2>
                 <!-- <div style="color:red;"><i>*required</i></div> -->
                 <!-- <div><b>Recipe Name:</b><span style="color:red;">*</span></div> -->
-                <input id="custom-name-input" placeholder="Recipe Name" style="width: 90%;"></input><br>
+                <input id="custom-name-input" placeholder="Recipe Name" style="width: calc(100% - 30px);"></input><br>
 
 
                 <!-- <div><b>Recipe Source:</b></div> -->
-                <input id="custom-source-input" placeholder="Recipe Source (Optional) " style="width: 90%;"></input> <br><br>
+                <input id="custom-source-input" placeholder="Recipe Source (Optional) " style="width: calc(100% - 30px);"></input> <br><br>
 
                 <div><b>Required Ingredients:</b></div>
                 <div class="instructions" id="tip-1">
                     <div class="close-info" onclick="closeTip(1)">X</div>    
-                    <div class="instruction-tip"><b>'Quantity Prefix'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>The prefix is not included in ingredient search.</i> </div>
+                    <div class="instruction-tip"><b>'Quantity'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>The prefix is not included in ingredient search.</i> </div>
                 </div>
-                <input id="custom-ingredients-prefix" placeholder="Quantity Prefix (Optional)"></input>
+                <input id="custom-ingredients-prefix" placeholder="Quantity (Optional)"></input>
                 <input id="custom-ingredients-input" onkeyup="suggestCustomIngredient()" placeholder="Search Ingredient"></input>
                 <div id="recipe-ingredients-custom-results"></div>
                 <div id="recipe-added-ingredients"></div>
           
 
                 <!-- <div><b>Instructions:</b></div> -->
-                <textarea id="custom-instructions-input" placeholder="Preparation Instructions (Optional)" name="paragraph_text" rows="5" style="width: 90%;"></textarea>
+                <textarea id="custom-instructions-input" placeholder="Preparation Instructions (Optional)" name="paragraph_text" rows="5" style="width: calc(100% - 30px);"></textarea>
                 <br>
 
                 <!-- <div><b>Tags:</b></div> -->
@@ -501,7 +566,8 @@
                 <br>
                 
                 <button onclick="addCustomRecipe()">Add Custom Recipe</button><br>
-             
+                <br>
+                <br>
 
             </div>
 
