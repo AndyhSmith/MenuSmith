@@ -23,8 +23,11 @@
     
     <script src="https://kit.fontawesome.com/68a99d09f4.js" crossorigin="anonymous"></script>
     <!-- CSS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="index.css?2"></link>
     <link type="text/css" rel="stylesheet" href="js-snackbar.min.css"></link>
+
     
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -447,6 +450,14 @@
                     </label> 
                 </div>
 
+                <div class="spacer" style="padding: 5px 5;cursor:default;">
+                    Data Saver (No Images)
+                    <label class="switch">
+                        <input id="data-saver-setting" type="checkbox" onchange="dataSaverSwitch()">
+                        <span class="slider round"></span>
+                    </label> 
+                </div>
+
              
                 <hr>
 
@@ -509,9 +520,11 @@
                             <p>Alternate searchable options for ingredients e.g. spice, hamburger</p>
                             <p>Remove custom ingredients.</p>
                             <p>Add achievements.</p>
+                            <p>Warning to close all tabs if receiving custom recipe.</p>
                             <p>Data Saver Setting / Don't show photos.</p>
                             <p>More colors, images, splashes etc...</p>
                             <p>Help for adding custom image urls.</p>
+                            <p>Enter submits values in forms.</p>
                             <p>Bug: uncategorized shopping cart items grey is different then c-grey.</p>
                             <p>Bug: clicking backdrop will not reload page.</p>
                             <p></p>
@@ -545,6 +558,7 @@
                             <p>Color schemes improved and better implemented.</p>
                             <p>Mobile web app support.</p>
                             <p>Custom recipes now fully implemented.</p>
+                            <p>DataSaver setting added.</p>
                             <p>Form to get feedback and custom recipes from users.</p>
                             <p>Bug Fixed: Could not remove last ingredient from pantry.</p>
                             <p>Bug Fixed: URLs to share now use only unreserved characters.</p>
@@ -617,6 +631,7 @@
                 <input id="custom-image-url" placeholder="Image URL (Optional)"></input>
                 <button onclick="addCustomImageURL()">Add Image Link</button><br><br>
                 <div id="custom-image-url-tags"></div>
+                <div id="image-link-error"></div>
                 <br>
 
 
@@ -633,6 +648,7 @@
            
         </div>
         <br>
+        <div id="footer-tip">Hello this is some really inspiring message!</div>
         <p id="footer" style="width: 100%;text-align:center;font-size: 10px;"><i>&copy; 2021, Andy Smith. All Rights Reserved | v. Alpha 0.4</i></p>
     </div>
     <script src="./js-snackbar.min.js"></script>

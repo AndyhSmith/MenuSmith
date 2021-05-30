@@ -427,3 +427,38 @@ var recipes = [
         image: ["https://healthyhappylife.com/wp-content/uploads/2016/08/2016_08_04_bychloe_9999_24sweet-potato-fries-cream-cashew2000kathy-patalskyvegan-dip.png"]
     },
 ]
+
+
+
+var tips = [
+    {message:"FACT: You have a 3% chance of reading this message."},
+
+    {message:"TIP: Do you love handwritten shopping lists? Great, Keep using it! After shopping you can manually add items directly into your pantry."},
+    {message:"TIP: If you buy an ingredient every week you can pin it to your shopping list."},
+    {message:"TIP: If you buy an ingredient every week you can pin it to your shopping list."},
+    {message:"TIP: You can see all of your favorite recipes that use egg by searching 'egg' and selecting the favorite star."},
+    {message:"If you haven't tried dark mode you definitely should!"},
+    {message:"TIP: To speed up entering a custom recipe you can use the 'TAB' button to select the next input field."},
+    {message:"TIP: Make sure you add your own recipes!"},
+    {message:"TIP: Even if someone doesn't use Pantry you can easily send a custom recipe to them!"},
+    {message:"Pantry has no log in or sign up. Everything is stored locally on your device. Even if we did get hacked they would have none of your information!"},
+    {message:"Your shopping list and custom recipes can only be viewed by you unless you share them. Even we can't see them!"},
+    {message:"TIP: Different members of your family can add things to their own shopping list. Just make sure they share that list with you before you go shopping!"},
+    {message:"When you feel like you have nothing to cook, 'Pantry' will suggest meals using the ingredients you have."},
+    {message:"TIP: That green circle in the bottom right corner contains information and settings."},
+    {message:"TIP: If you shop at different stores you can categorize your ingredients to correspond with different stores."},
+    {message:"\"Maybe plants are really farming us, giving us oxygen until we eventually expire and turn into mulch which they can consume\" - u/ergotpoisoning"},
+    {message:"If you have a great idea for this website please suggest it using a form in the settings menu!"},
+    {message:"Not all of the ingredients in our ingredient list are real..."},
+    {message:"\"It's sad that having real ingredients in food products is a selling point.\" - u/LaFerrari2305"},
+    {message:"\"We eat a pizza from the inside out\" - u/Polarbear58"},
+    {message:"\"One of the great things about cooking your own food is the sweet certainty that any hair in it is yours.\" - u/pherman2"},
+    {message:"If you have a classic recipe that you think everyone will love please submit it in the settings menu!"},
+    {message:"TIP: When adding a custom recipe try to keep the ingredient list simple. For example you can leave off salt and water from the ingredient list and just mention them in your cooking instructions."},
+    {message:"TIP: You can pin recipes you are planning to cooking this week to the top of your recipe list. That way you can find them easily!"},
+    {message:"TIP: If you have a lot of recipes to enter have a friend help you add them on their phone or computer. They can then easily share those recipes with you!"},
+    {message:"TIP: You should only have pantry open in one tab on your device. Close all other tabs otherwise you could loose your recent data."},
+    {message:"If something doesn't seem to be working please contact us immediately using the form in the settings menu."},
+    {message:"TIP: Lots of ingredients can be substituted for other ingredients. For example if a recipe calls for lime juice you could probably also use lemon juice."},
+
+]

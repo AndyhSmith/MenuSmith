@@ -23,7 +23,7 @@ var csNormal = {
     selectedNavTextColor: "white",
     
     // Background color of nav button
-    normalBackgroundColor: "#999",
+    normalBackgroundColor: "forestgreen",  //"#999",
     
     // border bottom color
     normalColor: "4px solid rgba(0,0,0,0)",
@@ -184,6 +184,7 @@ function applyColorScheme() {
     // custom recipes warning
     document.getElementById("custom-recipe-name-warning").style.color = cs.missing
     document.getElementById("custom-recipe-name-warning2").style.color = cs.missing
+    document.getElementById("image-link-error").style.color = cs.missing
 
 }
 
@@ -207,6 +208,15 @@ function darkModeSwitch() {
     applyColorScheme() 
 }
 
+
+function dataSaverSwitch() {
+    if (settings.dataSaver) {
+        settings.dataSaver = false
+    } else {
+        settings.dataSaver = true
+    }
+    localStorage.setItem('settings', JSON.stringify(settings));
+}
 
 
 //#################################################################################
@@ -305,8 +315,8 @@ function sortPinned(theList) {
 // L O C A L   S T O R A G E   &   S E T U P
 //#################################################################################
 
-var siteURL = "http://localhost:8000/"
-// var siteURL = "https://pantry.andyhsmith.com/"
+// var siteURL = "http://localhost:8000/"
+var siteURL = "https://pantry.andyhsmith.com/"
 // Clear Parameters
 
 
@@ -346,11 +356,13 @@ if (!localStorage.hiddenTips) {
 }
 
 var settings = {
-    darkMode: false
+    darkMode: false,
+    dataSaver: false,
 }
 if (!localStorage.settings) {
     localStorage.settings = JSON.stringify({
-        darkMode: false
+        darkMode: false,
+        dataSaver: false
     })
 }
 
@@ -448,6 +460,10 @@ function initSettings() {
         darkMode()
         applyColorScheme()
         document.getElementById("dark-mode-setting").checked = true;
+    }
+
+    if (settings.dataSaver) {
+        document.getElementById("data-saver-setting").checked = true;
     }
 }
 
@@ -664,7 +680,7 @@ function closePopUp() {
 var userSelectedDot = null
 function clickedACategoryDot(itemName) {
     userSelectedDot = itemName
-    document.getElementById("dark-mode-setting").checked = true;
+
     document.getElementById("category").style.display = "inline"
     document.getElementById("dim-background").style.display = "inline"
 
@@ -1233,9 +1249,9 @@ function addRemoveRecipeFromPinnedRecipes(recipeID) {
     localStorage.setItem('pinnedRecipes', JSON.stringify(pinnedRecipes));
     selectRecipeDOM(recipeID)
     if (index > -1) { // if favorite
-        toast("Removed pin", successToast)
+        toast("Unpinned", successToast)
     } else { // if not favorite
-        toast("Added pin", successToast)
+        toast("Pinned", successToast)
     }
 }
 
@@ -1275,12 +1291,18 @@ function selectRecipeDOM(recipeID) {
 
 
     // Recipe Image
+    
     document.getElementById("recipe-image").style.display = "none"
     if (recipes[recipeID].image) {
         document.getElementById("recipe-image").style.display = "block"
+
         let builtContents = ""
-        for (let srcLink in recipes[recipeID].image) {
-            builtContents += "<img class='recipe-img' onclick='fullscreenImage(" + srcLink + ")' src='" + recipes[recipeID].image[srcLink] + "'>"
+        if (!settings.dataSaver) {
+            for (let srcLink in recipes[recipeID].image) {
+                builtContents += "<img class='recipe-img' onclick='fullscreenImage(" + srcLink + ")' src='" + recipes[recipeID].image[srcLink] + "'>"
+            }
+        } else {
+            builtContents = "<div style='opacity:.6;font-size: 12px;width: 100%;text-align:center;'><i>Switch off DataSaver to see images.</i></div>"
         }
         document.getElementById("recipe-image").innerHTML = builtContents
         
@@ -1575,10 +1597,14 @@ function addIngredientToCustomRecipeOptional(theIndex) {
 
 var imageURLs = []
 function addCustomImageURL() {
-    imageURLs.push(document.getElementById("custom-image-url").value)
-    document.getElementById("custom-image-url").value = ""
-    updateCustomImageURLDOM()
-
+    document.getElementById("image-link-error").innerHTML = ""
+    if (document.getElementById("custom-image-url").value != "") {
+        imageURLs.push(document.getElementById("custom-image-url").value)
+        document.getElementById("custom-image-url").value = ""
+        updateCustomImageURLDOM()
+    } else {
+        document.getElementById("image-link-error").innerHTML = "You have to enter a link to the photo."
+    }
 }
 
 function updateCustomImageURLDOM() {
@@ -2016,8 +2042,13 @@ function clearStyle() {
     document.getElementById("view-pantry").style.borderBottom = cs.normalColor
     document.getElementById("view-recipe").style.borderBottom = cs.normalColor
     scroll(0,0)
+    changeTip()
 }
 
+function changeTip() {
+    var aTip = tips[Math.floor(Math.random() * tips.length)];
+    document.getElementById("footer-tip").innerHTML = aTip.message
+}
 
 
 var previousPage = ""

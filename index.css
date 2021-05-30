@@ -9,6 +9,13 @@
     opacity: .6;
 }
 
+#footer-tip {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 18px;
+    text-align:center;
+    width: 100%;
+    opacity: .8;
+}
 .recipe-img:hover {
     opacity: .6;
 }
@@ -208,6 +215,7 @@ button:hover {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+    color: white;
 }
 
 .tag:hover {
@@ -240,7 +248,7 @@ button:hover {
 
 .view-page-button:hover {
     /* background: forestgreen !important; */
-    opacity: .9;
+    opacity: .8;
     transition: all .3s ease;
     color: white !important;
     /* border-bottom-color: #1bb444; */
