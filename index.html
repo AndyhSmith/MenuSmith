@@ -269,7 +269,10 @@
                 <button onclick="filterRecipes()" id="show-filter"><i class="fas fa-search"></i></button>
 
                 <button onclick="viewCustomRecipe()"><i class="fas fa-plus"></i></button>
-                <input id="filter-recipe-input" style="display:none;" placeholder="Search" onkeyup="updateRecipeDOM()"></input>
+                <div id="filter-recipe-container" style="display:none;">
+                    <button onclick="clearMainSearch()"><i class="fas fa-times"></i></button>
+                    <input id="filter-recipe-input" placeholder="Search" onkeyup="updateRecipeDOM()"></input>
+                </div>
                 <div style="margin-top:10px;" id="filter-words"></div>
                 <div class="instructions" id="tip-2">
                     <div class="close-info" onclick="closeTip(2)">X</div>    
@@ -283,6 +286,12 @@
                 <div id="recipe-results"></div>
                 <br>
                 <br>
+            </div>
+
+            <!-- SELECTED IMAGE -->
+            <!-- <div id="background-darken" onclick="closeBigImageBackground()"></div> -->
+            <div id="selected-image" style="display:none;" onclick="closeBigImageBackground()">
+                <!-- <div id="background-darken" onclick="closeBigImageBackground()"></div> -->
             </div>
 
             <!-- RECIPE PAGE -->
@@ -422,7 +431,7 @@
             <!-- HELP PAGE -->
             <div id="container-help" class="flex-child" style="display:none;">
                 <h2 class="go-back"  onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow'></i> Help</h2>
-                <h2>Options</h2>
+                <h2>Settings</h2>
                 
                 <!-- <button onclick="exportLocalSavedData()"> Export Data</button>
                 <button onclick="importLocalSavedData()"> Import Data</button><br><br>
@@ -457,74 +466,115 @@
                 </div>
 
                 <hr>
+                <div class="button-options">
+                    <div class="min-button"> <a href="https://forms.gle/qMmybxFTLvMFsfZk9" target="_blank">COMMENT</a> </div>
+                    Submit feedback or a recommendation to the developer.
+                </div>
+                <div class="button-options">
+                    <div class="min-button" ">  <a href="https://forms.gle/dHtqGnxNrZp4Qvxk9" target="_blank">RECIPE</a></div>
+                    Submit your custom recipe to be added to everyone's permanent cookbook.
+                </div>
+                <hr>
 
-                
+                <div class="wrap-collabsible">
+                    <input id="collapsible3" class="toggle" type="checkbox">
+                    <label for="collapsible3" class="lbl-toggle">&#9660; Mobile Web App</label>
+                    <div class="collapsible-content">
+                        <div class="content-inner">
+                            <h3>iPad or iPhone</h3>
+                            <ol>
+                                <li>Launch "Safari" app. This does not work in the "Chrome" app.</li>
+                                <li>At the bottom of your web browser tap the share button.</li>
+                                <img src="res/share.png" style="width: 50px;">
+                                <li>Scroll down and tap on 'Add to Home Screen'.</li>
+                                <li>You should see a preview of the app. Select add in the top right corner.</li>
+                                <li>Safari will close automatically and you should see the new web app. </li>
+                              </ol>  
+                            <h3>Android</h3>
+                            <ol>
+                                <li>Tap the menu icon (3 dots in upper right-hand corner) and tap Add to homescreen.</li>
+                            </ol>  
+                        </div>
+                    </div>
+                </div><br>
 
                 <div class="wrap-collabsible">
                     <input id="collapsible" class="toggle" type="checkbox">
-                    <label for="collapsible" class="lbl-toggle">Planned Features</label>
+                    <label for="collapsible" class="lbl-toggle">&#9660; Planned Features</label>
                     <div class="collapsible-content">
                         <div class="content-inner">
-                            <p><b>What are some planned features?</b></p>
                             <p>Export and import all data. </p> 
                             <p>Delete & Edit Recipes. </p>
-                            <p>Pin ingredients to shopping list. </p>
-                            <p>Custom recipe validation.</p>
                             <p>Search by second word in an ingredient.</p>
                             <p>Alternate searchable options for ingredients e.g. spice, hamburger</p>
-                            <p>Refine photo use.</p>
                             <p>Remove custom ingredients.</p>
-                            <p>Add phone app icon and instructions.</p>
                             <p>Add achievements.</p>
-                            <p>X next to search bar.</p>
-                            <p>When going to a new page scroll to top.</p>
-                            <p>School App Competition.</p>
-                            <p>More colors, image splashes etc...</p>
+                            <p>Data Saver Setting / Don't show photos.</p>
+                            <p>More colors, images, splashes etc...</p>
+                            <p>Help for adding custom image urls.</p>
                             <p>Bug: uncategorized shopping cart items grey is different then c-grey.</p>
-                            <p>Bug: Should check URLs for not safe characters. </p>
-
+                            <p>Bug: clicking backdrop will not reload page.</p>
                             <p></p>
                         </div>
                     </div>
                 </div><br>
 
                 <div class="wrap-collabsible">
-                    <input id="collapsible2" class="toggle" type="checkbox">
-                    <label for="collapsible2" class="lbl-toggle">Change Log</label>
+                    <input id="collapsible4" class="toggle" type="checkbox">
+                    <label for="collapsible4" class="lbl-toggle">&#9660; Special Thanks</label>
                     <div class="collapsible-content">
                         <div class="content-inner">
-                            <h3>5/-/2021 - Beta? - 3000 LOC</h3>
-                            <p>Color schemes improved and better implemented.</p>
-                            <p>Initial support for photos using link.</p>
+                            <p>To my supportive wife. </p> 
+                            <p>To my sister in law for some of the initial ideas. </p> 
+                            <p>To my mom and brothers for their ideas, testing, and support. </p> 
+                            
+                        </div>
+                    </div>
+                </div><br>
+
+
+                <div class="wrap-collabsible">
+                    <input id="collapsible2" class="toggle" type="checkbox">
+                    <label for="collapsible2" class="lbl-toggle">&#9660; Change Log</label>
+                    <div class="collapsible-content">
+                        <div class="content-inner">
+                            <h3>5/30/2021 - Beta? <br><i>Alpha 0.4 - 3400 LOC</i></h3>
+                            <p>Pin ingredients to shopping list. </p>
+                            <p>Support for photos using a link.</p>
                             <p>Improved notifications.</p>
+                            <p>Color schemes improved and better implemented.</p>
+                            <p>Mobile web app support.</p>
+                            <p>Custom recipes now fully implemented.</p>
+                            <p>Form to get feedback and custom recipes from users.</p>
                             <p>Bug Fixed: Could not remove last ingredient from pantry.</p>
                             <p>Bug Fixed: URLs to share now use only unreserved characters.</p>
+                            <br>
 
-                            <h3>5/16/2021 - The Dalaurian - 3000 LOC</h3>
-                            <p>Added sorted categories to shopping cart. </p>
+                            <h3>5/16/2021 - The Dalaurian <br><i>Alpha 0.3 - 2400 LOC</i></h3>
+                            <p>Added category clustering to shopping cart. </p>
                             <p>Added mini tutorials. </p>
-                            <p>Recipe search changed to not have tag style. </p>
-                            <p>Added ability to share shopping cart. </p>
-                            <p>Added more icons.</p>
-                            <p>Clear ingredient search button.</p>
+                            <p>Recipe search is now parsed on the go. </p>
+                            <p>Added ability to share shopping cart and recipe. </p>
+                            <p>Converted a lot of text into icons</p>
                             <p>Pin recipes to top of cookbook. </p>
-                            <p>Hired some pest control for all the bugs.</p>
-                            <p>Dark mode & support for color themes.</p>
-                            <p>Share Recipe. </p> 
+                            <p>Initial framework for dark mode & support for color themes.</p>
+                            <p>Fixed so many bugs.</p>
+                            <br>
 
-                            <h3>5/1/2021 - Ben who? Ben why? Ben thanks! - 1700 LOC</h3>
-                            <p>Added recipe favorites.</p>
+                            <h3>5/1/2021 - Ben who? Ben why? Ben thanks! <br><i>Alpha 0.2 - 1700 LOC</i></h3>
+                            <p>Who wouldn't want to favorite a recipe?</p>
                             <p>Added custom recipes and ingredients.</p>
-                            <p>Added source to recipes.</p>
-                            <p><i>Fixed tutorial not visible on mobile.</i></p>
-                            <p><i>Fixed a broken shopping cart.</i></p>
+                            <p><i>Bug Fixed: Tutorial not visible on mobile.</i></p>
+                            <p><i>Bug Fixed: A broken shopping cart.</i></p>
+                            <br>
 
-                            <h3>4/27/2021 - The Beginning - 1500 LOC</h3>
+                            <h3>4/27/2021 - The Beginning <br><i>Alpha 0.1 - 1500 LOC</i></h3>
                             <p>Will this even work?</p>
-                            <p>Built the framework and added a few recipes and ingredients.</p>
-                            <p>Added communication between Shopping Car and Pantry.</p>
+                            <p>The Shopping Car and Pantry now are on a talking basis.</p>
                             <p>Interactive recipes, filtering, and tags. </p>
-                            <p>Created the initial color scheme and design.</p>
+                            <p>Making design and plans, and changing them ... a lot. </p>
+                            <p>Why is picking a color so hard? I guess my wife's favorite color is green...</p>
+                            <br>
                         </div>
                     </div>
                 </div>   
@@ -533,8 +583,7 @@
             <!-- CUSTOM RECIPE PAGE -->
             <div id="container-custom-recipe" class="flex-child" style="display:none;">
                 <h2 class="go-back" onclick='viewRecipes()'><i class='fas fa-arrow-left back-arrow'></i> Add Custom Recipe</h2>
-                <!-- <div style="color:red;"><i>*required</i></div> -->
-                <!-- <div><b>Recipe Name:</b><span style="color:red;">*</span></div> -->
+                <div id="custom-recipe-name-warning" style="color:red;"></div>
                 <input id="custom-name-input" placeholder="Recipe Name" style="width: calc(100% - 30px);"></input><br>
 
 
@@ -544,8 +593,10 @@
                 <div><b>Required Ingredients:</b></div>
                 <div class="instructions" id="tip-1">
                     <div class="close-info" onclick="closeTip(1)">X</div>    
-                    <div class="instruction-tip"><b>'Quantity'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>The prefix is not included in ingredient search.</i> </div>
+                    <div class="instruction-tip"><b>'Quantity'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>This is not included in ingredient search.</i> </div>
                 </div>
+
+                
                 <input id="custom-ingredients-prefix" placeholder="Quantity (Optional)"></input>
                 <input id="custom-ingredients-input" onkeyup="suggestCustomIngredient()" placeholder="Search Ingredient"></input>
                 <div id="recipe-ingredients-custom-results"></div>
@@ -556,23 +607,33 @@
                 <textarea id="custom-instructions-input" placeholder="Preparation Instructions (Optional)" name="paragraph_text" rows="5" style="width: calc(100% - 30px);"></textarea>
                 <br>
 
-                <!-- <div><b>Tags:</b></div> -->
-                <!-- <div><i>Enter single word tags separated by spaces.</i></div> -->
-                <!-- <input id="custom-recipe-tags" placeholder="Optional Ingredients (Optional)" style="width: 90%;"></input> -->
+                <!-- Optional ingredients -->
+                <div><b>Optional Ingredients:</b></div>
+                <input id="custom-ingredients-input-optional" onkeyup="suggestCustomIngredientOptional()" placeholder="Search Ingredient (Optional)"></input>
+                <div id="recipe-ingredients-custom-results-optional"></div><br>
+                <div id="recipe-added-ingredients-optional"></div><br>
 
-                <!-- <div><b>Tags:</b></div> -->
+                <div><b>Image Link:</b></div>
+                <input id="custom-image-url" placeholder="Image URL (Optional)"></input>
+                <button onclick="addCustomImageURL()">Add Image Link</button><br><br>
+                <div id="custom-image-url-tags"></div>
+                <br>
+
+
                 <div><i>Enter single word tags separated by spaces.</i></div>
                 <input id="custom-recipe-tags" placeholder="Tags (Optional)"></input>
-                <br>
+                <br><br>
                 
-                <button onclick="addCustomRecipe()">Add Custom Recipe</button><br>
-                <br>
+                <button onclick="addCustomRecipe()">Add Custom Recipe</button><br><br>
+                <div id="custom-recipe-name-warning2" style="color:red;"></div>
                 <br>
 
             </div>
 
            
         </div>
+        <br>
+        <p id="footer" style="width: 100%;text-align:center;font-size: 10px;"><i>&copy; 2021, Andy Smith. All Rights Reserved | v. Alpha 0.4</i></p>
     </div>
     <script src="./js-snackbar.min.js"></script>
     <script src="./ingredients.js?3"></script>
