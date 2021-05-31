@@ -246,9 +246,9 @@
         </div>
     </div>
     
-    <div onclick="viewHelp()" id="help-option">
-        <span><i class="fas fa-cogs"></i></span>
-    </div>
+
+    <i onclick="viewHelp()" id="help-option" class="fas fa-cogs"></i>
+
 
     
     <div class="flex-container">
@@ -341,7 +341,7 @@
                     <div class="close-info" onclick="closeTip(5)">X</div>    
                     <div class="instruction-tip">Click or tap a tag to search by it. Not all recipes have tags.</div>
                 </div>
-
+                <button id="delete-recipe" onclick="deleteRecipe()">Delete Custom Recipe</button>
                 
                 <br>
                 <br>
@@ -433,8 +433,8 @@
 
             <!-- HELP PAGE -->
             <div id="container-help" class="flex-child" style="display:none;">
-                <h2 class="go-back"  onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow'></i> Help</h2>
-                <h2>Settings</h2>
+                <h2 class="go-back"  onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow'></i> Settings & Info</h2>
+                <!-- <h2>Settings</h2> -->
                 
                 <!-- <button onclick="exportLocalSavedData()"> Export Data</button>
                 <button onclick="importLocalSavedData()"> Import Data</button><br><br>
@@ -521,10 +521,10 @@
                             <p>Remove custom ingredients.</p>
                             <p>Add achievements.</p>
                             <p>Warning to close all tabs if receiving custom recipe.</p>
-                            <p>Data Saver Setting / Don't show photos.</p>
                             <p>More colors, images, splashes etc...</p>
-                            <p>Help for adding custom image urls.</p>
-                            <p>Enter submits values in forms.</p>
+                            <p>Help page for adding custom image urls.</p>
+                            <p>Easy paste button for image urls.</p>
+                            <p>Enter should submit values in forms.</p>
                             <p>Bug: uncategorized shopping cart items grey is different then c-grey.</p>
                             <p>Bug: clicking backdrop will not reload page.</p>
                             <p></p>
@@ -559,6 +559,7 @@
                             <p>Mobile web app support.</p>
                             <p>Custom recipes now fully implemented.</p>
                             <p>DataSaver setting added.</p>
+                            <p>Tips added to footer.</p>
                             <p>Form to get feedback and custom recipes from users.</p>
                             <p>Bug Fixed: Could not remove last ingredient from pantry.</p>
                             <p>Bug Fixed: URLs to share now use only unreserved characters.</p>
@@ -604,11 +605,12 @@
                 <!-- <div><b>Recipe Source:</b></div> -->
                 <input id="custom-source-input" placeholder="Recipe Source (Optional) " style="width: calc(100% - 30px);"></input> <br><br>
 
-                <div><b>Required Ingredients:</b></div>
+                
                 <div class="instructions" id="tip-1">
                     <div class="close-info" onclick="closeTip(1)">X</div>    
-                    <div class="instruction-tip"><b>'Quantity'</b> - Use this to mark quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'. <i>This is not included in ingredient search.</i> </div>
+                    <div class="instruction-tip"><b>'Quantity'</b> - Use this field to mark ingredient quantity or extra preparation instructions. It will be displayed before your ingredient. e.g. '1/2 Cup', 'finely diced', '3 tsp'.</div>
                 </div>
+                <div><b>Required Ingredients:</b></div>
 
                 
                 <input id="custom-ingredients-prefix" placeholder="Quantity (Optional)"></input>
@@ -627,7 +629,11 @@
                 <div id="recipe-ingredients-custom-results-optional"></div><br>
                 <div id="recipe-added-ingredients-optional"></div><br>
 
-                <div><b>Image Link:</b></div>
+                <div class="instructions" id="tip-8">
+                    <div class="close-info" onclick="closeTip(8)">X</div>    
+                    <div class="instruction-tip"><b>'Image URLs'</b> - Enter a link to the image you want to use. The easiest way to get an image link is to right click an online photo and select 'copy image address'. <br><br>You can do this to your own photos once you have uploaded them onto any public site like Pinterest or Imgur.</div>
+                </div>
+                <div><b>Image URLs:</b></div>
                 <input id="custom-image-url" placeholder="Image URL (Optional)"></input>
                 <button onclick="addCustomImageURL()">Add Image Link</button><br><br>
                 <div id="custom-image-url-tags"></div>

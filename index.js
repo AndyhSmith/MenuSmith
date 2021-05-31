@@ -506,7 +506,7 @@ function checkURLParams() {
         }
         shoppingList = shoppingList.concat(newShoppingList)
         localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-        toast("loaded shopping list", successToast);
+        toast("Loaded Shopping List", successToast);
         viewShoppingList()
     }
 
@@ -611,7 +611,7 @@ function addCustomIngredient() {
         localStorage.setItem('customIngredients', JSON.stringify(customIngredients));
         addToShoppingList(getItemID(customIngredientName)) // add newly created ingredient to shopping list
         // document.getElementById("add-food").value = ""
-        toast(customIngredientName + " added", successToast);
+        toast(customIngredientName + " Added", successToast);
     }
     userAddFood()
 }
@@ -883,7 +883,7 @@ function shoppingListToPantry() {
 
     
 
-    toast("contents of shopping list moved to pantry", successToast);
+    toast("Shopping List Moved to Pantry", successToast);
     updateShoppingListDOM()
     saveLocalStorage()
 }
@@ -906,7 +906,7 @@ function singleItemFromShoppingListToPantry(itemShoppingListID) {
       
     updateShoppingListDOM() 
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-    toast(itemName + " added to pantry", successToast)
+    toast(itemName + " Added to Pantry", successToast)
 }
 
 function addToShoppingList(ingredientID) {
@@ -1230,9 +1230,9 @@ function addRemoveRecipeFromFavorites(recipeID) {
     localStorage.setItem('recipeFavorites', JSON.stringify(recipeFavorites));
     selectRecipeDOM(recipeID)
     if (index > -1) { // if favorite
-        toast("Removed from favorites", successToast)
+        toast("Removed Favorite", successToast)
     } else { // if not favorite
-        toast("Added to favorites", successToast)
+        toast("Added Favorite", successToast)
     }
     
 
@@ -1443,7 +1443,31 @@ function selectRecipeDOM(recipeID) {
         }
     }
     document.getElementById("recipe-selected-tags").innerHTML = recipeTags;
+
+    // Delete button if custom recipe
+    let recipeIsCustom = false
+    for (let aCustomRecipe in customRecipes) {
+        if (recipes[recipeID].name == customRecipes[aCustomRecipe].name) {
+            recipeIsCustom = true
+            break
+        }
+    }
+    document.getElementById("delete-recipe").style.display = "none";
+    if (recipeIsCustom) {
+        document.getElementById("delete-recipe").style.display = "block";
+    }
    
+}
+
+function deleteRecipe() {
+    if (confirm('Are you sure you want to delete this custom recipe?')) {
+        let customIndex = customRecipes.indexOf(recipes[currentRecipe])
+        customRecipes.splice(customIndex, 1);
+        recipes.splice(currentRecipe, 1);
+        localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
+        viewRecipes()
+        toast("Deleted Custom Recipe", successToast)
+    }
 }
 
 function fullscreenImage(theIndex) {
@@ -1489,7 +1513,7 @@ function addMissingIngredientsToShoppingCart() {
     }
     selectRecipeDOM(currentRecipe)
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-    toast("Missing ingredients added", successToast)
+    toast("Missing Ingredients Added", successToast)
 }
 
 //#################################################################################
@@ -1565,7 +1589,7 @@ function addAndValidateCustomRecipe(newRecipe) {
         customApprovedIngredientPrefix = []
         customApprovedIngredientsOptional = []
         imagesURLs = []
-        toast("Added custom recipe", successToast)
+        toast("Added Custom Recipe", successToast)
     }
     
     
@@ -1877,7 +1901,7 @@ function closeShare() {
 function showMiniTutorials() {
     hiddenTips = []
     localStorage.setItem('hiddenTips', JSON.stringify(hiddenTips));
-    for (let i = 1; i < 8; i++) {
+    for (let i = 1; i < 9; i++) {
         document.getElementById("tip-" + i).style.display = "block"
     }
     toast("Showing Mini Tutorials", successToast)
