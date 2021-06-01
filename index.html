@@ -15,11 +15,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
-	<meta name="description" content="'Pantry' suggests meals based on what is in your pantry.">
+	<meta name="description" content="MenuSmith suggests meals based on what is in your pantry.">
 	<meta name="keywords" content="food, pantry, manager, cookbook">
     <meta name="author" content="Andy Smith">
     <link rel=“canonical” href=“https://andyhsmith.com/” />
-    <title>Pantry Manager</title>
+    <title>Menu Smith</title>
     
     <script src="https://kit.fontawesome.com/68a99d09f4.js" crossorigin="anonymous"></script>
     <!-- CSS -->
@@ -47,22 +47,22 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body onload="startDOM()">
+<body onload="init()">
     
     <div id="loading">
         <div class="container-center">
             <!-- <i class="fas fa-carrot" style="font-size: 120px;"></i><br><br> -->
-            <span style="font-size: 25px;">Loading...</span>
+            <span style="font-size: 25px;">Loading...</span><br>
         </div>
     </div>
 
     <div id="tutorial-start" class="tutorial">
         <div class="tutorial-content">
             <i class="fas fa-carrot" style="font-size: 70px;"></i>
-            <h1>PANTRY</h1>
+            <h1>MENU SMITH</h1>
             <div class="close-tutorial" onclick="skipTutorial()">X</div>
             <p><b>Welcome! You seem to be new here!</b></p>
-            <p>'Pantry' suggests meals based on what is in your pantry.</p>
+            <p>Menu Smith suggests meals based on what is in your pantry.</p>
             <p><b>Would you like a quick walkthrough?</b></p>
             <button class="p-button" onclick="tutorialStep1()">YES</button>
             <button class="p-button" onclick="skipTutorial()">NO</button>
@@ -228,7 +228,7 @@
         <div class="tutorial-content">
             <i class="fas fa-carrot" style="font-size: 70px;"></i>
             <h2>Eat Well!</h2>
-            <p>When you feel like you have nothing to cook, 'Pantry' will suggest meals using the ingredients you have.</p>
+            <p>When you feel like you have nothing to cook, Menu Smith will suggest meals using the ingredients you have.</p>
             <!-- <p>We hope this helps you to meal prep, manage your pantry, and buy what you need.</p> -->
          
             <button class="p-button" onclick="skipTutorial()">START </button>
@@ -463,17 +463,22 @@
 
                 <div class="button-options">
                     <div class="min-button" onclick="loadStartPage()"> VIEW</div>
-                    View introduction.
+                    View Introduction
                 </div>
 
                 <div class="button-options">
                     <div class="min-button" onclick="showMiniTutorials()"> SHOW</div>
-                    Show mini tutorials.
+                    Show Mini Tutorials
+                </div>
+
+                <div class="button-options">
+                    <div class="min-button" onclick="exportAllCustomData()"> EXPORT</div>
+                    Backup All Your Data
                 </div>
 
                 <div class="button-options">
                     <div class="min-button" onclick="clearLocalSavedData()"> CLEAR</div>
-                    Clear all data.
+                    Clear All Data
                 </div>
 
                 <hr>
@@ -527,6 +532,19 @@
                             <p>Enter should submit values in forms.</p>
                             <p>Bug: uncategorized shopping cart items grey is different then c-grey.</p>
                             <p>Bug: clicking backdrop will not reload page.</p>
+                            <p>Bug: chicken wings in custom recipe does not add.</p>
+                            <p>Bug: Delete Contents does not save shopping list.</p>
+
+                            <!-- Quantity is confusing
+                            Brown is hard to see yellow might be better
+                            Nutella is not an ingredient
+                            Need notifications to close tabs
+                            Delete recipe for banana bread. Hide
+                            Minus removes from pantry.
+                            Enter should work.
+                            Will clear all recipes in clear. -->
+                            
+                            
                             <p></p>
                         </div>
                     </div>

@@ -1,4 +1,35 @@
 //#################################################################################
+// D E V    &   P R O D U C T I O N
+//#################################################################################
+
+var devMode = true
+
+if (devMode) {
+    var siteURL = "http://localhost:8000/"
+} else {
+    var siteURL = "https://menusmith.com/"
+}
+
+
+//#################################################################################
+// I N I T
+//#################################################################################
+
+/**
+ * Starts the Loading Process
+ */
+function init() {
+    loadLocalStorage()
+    hideTips()
+    applySettings()
+    applyColorScheme()
+    viewRecipes()
+    userAddFood()
+    checkURLParams()
+    document.getElementById("loading").style.display = "none"
+}
+
+//#################################################################################
 // S T Y L E S
 //#################################################################################
 var csNormal = {
@@ -74,9 +105,13 @@ var csDarkMode = {
     miniTutorial: "rgb(50,50,50)"
 }
 
+// Sets Starting Style
 var cs = csNormal
 document.getElementById("background-top-bar").style.backgroundColor = cs.normalBackgroundColor
 
+/**
+ * Changes HTML Elements to Match Color Scheme
+ */
 function applyColorScheme() {
     document.getElementsByTagName("body")[0].style.backgroundColor = cs.backgroundColor
     document.getElementsByTagName("body")[0].style.color = cs.textColor
@@ -84,7 +119,12 @@ function applyColorScheme() {
     document.getElementById("share").style.backgroundColor = cs.popUpBackgroundColor
     document.getElementById("background-top-bar").style.backgroundColor = cs.normalBackgroundColor
 
-    // input fields
+    // Custom Recipes Warnings
+    document.getElementById("custom-recipe-name-warning").style.color = cs.missing
+    document.getElementById("custom-recipe-name-warning2").style.color = cs.missing
+    document.getElementById("image-link-error").style.color = cs.missing
+
+    // Input Fields
     let list = document.getElementsByTagName("input");
     for (let index in list) {
         try {
@@ -94,8 +134,7 @@ function applyColorScheme() {
         } 
     }
 
-    // textarea
-    // input fields
+    // Textarea
     list = document.getElementsByTagName("textarea");
     for (let index in list) {
         try {
@@ -105,7 +144,7 @@ function applyColorScheme() {
         } 
     }
 
-    // nav buttons
+    // Nav Buttons
     list = document.getElementsByClassName("view-page-button");
     for (let index in list) {
         try {
@@ -128,7 +167,7 @@ function applyColorScheme() {
 
 
 
-    // buttons
+    // Buttons
     list = document.getElementsByTagName("button");
     for (let index in list) {
         try {
@@ -139,7 +178,7 @@ function applyColorScheme() {
         } 
     }
 
-    // mini tutorials
+    // Mini Tutorials
     list = document.getElementsByClassName("instructions");
     for (let index in list) {
         try {
@@ -149,8 +188,11 @@ function applyColorScheme() {
 
         } 
     }
+    document.getElementById("pantry-color").style.color = cs.inPantry
+    document.getElementById("missing-color").style.color = cs.missing
+    document.getElementById("shopping-list-color").style.color = cs.inCart
 
-    // correct buttons
+    // All & Available Buttons
     if (showType == "Available") {
         showAvailableRecipes()
     } else if (showType == "All") {
@@ -175,40 +217,30 @@ function applyColorScheme() {
         document.getElementById("filter-recipe-input").style.display = "none"
         document.getElementById("show-filter").style.backgroundColor = cs.inactiveButton
     }
-
-    // mini tutorial options
-    document.getElementById("pantry-color").style.color = cs.inPantry
-    document.getElementById("missing-color").style.color = cs.missing
-    document.getElementById("shopping-list-color").style.color = cs.inCart
-
-    // custom recipes warning
-    document.getElementById("custom-recipe-name-warning").style.color = cs.missing
-    document.getElementById("custom-recipe-name-warning2").style.color = cs.missing
-    document.getElementById("image-link-error").style.color = cs.missing
-
 }
 
-function darkMode() {
-    cs = csDarkMode
-}
+//#################################################################################
+// S E T T I N G S
+//#################################################################################
 
-function lightMode() {
-    cs = csNormal
-}
-
+/**
+ * Toggles Between DarkMode
+ */
 function darkModeSwitch() {
     if (settings.darkMode) {
         settings.darkMode = false
-        lightMode()
+        cs = csNormal
     } else {
         settings.darkMode = true
-        darkMode()
+        cs = csDarkMode
     }
-    localStorage.setItem('settings', JSON.stringify(settings));
     applyColorScheme() 
+    localStorage.setItem('settings', JSON.stringify(settings));
 }
 
-
+/**
+ * Toggles Showing Photos in Recipes and Hiding Photos
+ */
 function dataSaverSwitch() {
     if (settings.dataSaver) {
         settings.dataSaver = false
@@ -218,12 +250,30 @@ function dataSaverSwitch() {
     localStorage.setItem('settings', JSON.stringify(settings));
 }
 
+/**
+ * Applies Settings
+ */
+function applySettings() {
+    if (settings.darkMode) {
+        darkMode()
+        applyColorScheme()
+        document.getElementById("dark-mode-setting").checked = true;
+    }
+
+    if (settings.dataSaver) {
+        document.getElementById("data-saver-setting").checked = true;
+    }
+}
 
 //#################################################################################
 // T O A S T S
 //#################################################################################
 
-
+/**
+ * A Wrapper Function for Making Toasts
+ * @param {string} textMessage 
+ * @param {successToast} chosenOption 
+ */
 function toast(textMessage, chosenOption) {
     try {
         let toastCopy = chosenOption
@@ -235,7 +285,7 @@ function toast(textMessage, chosenOption) {
     
 }
 
-// toasts
+// Success Toast
 const successToast = {
 	message:"Test Message",
     timeout: 2000,
@@ -243,81 +293,65 @@ const successToast = {
 
 };
 
-const failedToast = {
-	style: {
-		main: {
-			background: "red",
-			color: "white",
-		},
-	},
-    settings: {
-		duration: 5000,
-	},
-};
-
-const infoToast = {
-	style: {
-		main: {
-			background: "red",
-			color: "white",
-		},
-	},
-    settings: {
-		duration: 5000,
-	},
-};
 
 //#################################################################################
 // S O R T
 //#################################################################################
 
-function sortAlphabetically(theList) {
-    theList.sort(function(a, b) {
+/**
+ * Sorts a List of Objects Alphabetically by Each Object's Name Parameter.
+ * @param {{name: string}[]} _list 
+ */
+function sortAlphabetically(_list) {
+    _list.sort(function(a, b) {
         var textA = a.name.toUpperCase();
         var textB = b.name.toUpperCase();
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
 }
-function sortColor(theList) {
-    theList.sort(function(a, b) {
+
+/**
+ * Used to Sort Shopping List Categories. Checks if Color Assigned Then Sort Alphabetically.
+ * @param {{color: string}[]} _list 
+ */
+function sortColor(_list) {
+    let textA = null
+    let textB = null
+    _list.sort(function(a, b) {
         if (a.color) {
-            var textA = a.color.toUpperCase();
+            textA = a.color.toUpperCase();
         } else {
-            var textA = "grey"
+            textA = "grey"
         }
 
         if (b.color) {
-            var textB = b.color.toUpperCase();
+            textB = b.color.toUpperCase();
         } else {
-            var textB = "grey"
+            textB = "grey"
         }
         
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
 }
 
-function sortPinned(theList) {
-    theList.sort(function(a, b) {
+/**
+ * Pinned Recipes are Put First
+ * @param {{name: string}[]} _list 
+ */
+function sortPinned(_list) {
+    _list.sort(function(a, b) {
         let test1 = pinnedRecipes.includes(a.name)
-        let test2 = pinnedRecipes.includes(b.name)
         if (test1) {
             return -1
-        } else {
-            return 1
-        }
-
-        return 0
+        } 
+        return 1
     });
 }
 
 
 //#################################################################################
-// L O C A L   S T O R A G E   &   S E T U P
+// L O C A L   S T O R A G E 
 //#################################################################################
-
-// var siteURL = "http://localhost:8000/"
-var siteURL = "https://pantry.andyhsmith.com/"
-// Clear Parameters
 
 
 var pantry = []
@@ -366,15 +400,29 @@ if (!localStorage.settings) {
     })
 }
 
-// Update DOM
-function startDOM() {
+
+/**
+ * Retrieves Data From LocalStorage
+ */
+function loadLocalStorage() {
     // Load Panty
     let localStorageContent = localStorage.getItem('pantry')
     if (localStorageContent != '') {
         pantry = JSON.parse(localStorageContent)
     }
     else {
-        pantry = [{"name":"ground beef","quantity":1},{"name":"baking powder","quantity":1},{"name":"butter","quantity":1},{"name":"egg","quantity":4},{"name":"flour","quantity":1},{"name":"milk","quantity":1},{"name":"oil","quantity":1},{"name":"salt","quantity":1},{"name":"sugar","quantity":1}]
+        // Initial Pantry
+        pantry = [
+            {"name":"ground beef","quantity":1},
+            {"name":"baking powder","quantity":1},
+            {"name":"butter","quantity":1},
+            {"name":"egg","quantity":4},
+            {"name":"flour","quantity":1},
+            {"name":"milk","quantity":1},
+            {"name":"oil","quantity":1},
+            {"name":"salt","quantity":1},
+            {"name":"sugar","quantity":1}
+        ]
     }
 
     // Load  Shopping List
@@ -383,10 +431,15 @@ function startDOM() {
         shoppingList = JSON.parse(localShoppingListStorage)
     }
     else {
-        shoppingList = [{"name":"carrots","quantity":1},{"name":"onion","quantity":1},{"name":"rice","quantity":1}]
+        // Initial Shopping List
+        shoppingList = [
+            {"name":"carrots","quantity":1},
+            {"name":"onion","quantity":1},
+            {"name":"rice","quantity":1}
+        ]
     }
 
-    // Load Tutorial Data
+    // Opening Tutorial
     let localStorageFirstTime = localStorage.getItem('firstTime')
     if (localStorageFirstTime != '') {
         if (localStorageFirstTime == "true") {
@@ -397,42 +450,41 @@ function startDOM() {
         }
     }
 
-    // Load Favorites
+    // Recipes Marked as Favorite: ["Crepes (fancy)", "Autumn Soup"]
     let recipeFavoriteLocalData = localStorage.getItem('recipeFavorites')
-    recipeFavorites = ["Crepes (fancy)", "Autumn Soup"]
+    recipeFavorites = []
     if (recipeFavoriteLocalData != '') {
         recipeFavorites = JSON.parse(recipeFavoriteLocalData)
     }
 
-    // Load Pins
+    // Pinned Recipes
     let pinnedRecipesLocalData = localStorage.getItem('pinnedRecipes')
     pinnedRecipes = []
     if (pinnedRecipesLocalData != '') {
         pinnedRecipes = JSON.parse(pinnedRecipesLocalData)
     }
 
-    
 
-    // Load Custom Ingredients
+    // Custom Ingredients
     let customIngredientsLocalData = localStorage.getItem('customIngredients') 
     if (customIngredientsLocalData != '') {
         customIngredients = JSON.parse(customIngredientsLocalData)
         ingredients = ingredients.concat(customIngredients)
     }
 
-    // Load Custom Recipes
+    // Custom Recipes
     let customRecipesLocalData = localStorage.getItem('customRecipes') 
     if (customRecipesLocalData != '') {
         customRecipes = JSON.parse(customRecipesLocalData)
         recipes = recipes.concat(customRecipes)
     }
 
-    // Load Hidden Tips
+    // Hidden Tips
     let hiddenTipsLocalData = localStorage.getItem('hiddenTips') 
     if (hiddenTipsLocalData != '') {
         hiddenTips = JSON.parse(hiddenTipsLocalData)
     }
-    hideTips()
+    
 
     // Load Settings
     // localStorage.setItem('settings', JSON.stringify({}));
@@ -440,114 +492,218 @@ function startDOM() {
     if (settingsLocalData != '') {
         settings = JSON.parse(settingsLocalData)
     }
-    initSettings()
-    applyColorScheme()
-    viewRecipes()
-    userAddFood()
-    checkURLParams()
-    document.getElementById("loading").style.display = "none"
 }
 
+/**
+ * Clears LocalStorage, Prompts User for Confirmation
+ */
 function clearLocalSavedData() {
-    if (confirm('Are you sure you want to clear all your data? This will reset the website and you will loose all your custom data.')) {
+    if (confirm('Are you sure you want to clear all your data? This will reset the website and you will loose all your custom data including your custom recipes.')) {
         localStorage.clear();
         location.reload();
     } 
 }
 
-function initSettings() {
-    if (settings.darkMode) {
-        darkMode()
-        applyColorScheme()
-        document.getElementById("dark-mode-setting").checked = true;
-    }
 
-    if (settings.dataSaver) {
-        document.getElementById("data-saver-setting").checked = true;
-    }
-}
 
-function saveLocalStorage() {
-    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-    localStorage.setItem('pantry', JSON.stringify(pantry));
+//#################################################################################
+// S A V E   F I L E S
+//#################################################################################
+
+/**
+ * Downloads A File
+ * @param {string} filename 
+ * @param {string} text 
+ * Not Written By Me
+ */
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+
+  /**
+   * Downloads All Custom Data
+   */
+function exportAllCustomData() {
+    let customDataObject = {
+        cR: customRecipes,
+        cI: customIngredients,
+        sL: shoppingList,
+        p: pantry,
+    }
+    download("menusmith.backup", JSON.stringify(customDataObject));
 }
 
 //#################################################################################
 // U R L   P A R A M S
 //#################################################################################
 
+/**
+ * Checks URL Params for: 
+ * 
+ * - Shopping List: "sl"
+ * - Recipe: "r"
+ */
 function checkURLParams() {
     let params = new URLSearchParams(location.search);
     //Shopping List
     let sl = params.get("sl")
-    let newShoppingList = []
     if (sl != null) {
-        sl = "[" + sl + "]"
-        sl = sl.replace(/a~/g, " ")
-        sl = sl.replace(/b~/g, ",")
-        sl = sl.replace(/c~/g, "\"")
-        sl = numbersToIngredients(JSON.parse(sl)) 
-     
-        let newIngredient = {}
-        for (let i in sl) {
-            if (i % 2) {
-                newIngredient = {
-                    name:sl[i-1],
-                    quantity:sl[i],
-                    color:"imported"
-                }
-                if(checkIfIngredientExists(newIngredient.name) == -1) {
-                    customIngredients.push({name:newIngredient.name})
-                    ingredients.push({name:newIngredient.name})
-                    localStorage.setItem('customIngredients', JSON.stringify(customIngredients));
-                }
-                newShoppingList.push(newIngredient)
-            }
-        }
-        shoppingList = shoppingList.concat(newShoppingList)
-        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-        toast("Loaded Shopping List", successToast);
-        viewShoppingList()
+        processURLShoppingList(sl)
     }
 
     // Recipe
     let r = params.get("r")
-    let newRecipe = null
     if (r != null) {
-        r = r.replace(/a~/g, " ")
-        r = r.replace(/b~/g, ",")
-        r = r.replace(/c~/g, "\"")
-        r = r.replace(/d~/g, "{")
-        r = r.replace(/e~/g, "}")
-        r = r.replace(/f~/g, "[")
-        r = r.replace(/g~/g, "]")
-        r = r.replace(/h~/g, ":")
-        r = r.replace(/i~/g, "/")
-        newRecipe = JSON.parse(r)
-        addAndValidateCustomRecipe(newRecipe)
+        processURLRecipe(r)
     }
 
-
+    // Clear URL Params
     window.history.replaceState({}, document.title, "/" + ""); 
 }
 
+/**
+ * Process Shared Shopping List
+ * @param {string} sl 
+ */
+function processURLShoppingList(sl) {
+    sl = numbersToIngredients(JSON.parse(parseWebSafeString("[" + sl + "]"))) 
+    for (let i in sl) {
+        if (i % 2) {
+            let newIngredient = {
+                name:sl[i-1],
+                quantity:sl[i],
+                color:"imported"
+            }
+            if(checkIfIngredientExists(newIngredient.name) == -1) {
+                addCustomIngredient(newIngredient.name)
+            }
+            shoppingList.push(newIngredient)
+        }
+    }
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));    
+    viewShoppingList()
+    toast("Loaded Shopping List", successToast);
+}
 
+/**
+ * Process Shared Shopping List
+ * @param {*} r 
+ */
+function processURLRecipe(r) {
+    let newRecipe = JSON.parse(parseWebSafeString(r))
+    addAndValidateCustomRecipe(newRecipe)
+}
 
+/**
+ * Parses a Link Safe String Into Original Version
+ * @param {string} r 
+ * @returns Parsed Values
+ */
+function parseWebSafeString(r) {
+    r = r.replace(/a~/g, " ")
+    r = r.replace(/b~/g, ",")
+    r = r.replace(/c~/g, "\"")
+    r = r.replace(/d~/g, "{")
+    r = r.replace(/e~/g, "}")
+    r = r.replace(/f~/g, "[")
+    r = r.replace(/g~/g, "]")
+    r = r.replace(/h~/g, ":")
+    r = r.replace(/i~/g, "/")
+    r = r.replace(/j~/g, "\'")
+    r = r.replace(/k~/g, "?")
+    r = r.replace(/l~/g, "&")
+    r = r.replace(/m~/g, "#")
+    r = r.replace(/n~/g, "!")
+    r = r.replace(/o~/g, "@")
+    r = r.replace(/p~/g, "$")
+    r = r.replace(/q~/g, "%")
+    r = r.replace(/r~/g, "^")
+    r = r.replace(/s~/g, "*")
+    r = r.replace(/t~/g, "(")
+    r = r.replace(/u~/g, ")")
+    r = r.replace(/v~/g, "+")
+    r = r.replace(/w~/g, "=")
+    r = r.replace(/x~/g, "<")
+    r = r.replace(/y~/g, ">")
+    r = r.replace(/z~/g, "|")
+    r = r.replace(/A~/g, ";")
+
+    r = r.replace(/Z~/g, "~")
+    return r
+}
+
+/**
+ * Converts an Unsafe String Into a Link Safe String
+ * @param {string} str 
+ * @returns 
+ */
+function convertToWebSafeString(str) {
+    str = str.replace(/~/g, "Z~")
+
+    str = str.replace(/ /g, "a~")
+    str = str.replace(/,/g, "b~")
+    str = str.replace(/"/g, "c~")
+    str = str.replace(/{/g, "d~")
+    str = str.replace(/}/g, "e~")
+    str = str.replace(/\[/g, "f~")
+    str = str.replace(/\]/g, "g~")
+    str = str.replace(/:/g, "h~")
+    str = str.replace(/\//g, "i~")
+    str = str.replace(/'/g, "j~")
+    str = str.replace(/\?/g, "k~")
+    str = str.replace(/&/g, "l~")
+    str = str.replace(/#/g, "m~")
+    str = str.replace(/!/g, "n~")
+    str = str.replace(/@/g, "o~")
+    str = str.replace(/\$/g, "p~")
+    str = str.replace(/%/g, "q~")
+    str = str.replace(/\^/g, "r~")
+    str = str.replace(/\*/g, "s~")
+    str = str.replace(/\(/g, "t~")
+    str = str.replace(/\)/g, "u~")
+    str = str.replace(/\+/g, "v~")
+    str = str.replace(/=/g, "w~")
+    str = str.replace(/</g, "x~")
+    str = str.replace(/>/g, "y~")
+    str = str.replace(/\|/g, "z~")
+    str = str.replace(/;/g, "A~")
+    str = str.replace(/[^a-zA-Z0-9-._~]/g, "")
+    return str
+}
+
+// Testing Web Safe Font Conversion
+// console.log(convertToWebSafeString("bad ~hello World! 2021 !@#$%^&*()_+-={}[]:;<>,.|/"))
+// console.log(parseWebSafeString(convertToWebSafeString("bad ~hello World! 2021 !@#$%^&*()_+-={}[]:;<>,.|/")))
+// console.log("bad ~hello World! 2021 !@#$%^&*()_+-={}[]:;<>,.|/")
 
 //#################################################################################
-// I N G R E D I E N T   F I N D E R
+// I N G R E D I E N T   A D D E R
 //#################################################################################
+
+// pantry || shoppingList
 var ingredientWhere = "pantry"
-var numberOfIngredients = ingredients.length
+
+/**
+ * Add an Ingredient Directly to Shopping List or Pantry
+ */
 function userAddFood() { 
     // Get Input
     userInput = document.getElementById("add-food").value.toLowerCase()
 
     // Set Title
     if (ingredientWhere == "pantry") {
-        document.getElementById("add-ingredient-title").innerHTML = "<span class='go-back' onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow' ></i> Add Ingredient to Pantry (" + numberOfIngredients + ")</span>"
+        document.getElementById("add-ingredient-title").innerHTML = "<span class='go-back' onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow' ></i> Add Ingredient to Pantry (" + ingredients.length + ")</span>"
     } else if (ingredientWhere == "shoppingList") {
-        document.getElementById("add-ingredient-title").innerHTML = "<span class='go-back' onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Add Ingredient to Shopping List (" + numberOfIngredients + ")</span>"
+        document.getElementById("add-ingredient-title").innerHTML = "<span class='go-back' onclick='goToPreviousPage()'><i class='fas fa-arrow-left back-arrow' onclick='goToPreviousPage()'></i> Add Ingredient to Shopping List (" + ingredients.length + ")</span>"
     }
     
 
@@ -555,7 +711,7 @@ function userAddFood() {
     let counter = 0
     for (i in ingredients) { 
         // If Match
-        if ((userInput == ingredients[i].name.substring(0, userInput.length)) && (counter <= 9)) { // if input matches start of ingredient
+        if ((userInput == ingredients[i].name.substring(0, userInput.length)) && (counter <= 400)) { // if input matches start of ingredient
             ingredientSearchResults += "<div class='ingredient' onclick='"
             if (ingredientWhere == "pantry") {
                 ingredientSearchResults += "addToPantry"
@@ -593,51 +749,88 @@ function userAddFood() {
         }
     }
     
-    // if no results
+    // No Results => Add Custom Ingredient Button
     if (ingredientSearchResults == '') {
-        ingredientSearchResults = '<button id="add-custom-ingredient-button" onclick="addCustomIngredient()">Add as Custom Ingredient</button>'
+        ingredientSearchResults += '<button id="add-custom-ingredient-button" onclick="'
+        if (ingredientWhere == "pantry") {
+            ingredientSearchResults += 'customIngredientToPantry()'
+        } else if (ingredientWhere == "shoppingList") {
+            ingredientSearchResults += 'customIngredientToShoppingList()'
+        }
+        ingredientSearchResults += '">Add as Custom Ingredient</button>'      
     }
 
     document.getElementById("ingredient-search-results").innerHTML = ingredientSearchResults;
 }
 
-function addCustomIngredient() {
-    let customIngredientName = document.getElementById("add-food").value.toLowerCase()
-    let ingredientExists = checkIfIngredientExists(customIngredientName)
-    if (ingredientExists == -1) {
-        newIngredient = {name:customIngredientName}
-        customIngredients.push(newIngredient)
-        ingredients.push(newIngredient)
-        localStorage.setItem('customIngredients', JSON.stringify(customIngredients));
-        addToShoppingList(getItemID(customIngredientName)) // add newly created ingredient to shopping list
-        // document.getElementById("add-food").value = ""
-        toast(customIngredientName + " Added", successToast);
-    }
-    userAddFood()
+/**
+ * Adds a Custom Ingredient To Pantry
+ * Called From Ingredient Search userAddFood().
+ */
+function customIngredientToPantry() {
+    let customIngredientName = document.getElementById("add-food").value
+    addCustomIngredient(customIngredientName)
+    addToPantry(getIngredientID(customIngredientName))
+    toast(customIngredientName + " Added", successToast);
 }
 
+/**
+ * Adds a Custom Ingredient To Shopping List
+ * Called From Ingredient Search userAddFood().
+ */
+function customIngredientToShoppingList() {
+    let customIngredientName = document.getElementById("add-food").value
+    addCustomIngredient(customIngredientName)
+    addToShoppingList(getIngredientID(customIngredientName))
+    toast(customIngredientName + " Added", successToast);
+}
+
+/**
+ * Clears Ingredient Adder Search
+ */
 function clearIngredientSearch() {
     document.getElementById("add-food").value = ""
     userAddFood()
 }
 
 
-
 //#################################################################################
-// R E L A T E D   H E L P E R   F U N C T I O N S
+// I N G R E D I E N T S
 //#################################################################################
 
-function getItemID(itemName) {
-    let itemID = -1
-    for (theItem in ingredients) {
-        if (ingredients[theItem].name == itemName) {
-            itemID = theItem;
-            break;
-        }
+/**
+ * Adds a Custom Ingredient
+ * @param {string} customIngredientName 
+ */
+function addCustomIngredient(customIngredientName) {
+    customIngredientName = customIngredientName.toLowerCase()
+    if (checkIfIngredientExists(customIngredientName) == -1) {
+        newIngredient = {name:customIngredientName}
+        customIngredients.push(newIngredient)
+        ingredients.push(newIngredient)
+        localStorage.setItem('customIngredients', JSON.stringify(customIngredients));
     }
-    return itemID
 }
 
+/**
+ * Given Ingredient Name Return IngredientID
+ * @param {string} _name 
+ * @returns 
+ */
+function getIngredientID(_name) {
+    for (let index in ingredients) {
+        if (ingredients[index].name == _name) {
+            return index
+        }
+    }
+    return -1
+}
+
+ /**
+  * Check if Ingredient Exists
+  * @param {string} ingredientName 
+  * @returns Not Found: -1, Found: Index {int}
+  */
 function checkIfIngredientExists(ingredientName) {
     for (let index in ingredients) {
         if (ingredientName == ingredients[index].name) {
@@ -647,50 +840,35 @@ function checkIfIngredientExists(ingredientName) {
     return -1;
 }
 
-function checkIfInShoppingList(itemName) {
-    for (p in shoppingList) { // check if in shoppingList
-        if (itemName == shoppingList[p].name) {
-            return true
-        }
-    }
-    return false
-}
-
-function checkIfInPantry(itemName) {
-    for (p in pantry) { // check if in pantry
-        if (itemName == pantry[p].name) {
-            return true;
-        }
-    }
-    return false
-}
-
-function closePopUp() {
-    document.getElementById("share").style.display = "none"
-    document.getElementById("category").style.display = "none"
-    skipTutorial()
-    document.getElementById("dim-background").style.display = "none"
-    
-}
-
 //#################################################################################
-// S H O P P I N G   L I S T  
+//#################################################################################
+//#################################################################################
+// S H O P P I N G   L I S T   
+//#################################################################################
+//#################################################################################
 //#################################################################################
 
-var userSelectedDot = null
-function clickedACategoryDot(itemName) {
-    userSelectedDot = itemName
+//#################################################################################
+// S H O P P I N G   L I S T   C A T E G O R Y   D O M 
+//#################################################################################
 
-    document.getElementById("category").style.display = "inline"
-    document.getElementById("dim-background").style.display = "inline"
+var ingredientIDSelectedDot = null;
+/**
+ * Shows Ingredient Category DOM
+ * @param {int} ingredientIndex 
+ */
+function clickedACategoryDot(ingredientIndex) {
+    ingredientIDSelectedDot = ingredientIndex;
 
-    document.getElementById("category-header").innerHTML = ingredients[itemName].name
+    document.getElementById("category").style.display = "inline";
+    document.getElementById("dim-background").style.display = "inline";
+    document.getElementById("category-header").innerHTML = ingredients[ingredientIDSelectedDot].name;
 
-    // Check pinned box
-    for (let aIngredient in shoppingList) {
-        if (shoppingList[aIngredient].name == ingredients[userSelectedDot].name) {
-            if(shoppingList[aIngredient].pin) {
-                if (shoppingList[aIngredient].pin == "t") {
+    // Check If Pinned
+    for (let index in shoppingList) {
+        if (shoppingList[index].name == ingredients[ingredientIDSelectedDot].name) {
+            if(shoppingList[index].pin) {
+                if (shoppingList[index].pin == "t") {
                     document.getElementById("ingredient-pin").checked = true;
                 } else {
                     document.getElementById("ingredient-pin").checked = false;
@@ -698,32 +876,37 @@ function clickedACategoryDot(itemName) {
             } else {
                 document.getElementById("ingredient-pin").checked = false;
             }
-            
-            break
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+            break;
         }
     }
-    
 }
 
-var userSelectedColor = null
+var userSelectedColor = null;
+/**
+ * Sets Color of Ingredient 
+ * @param {string} chosen_color 
+ */
 function selectColor(chosen_color) {
-    userSelectedColor = chosen_color
-    
+    userSelectedColor = chosen_color;
     // set color of shopping list item
     for (let aIngredient in shoppingList) {
-        if (shoppingList[aIngredient].name == ingredients[userSelectedDot].name) {
+        if (shoppingList[aIngredient].name == ingredients[ingredientIDSelectedDot].name) {
             shoppingList[aIngredient].color = chosen_color
-            break
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+            break;
         }
     }
-    closeCategory()
-    
+    closeCategory();
 }
 
+/**
+ * Pin an Ingredient to Shopping List
+ */
 function pinToShoppingListSwitch() {
     // pin shopping list items
     for (let aIngredient in shoppingList) {
-        if (shoppingList[aIngredient].name == ingredients[userSelectedDot].name) {
+        if (shoppingList[aIngredient].name == ingredients[ingredientIDSelectedDot].name) {
             if (shoppingList[aIngredient].pin) {
                 if (shoppingList[aIngredient].pin == "f") {
                     shoppingList[aIngredient].pin = "t"
@@ -733,19 +916,44 @@ function pinToShoppingListSwitch() {
             } else {
                 shoppingList[aIngredient].pin = "t"
             } 
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
             break
         }
     }
-    // saveLocalStorage()
 }
 
+/**
+ * Closes Category DOM
+ */
 function closeCategory() {
     document.getElementById("category").style.display = "none";
     document.getElementById("dim-background").style.display = "none";
     updateShoppingListDOM()
-    saveLocalStorage()
 }
 
+//#################################################################################
+// S H O P P I N G   L I S T   H E L P E R S
+//#################################################################################
+
+/**
+ * Check if Ingredient in Shopping List
+ * @param {string} itemName 
+ * @returns Item Index | false
+ */
+function checkIfInShoppingList(itemName) {
+    for (let index in shoppingList) { // check if in shoppingList
+        if (itemName == shoppingList[index].name) {
+            return index
+        }
+    }
+    return false
+}
+
+
+/**
+ * Remove Ingredient From ShoppingList Using Shopping List ID
+ * @param {int} itemID 
+ */
 function removeFromShoppingList(itemID) {
     let itemName = shoppingList[itemID].name
     if (shoppingList[itemID].quantity <= 1) {
@@ -757,53 +965,129 @@ function removeFromShoppingList(itemID) {
     
     updateShoppingListDOM()
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-    // toast(itemName + " removed from shopping list", successToast)
+    toast(itemName + " Removed", successToast)
 }
 
-function removeFromShoppingListByName(itemName) {
-    // get shopping list id
-    let itemShoppingListID = -1
-    for (aItem in shoppingList) {
-        if (shoppingList[aItem].name == itemName) {
-            itemShoppingListID = aItem
-            break
-        }
-    }
-    if (shoppingList[itemShoppingListID].quantity == 1) {
-        shoppingList.splice(itemShoppingListID, 1)
+
+/**
+ * Remove From Shopping List With Name
+ * @param {string} ingredientName 
+ */
+function removeFromShoppingListByName(ingredientName) {
+    let shoppingListID = checkIfInShoppingList(ingredientName)
+
+    if (shoppingList[shoppingListID].quantity == 1) {
+        shoppingList.splice(shoppingListID, 1)
     }
     else {
-        shoppingList[itemShoppingListID].quantity -= 1;
+        shoppingList[shoppingListID].quantity -= 1;
     }
+
     selectRecipeDOM(currentRecipe)
-    saveLocalStorage()
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
-function updateShoppingListDOM() {
-    // sort pantry by name
-    let shoppingListItemCounter = 0
-    sortAlphabetically(pantry)
-    sortAlphabetically(shoppingList)
-    sortColor(shoppingList)
+/**
+ * Empty Shopping List With User Confirmation
+ */
+function emptyShoppingList() {
+    if (confirm('Are you sure you want to remove everything from your shopping list?')) {
+        shoppingList = []
+        updateShoppingListDOM()
+    }  
+}
 
-    let shoppingListContents = ""
+/**
+ * Move Entire Shopping List to Pantry
+ */
+function shoppingListToPantry() {
+    // Add To Pantry
+    for (let i in shoppingList) {
+        let ingredientID = checkIfInShoppingList(shoppingList[i].name)
+        
+        if (shoppingList[i].quantity) { 
+            for (let step = 0; step < shoppingList[i].quantity; step++) {
+                addToPantry(ingredientID)
+            }
+        }
+    }
+
+    // Remove From Shopping List
+    for (let i = 0; i < shoppingList.length; i++) {
+        // Check if pinned
+        if (shoppingList[i].pin) {
+            if (shoppingList[i].pin == "f") {
+                shoppingList.splice(i, 1)  
+                i -= 1
+            }
+        } else {
+            shoppingList.splice(i, 1) 
+            i -= 1
+        }
+    }
+ 
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    localStorage.setItem('pantry', JSON.stringify(pantry));
+    updateShoppingListDOM()
+    toast("Shopping List Moved to Pantry", successToast);
+}
+
+
+
+function addToShoppingList(ingredientID) {
+    itemToAdd = ingredients[ingredientID]
+
+    // If Exists Add Quantity
+    let itemFound = false;
+    for (i in shoppingList) { 
+        if (itemToAdd.name == shoppingList[i].name) {
+            shoppingList[i].quantity += 1
+            itemFound = true;
+            break;
+        }
+    }
+
+    // If Doesn't Exist Add New Item to Shopping List
+    if (!itemFound) {
+        itemToAdd.quantity = 1
+        shoppingList.push(itemToAdd)
+    }
+
+    
+    sortAlphabetically(shoppingList)
+    updateShoppingListDOM()
+    userAddFood()
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    localStorage.setItem('pantry', JSON.stringify(pantry));
+}
+
+//#################################################################################
+// S H O P P I N G   L I S T   D O M 
+//#################################################################################
+
+/**
+ * Update Shopping List DOM
+ */
+function updateShoppingListDOM() {
+    
+    sortAlphabetically(shoppingList);
+    sortColor(shoppingList);
+
+    let shoppingListItemCounter = 0;
+    let shoppingListContents = "";
     
     for (let i in shoppingList) {
         shoppingListContents += "<div class='ingredient' tabindex='0'><span>" 
-        //pin
+        
+        // Is Pinned
         if (shoppingList[i].pin) {
             if (shoppingList[i].pin == "t") {
                 shoppingListContents += "<i class='fas fa-thumbtack recipe-pin'></i>"
             }
         }
         
-
+        // Name & Quantity
         shoppingListContents += shoppingList[i].name + " <span style='color:" + cs.quantity + "; font-weight: bold;'>"
-        
-        
-        
-        
         shoppingListItemCounter += shoppingList[i].quantity
         if (shoppingList[i].quantity > 1) {
             
@@ -811,88 +1095,47 @@ function updateShoppingListDOM() {
         }
         shoppingListContents += "</span></span><br>";
  
+        // Function Buttons
         shoppingListContents += "<span style='display:flex;flex-direction: row;align-items: center;justify-content: center;'>"
-        shoppingListContents += "<span class='add-subtract' ><span onclick='addToShoppingList(" + getItemID(shoppingList[i].name) + ")'><i class='fas fa-plus a-option'></i></span>"
+        shoppingListContents += "<span class='add-subtract' ><span onclick='addToShoppingList(" + getIngredientID(shoppingList[i].name) + ")'><i class='fas fa-plus a-option'></i></span>"
         shoppingListContents += "<span onclick='removeFromShoppingList(" + i + ")'><i class='fas fa-minus a-option'></i></span>"
         shoppingListContents += "<span onclick='singleItemFromShoppingListToPantry(" + i + ")'><i class='fas fa-carrot a-option'></i></span></span><div class='a-dot c-"
         
+        // Category Color
         if (shoppingList[i].color) {
             shoppingListContents += shoppingList[i].color
         } else {
-            shoppingListContents += "grey"
+            shoppingListContents += "grey";
         }
-        
-        shoppingListContents += "' onclick='clickedACategoryDot(" + getItemID(shoppingList[i].name) + ")'></div></span></div>"
-
+        shoppingListContents += "' onclick='clickedACategoryDot(" + getIngredientID(shoppingList[i].name) + ")'></div></span></div>";
     }
 
+    // Shopping Cart Footer
     if (shoppingList.length == 0) {
-        shoppingListContents = "You have nothing in your shopping List."
+        shoppingListContents = "You have nothing in your shopping List.";
     } else {
-        shoppingListContents += "<button onclick='emptyShoppingList()'>Delete Contents</button>"
+        shoppingListContents += "<button onclick='emptyShoppingList()'>Delete Contents</button>";
     }
+
+    // Apply DOM
     document.getElementById("shopping-list-title").innerHTML = "Shopping List (" + shoppingListItemCounter + ")";
     document.getElementById("shopping-list-contents").innerHTML = shoppingListContents;
     
 }
 
-function emptyShoppingList() {
-    if (confirm('Are you sure you want to remove everything from your shopping list?')) {
-        shoppingList = []
-        updateShoppingListDOM()
-    } 
-    
-}
-
-
-var runTwice = true
-function shoppingListToPantry() {
-    for (let i in shoppingList) {
-        let nameOfItem = shoppingList[i].name
-        let idOfItem = 0
-        
-        for (j in ingredients) { // get item id
-            if (nameOfItem == ingredients[j].name) {
-                idOfItem = j;
-                break;
-            }
-        }
-        
-        if (shoppingList[i].quantity) { // add correct quantity
-            let amount = shoppingList[i].quantity
-            for (let step = 0; step < amount; step++) {
-                addToPantry(idOfItem)
-            }
-        }
-
-    }
-
-
-    for (let i = 0; i < shoppingList.length; i++) {
-        // Check if pinned
-        if (shoppingList[i].pin) {
-            if (shoppingList[i].pin == "f") {
-                shoppingList.splice(i, 1)  
-                i = i - 1
-            }
-        } else {
-            shoppingList.splice(i, 1) 
-            i = i - 1
-        }
-    }
-
-    
-
-    toast("Shopping List Moved to Pantry", successToast);
-    updateShoppingListDOM()
-    saveLocalStorage()
-}
+//#################################################################################
+//#################################################################################
+//#################################################################################
+// P A N T R Y  
+//#################################################################################
+//#################################################################################
+//#################################################################################
 
 function singleItemFromShoppingListToPantry(itemShoppingListID) {
     let itemName = shoppingList[itemShoppingListID].name
     const quantityOfItem = shoppingList[itemShoppingListID].quantity
     for (let z = 0; z < quantityOfItem; z++) {
-        addToPantry(getItemID(itemName))
+        addToPantry(getIngredientID(itemName))
     }
 
     // Check if pinned
@@ -909,36 +1152,16 @@ function singleItemFromShoppingListToPantry(itemShoppingListID) {
     toast(itemName + " Added to Pantry", successToast)
 }
 
-function addToShoppingList(ingredientID) {
-    itemToAdd = ingredients[ingredientID]
-    let itemName = itemToAdd.name
-    let itemFound = false;
-    for (i in shoppingList) { // check if item already in pantry
-        if (itemToAdd.name == shoppingList[i].name) {
-            shoppingList[i].quantity += 1
-            itemFound = true;
-            break;
+function checkIfInPantry(itemName) {
+    for (p in pantry) { // check if in pantry
+        if (itemName == pantry[p].name) {
+            return true;
         }
     }
-    if (!itemFound) {
-        itemToAdd.quantity = 1
-        shoppingList.push(itemToAdd)
-    }
-
-    
-    sortAlphabetically(shoppingList)
-    saveLocalStorage()
-    updateShoppingListDOM()
-    userAddFood()
-    // toast(itemName + " added", successToast);
+    return false
 }
 
 
-
-
-//#################################################################################
-// P A N T R Y  
-//#################################################################################
 function removeFromPantry(itemID) {
     let itemName = pantry[itemID].name
     if (pantry[itemID].quantity == 1) {
@@ -967,7 +1190,7 @@ function removeFromPantryByName(itemName) {
         pantry[itemPantryID].quantity -= 1;
     }
     selectRecipeDOM(currentRecipe)
-    saveLocalStorage()
+    localStorage.setItem('pantry', JSON.stringify(pantry));
 }
 
 
@@ -985,7 +1208,7 @@ function updatePantryDOM() {
             pantryContents += "x " + pantry[i].quantity  
         }
         pantryContents += "</span></span>";
-        pantryContents += "<span class='add-subtract'><span onclick='addToPantry(" + getItemID(pantry[i].name) + ")'><i class='fas fa-plus a-option'></i></span><span onclick='removeFromPantry(" + i + ")'><i class='fas fa-minus a-option'></i></span></span></div>"
+        pantryContents += "<span class='add-subtract'><span onclick='addToPantry(" + getIngredientID(pantry[i].name) + ")'><i class='fas fa-plus a-option'></i></span><span onclick='removeFromPantry(" + i + ")'><i class='fas fa-minus a-option'></i></span></span></div>"
     }
 
     if (pantry.length == 0) {
@@ -995,7 +1218,7 @@ function updatePantryDOM() {
     }
     document.getElementById("pantry-contents").innerHTML = pantryContents;
     document.getElementById("pantry-title").innerHTML = "Pantry (" + pantryItemCounter + ")"
-    saveLocalStorage()
+    localStorage.setItem('pantry', JSON.stringify(pantry));
     
 }
 
@@ -1058,7 +1281,7 @@ function addToShoppingListFromRecipe(ingredientID) {
         shoppingList.push(itemToAdd)
     }
     selectRecipeDOM(currentRecipe)
-    saveLocalStorage()
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
 
@@ -1330,7 +1553,7 @@ function selectRecipeDOM(recipeID) {
         }
 
         if (!inPantry) { // get item id if missing.
-            itemID = getItemID(itemName)
+            itemID = getIngredientID(itemName)
         }
 
         recipeIngredients += "<div class='ingredient'"
@@ -1389,7 +1612,7 @@ function selectRecipeDOM(recipeID) {
             }
 
             if (!inPantry) { // get item id if missing.
-                itemID = getItemID(itemName)
+                itemID = getIngredientID(itemName)
             }
 
             recipeOptional += "<div class='ingredient'"
@@ -2156,4 +2379,12 @@ function tutorialStep7() {
 function tutorialStep8() {
     document.getElementById("tutorial-step7").style.display = "none"
     document.getElementById("tutorial-step8").style.display = "flex"
+}
+
+function closePopUp() {
+    document.getElementById("share").style.display = "none"
+    document.getElementById("category").style.display = "none"
+    skipTutorial()
+    document.getElementById("dim-background").style.display = "none"
+    
 }
