@@ -602,6 +602,7 @@ function processURLShoppingList(sl) {
  */
 function processURLRecipe(r) {
     alert("Importing recipe. Make sure you do not have Menu Smith open in another tab.")
+    skipTutorial()
     let aString = parseWebSafeString(r)
     let newRecipe = JSON.parse(aString)
     addAndValidateCustomRecipe(newRecipe)
