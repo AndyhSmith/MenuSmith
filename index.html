@@ -274,9 +274,9 @@
                 <button onclick="viewCustomRecipe()"><i class="fas fa-plus"></i></button>
                 <div id="filter-recipe-container" style="display:none;">
                     <button onclick="clearMainSearch()"><i class="fas fa-times"></i></button>
-                    <input id="filter-recipe-input" placeholder="Search" onkeyup="updateRecipeDOM()"></input>
+                    <input id="filter-recipe-input" placeholder="Search" onkeyup="updateRecipeListDOM()"></input>
                 </div>
-                <div style="margin-top:10px;" id="filter-words"></div>
+        
                 <div class="instructions" id="tip-2">
                     <div class="close-info" onclick="closeTip(2)">X</div>    
                     <div class="instruction-tip"><b>'Available'</b> - Displays only recipes that you have ingredients for.</div>
@@ -569,6 +569,10 @@
                     <label for="collapsible2" class="lbl-toggle">&#9660; Change Log</label>
                     <div class="collapsible-content">
                         <div class="content-inner">
+                            <h3>6/-/2021 - Bug Hunting <br><i>Alpha 0.5 - 3400 LOC</i></h3>
+                            <p>Moved to menusmith.com </p>
+                            <p>Sharing recipe and shopping list now supports most characters </p>
+
                             <h3>5/30/2021 - Beta? <br><i>Alpha 0.4 - 3400 LOC</i></h3>
                             <p>Pin ingredients to shopping list. </p>
                             <p>Support for photos using a link.</p>
@@ -672,7 +676,7 @@
            
         </div>
         <br>
-        <div id="footer-tip">Hello this is some really inspiring message!</div>
+        <div id="footer-tip" onclick="changeTip()">Hello this is some really inspiring message!</div>
         <p id="footer" style="width: 100%;text-align:center;font-size: 10px;"><i>&copy; 2021, Andy Smith. All Rights Reserved | v. Alpha 0.4</i></p>
     </div>
     <script src="./js-snackbar.min.js"></script>

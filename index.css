@@ -15,6 +15,7 @@
     text-align:center;
     width: 100%;
     opacity: .8;
+    cursor: pointer;
 }
 .recipe-img:hover {
     opacity: .6;
@@ -140,7 +141,7 @@ textarea {
 }
 
 .ingredient {
-    padding: 0px 10px;
+    padding: 5px 10px;
     margin:0px;
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
@@ -151,7 +152,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    min-height: 30px;
 }
 
 
@@ -631,6 +632,8 @@ input[type='checkbox'] { display: none; }
     border-radius: 50%;
     height: 20px;
     width: 20px;
+    min-height: 20px;
+    min-width: 20px;
     color: red;
     top: 0px;
     margin-right: 5px;

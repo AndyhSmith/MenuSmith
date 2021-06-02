@@ -25,6 +25,7 @@ var ingredients = [
     {name:"berries"},
     {name:"blackberries"},
     {name:"blueberries"},
+    {name:"blueberry pie filling"},
     {name:"black beans"},
     {name:"black pepper"},
     {name:"bouillon"},
@@ -51,8 +52,10 @@ var ingredients = [
     {name:"chicken"},
     {name:"chickpeas"},
     {name:"chili powder"},
+    {name:"chilies"},
     {name:"chips"},
     {name:"chives"},
+    {name:"cherry pie filling"},
     {name:"chocolate"},
     {name:"chocolate chips"},
     {name:"chorus fruit"},
@@ -75,7 +78,8 @@ var ingredients = [
     {name:"cream"},
     {name:"cream cheese"},
     {name:"cream of mushroom soup"},
-    {name:"cream of tartar"},
+    {name:"cream of tarter"},
+    {name:"creamed corn"},
     {name:"cucumber"},
     {name:"cumin"},
     {name:"curry paste"},
@@ -89,6 +93,7 @@ var ingredients = [
     {name:"flour"},
     {name:"food coloring"},
     {name:"french bread"},
+    {name:"frosting"},
     {name:"fruit snacks"},
     {name:"garlic"},
     {name:"garlic powder"},
@@ -162,6 +167,7 @@ var ingredients = [
     {name:"pesto"},
     {name:"pineapple"},
     {name:"pinto beans"},
+    {name:"popcorn"},
     {name:"pork"},
     {name:"potatoes"},
     {name:"powdered sugar"},
@@ -173,6 +179,7 @@ var ingredients = [
     {name:"ramen"},
     {name:"ranch"},
     {name:"raspberries"},
+    {name:"raspberry pie filling"},
     {name:"refried beans"},
     {name:"rice"},
     {name:"ricotta"},
@@ -202,6 +209,7 @@ var ingredients = [
     {name:"sweetened condensed milk"},
     {name:"sweet potatoes"},
     {name:"syrup"},
+    {name:"tahini sauce"},
     {name:"tea"},
     {name:"thyme"},
     {name:"tilapia"},
@@ -243,7 +251,7 @@ var recipes = [
         pre:["1 lb.", "1 Cup chopped", "1 Cup", "1 Cup cubed", "1/4 tsp.", "1/4 tsp", "28 oz.", "1 tsp."], 
         instructions:"Cook onions and ground beef. Mix in everything else as well as 3 Cups of water.",
         optional:["salt", "celery","sweet potatoes"],
-        tags:["dinner", "soup", "savory"],
+        tags:["soup", "savory"],
         image: ["https://img.sndimg.com/food/image/upload/c_thumb,q_80,w_412,h_232/v1/img/recipes/93/68/4/picWe1dYJ.jpg"]
     },
      {
@@ -253,7 +261,7 @@ var recipes = [
         instructions:"Cream sugar and shortening, add eggs, drys, bananas, and optional nuts. Bake 1 hour at 325 degrees in a 13x14 loaf pan, or less in two smaller pans",
         optional:["nuts"],
         tags:["sweet", "baking"],
-        image: ["https://upload.wikimedia.org/wikipedia/commons/d/d8/Banankaka.jpg"],
+        image: ["https://i1.wp.com/smittenkitchen.com/wp-content/uploads//2020/03/sk-ultimate-banana-bread.jpg?fit=750%2C500&ssl=1"],
     },
     // {
     //     name:"Beans (Black) & Rice", 
@@ -296,6 +304,25 @@ var recipes = [
     //     source:"Grandma Deanna Slade"
     // },
     {
+        name:"Cheesecake Cookies", 
+        ingredients:["butter", "brown sugar", "flour", "cream cheese", "sugar", "egg"], 
+        pre:["2/3 cups", "2/3 cups", "2 cups", "1 & 1/2 cups", "4"],
+        instructions:"Crust: Mix together butter, brown sugar, and flour by hand and place into bottom of pan for a crust. Bake at 350F for 12 min. Filling: Beat cheese and sugar for 2 min. Add eggs one at a time on lowest speed. Pour onto crust. Bake 25 minutes at 350. Top with cherry, blueberry or raspberry pie filling.",
+        tags:["dessert"],
+        source:"Laura Smith",
+        optional:["cherry pie filling", "blueberry pie filling", "raspberry pie filling"],
+        image:["https://www.thecountrycook.net/wp-content/uploads/2011/01/Cherry-Cheesecake-Bar-slice-on-a-white-plate-1024x683.jpg"]
+    },
+    {
+        name:"Cream Cheese Frosting", 
+        ingredients:["cream cheese", "butter", "vanilla", "milk", "powdered sugar"], 
+        pre:["8 oz.", "1/2 cup (1 stick)", "1 tsp.", "1 T.", "4 cups"],
+        instructions:"Beat together cream cheese, butter, vanilla and milk. Add the powdered sugar one cup at a time, blending in between additions. Add more milk if necessary.",
+        tags:["dessert"],
+        source:"Laura Smith",
+        image:["https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/12/12/3/0170936_vanilla-frosting_s4x3.jpg.rend.hgtvcom.616.462.suffix/1599170546993.jpeg"]
+    },
+    {
         name:"Crepes (easy)", 
         ingredients:["flour", "milk", "egg", "oil"],
         pre:["1 Cup", "1 1/2 Cup", "2", "1 T"], 
@@ -328,7 +355,17 @@ var recipes = [
         tags:["dinner", "savory"],
         image:["https://www.indianhealthyrecipes.com/wp-content/uploads/2015/01/potato-curry-recipe-2-480x270.jpg"]
     },
-     {
+
+    {
+        name:"Emma Noodle Sauce", 
+        ingredients:["peanut butter", "soy sauce", "honey", "garlic", "ginger", "vinegar", "cayenne pepper", "hoisin"],
+        pre:["1 Cup", "1/2 Cup", "1/2 Cup", "4 cloves", "1 tsp.", "2 T", "1/2 tsp.", "2 T"],
+        instructions:"Mix and cook together. Server with noodles or stir fry.",
+        optional:["rice", "pasta", "chicken", "mixed vegetables", "peanuts"],
+        tags:["dinner", "savory"],
+        image: ["https://cdn-bjfkp.nitrocdn.com/vJdkmGCvomZUjxHaZVqunmXKCtkNukwq/assets/static/source/rev-ae874ab/thekelliekitchen.com/wp-content/uploads/2018/09/41d9e170bfbeb100b3e32bf7fe266e2b.sweet-spicy-peanut-sauce.jpg"]
+    },
+    {
         name:"Frosting", 
         ingredients:["butter", "powdered sugar", "vanilla", "milk"], 
         pre:[ "1/2 cup", "4 cups", "1 teaspoon", "3-5 T."],
@@ -347,13 +384,80 @@ var recipes = [
         image:["https://www.theidearoom.net/wp-content/uploads/2018/12/german-pancakes-theidearoom-4.jpg"]
     },
     {
-        name:"Emma Noodle Sauce", 
-        ingredients:["peanut butter", "soy sauce", "honey", "garlic", "ginger", "vinegar", "cayenne pepper", "hoisin"],
-        pre:["1 Cup", "1/2 Cup", "1/2 Cup", "4 cloves", "1 tsp.", "2 T", "1/2 tsp.", "2 T"],
-        instructions:"Mix and cook together. Server with noodles or stir fry.",
-        optional:["rice", "pasta", "chicken", "mixed vegetables", "peanuts"],
-        tags:["dinner", "savory"],
-        image: ["https://cdn-bjfkp.nitrocdn.com/vJdkmGCvomZUjxHaZVqunmXKCtkNukwq/assets/static/source/rev-ae874ab/thekelliekitchen.com/wp-content/uploads/2018/09/41d9e170bfbeb100b3e32bf7fe266e2b.sweet-spicy-peanut-sauce.jpg"]
+        name:"Hummus", 
+        ingredients:["chickpeas", "lemon juice", "tahini sauce", "garlic", "olive oil", "cumin"], 
+        pre:[ "1 (15 oz. can)", "1/4 cup", "1/4 cup", "1 small clove", "2 T", "1/2 tsp."],
+        instructions:"Blend lemon juice and tahini sauce in a food processor for a minute. Add garlic, olive oil, and cumin. Blend in chickpeas with 2-4 Tablespoons (T) of water. Add salt to taste.",
+        tags:["savory", "snack"],
+        source:"Adapted from Adam and Joanne Gallagher's Recipe. <a target='_blank' href='https://www.inspiredtaste.net/15938/easy-and-smooth-hummus-recipe/'>LINK</a>",
+        optional:["paprika"],
+        image:["https://www.inspiredtaste.net/wp-content/uploads/2019/03/How-to-Make-Homemade-Hummus-1200.jpg","https://www.inspiredtaste.net/wp-content/uploads/2019/07/The-Best-Homemade-Hummus-Recipe-1200-1024x685.jpg"]
+    },
+
+    {
+        name:"No Bake Cookies", 
+        ingredients:["sugar", "butter", "oats", "coco powder", "milk", "vanilla", "peanut butter"], 
+        pre:["2 C", "1 stick", "3 C", "4 T", "1/2 cup", "2 tsp.", "1/2 cup"],
+        instructions:"Combine sugar, coco powder, butter and milk. Bring to a hard boil for 2 minutes. Then add oats, vanilla, a pinch of salt and peanut butter. Stir and drop onto wax paper.",
+        tags:["dessert"],
+        source:"Northside Cookbook",
+        image:["https://sugarspunrun.com/wp-content/uploads/2018/03/Easy-No-Bake-Cookie-Recipe-1-of-1-3.jpg"]
+    },
+    
+    {
+        name:"Pancakes", 
+        ingredients:["flour", "milk", "sugar", "baking powder", "egg", "oil"], 
+        pre:["1 Cup", "1 Cup", "1 T", "2 tsp.", "2", "1"],
+        instructions:"Mix & cook.",
+        optional:["vanilla", "salt"],
+        tags:["breakfast"],
+        image:["https://images-gmi-pmc.edge-generalmills.com/df109202-f5dd-45a1-99b4-f10939afd509.jpg"]
+    },
+    {
+        name:"Peanut Butter Cookies", 
+        ingredients:["butter", "peanut butter", "flour", "sugar", "brown sugar", "egg", "baking soda", "baking powder", "vanilla"], 
+        pre:["1/2 cup", "1/2 cup", "1 & 1/4 cups", "1/2 cup", "1/2 cup", "1", "1/2 tsp.", "1/2 tsp.", "1/2 tsp"],
+        instructions:"Beat butter or margarine and peanut butter for 30 seconds. Add 1/2 cup of the flour. Add sugar, egg, baking soda, baking powder and vanilla. Beat till thoroughly combined. Beat in remaining flour. Shape into 1 inch balls and if desired roll in sugar. Place on ungreased cookie sheet. Flatten slightly using crisscrossing tines of a fork. (If turning into kiss cookies don't flatten). Bake in 375 degree oven for 7-9 minutes.",
+        tags:["cookie", "dessert"],
+        optional:["hersheys kisses", "chocolate chips"],
+        source:"Better Homes",
+        image:["https://images-gmi-pmc.edge-generalmills.com/dcd4f799-7353-4e56-ba50-623581cba3bc.jpg"]
+    },
+    {
+        name:"Penzey's Spicy-Sweet Cornbread", 
+        ingredients:["cornmeal", "flour", "sugar", "baking powder", "cayenne pepper", "egg", "creamed corn", "chilies", "butter", "cheese"], 
+        pre:["3/4 cup", "3/4 cup", "3/4 cups", "1 1/2 T", "1/4 tsp.", "4", "1 7oz can", "2 oz fire roasted green", "1/2 cup", "1/2 cup shredded cheddar"],
+        instructions:"Preheat oven to 400F. Combine cornmeal, flour, sugar, baking powder and cayenne. In a different bowl beat eggs by hand, stir in creamed corn, chiles, butter and cheese. Fold in dry ingredients. Bake in greased 8 or 9 inch square pan for 25-35 minutes.",
+        tags:["savory"],
+        source:"Penzey's Spices",
+        image:["https://www.deliciouseveryday.com/wp-content/uploads/2018/12/sweet-spicy-cornbread-17.jpg"]
+    },
+    {
+        name:"Pie Crust (Shortbread)", 
+        ingredients:["butter", "flour", "powdered sugar"], 
+        pre:["2 cups (2 sticks)", "2 cups", "1/2 cup"],
+        instructions:"Preheat oven to 350F. Mix together and press into a pie pan. Bake 12-15 minutes or until golden brown.",
+        tags:["sweet"],
+        source:"Robyn (addapinch.com) <a target='_blank' href='https://addapinch.com/shortbread-crust-recipe/'>LINK</a>",
+        image:["https://addapinch.com/wp-content/uploads/2014/04/shortbread-crust-recipe-DSC_3237.jpg"]
+    },
+    {
+        name:"Pizza Dough", 
+        ingredients:["milk", "yeast", "sugar", "salt", "shortening", "flour"], 
+        pre:[ "2 cups", "1 T.", "1/4 cup", "2 tsp.", "1/4 cup", "6 cups"],
+        instructions:"Mix together drys, knead in wets. Can substitute 1/4 cup olive oil for butter if decrease milk.",
+        tags:["baking"],
+        image:["https://tastesbetterfromscratch.com/wp-content/uploads/2013/03/Pizza-Dough-6.jpg"]
+    },
+    {
+        name:"Popcorn Balls", 
+        ingredients:["butter", "brown sugar", "corn syrup", "sweetened condensed milk", "popcorn"], 
+        pre:["1/2 cup", "2 cups", "1 cup", "1 can", "5 qts unsalted"],
+        instructions:"Bring butter, brown sugar, and corn syrup to boil then add sweetened condensed milk. Bring to softball stage (ball instantly flattens) then add 1 tsp vanilla (optional). Mix in with 5 qts unsalted popcorn. Butter hands and form into balls.",
+        tags:["dessert"],
+        source:"Randy Smith",
+        optional:["vanilla"],
+        image:["https://lmld.org/wp-content/uploads/2020/09/Caramel-Popcorn-Balls-6.jpg"]
     },
     {
         name:"Potato Soup", 
@@ -364,23 +468,6 @@ var recipes = [
         tags:["dinner", "soup", "savory"],
         source:"Pioneer Women (Adapted)",
         image: ["https://houseofyumm.com/wp-content/uploads/2018/10/Potato-Soup-4.jpg"]
-    },
-    {
-        name:"Pancakes", 
-        ingredients:["flour", "milk", "sugar", "baking powder", "egg", "oil"], 
-        pre:["1 Cup", "1 Cup", "1 T", "2 tsp.", "2", "1"],
-        instructions:"Mix & cook.",
-        optional:["vanilla", "salt"],
-        tags:["breakfast"],
-        image:["https://images-gmi-pmc.edge-generalmills.com/df109202-f5dd-45a1-99b4-f10939afd509.jpg"]
-    },
-     {
-        name:"Pizza Dough", 
-        ingredients:["milk", "yeast", "sugar", "salt", "shortening", "flour"], 
-        pre:[ "2 cups", "1 T.", "1/4 cup", "2 tsp.", "1/4 cup", "6 cups"],
-        instructions:"Mix together drys, knead in wets. Can substitute 1/4 cup olive oil for butter if decrease milk.",
-        tags:["baking"],
-        image:["https://tastesbetterfromscratch.com/wp-content/uploads/2013/03/Pizza-Dough-6.jpg"]
     },
     {
         name:"Rolls", 
@@ -408,13 +495,32 @@ var recipes = [
     //     tags:["dessert", "cake", "baking"],
     //     source:"Grandma Deanna Slade"
     // },
-     {
+    // {
+    //     name:"Sugar Cookies", 
+    //     ingredients:["butter", "sugar", "vegetable oil", "egg", "sour cream", "vanilla", "almond extract", "baking soda", "salt", "flour"], 
+    //     pre:[ "1 cup softened", "2 cups", "3/4 cup", "2", "1/4 cups", "1 tsp.", "1/2 tsp.", "1/2 tsp.", "1 tsp.", "5-6 cups"],
+    //     instructions:"Cream butter and sugar, add oil, eggs and sour cream, mix well. Add vanilla, almond extract, baking soda and salt, combine completely. add flour slowly until not longer sticky. Shape cookies and place on ungreased baking sheet, bake at 350 degrees",
+    //     tags:["cookies", "dessert", "baking"],
+    //     source:"Brilynn Ellsworth",
+    //     image:["https://www.livewellbakeoften.com/wp-content/uploads/2019/12/Soft-and-Chewy-Sugar-Cookies-7.jpg"]
+    // },
+    {
+        name:"Snickerdoodles", 
+        ingredients:["butter", "flour", "sugar", "egg", "vanilla", "baking soda", "cream of tarter", "sugar", "cinnamon"], 
+        pre:["1/2 cup", "1 & 1/2 cups", "1 cup & 2 T", "1", "1/2 tsp.", "1/4 tsp", "1/4 tsp.", "2 T"],
+        instructions:"Beat margarine or butter with a mixer for 30 seconds. Add about half of the flour, only 1 cup sugar, the egg, vanilla, baking soda, and cream of tarter. Beat until mixed, then add remaining flour. Cover and chill 1 hour. Shape into 1 inch balls. Combine remaining 2 T sugar and the cinnamon. Roll balls in sugar-cinnamon mixture. Place on ungreased cookie sheet. Bake in 375F oven for 10 to 11 minutes. ",
+        tags:["dessert", "cookies"],
+        source:"Better Homes",
+        image:["https://www.momontimeout.com/wp-content/uploads/2012/11/snickerdoodles-stacked-on-blue-board-with-top-cookie-broken-in-half-text-overlay-at-top-square.jpg", "https://images-gmi-pmc.edge-generalmills.com/d282f492-c920-4054-bc25-4ce934baae6b.jpg"]
+    },
+    {
         name:"Sugar Cookies", 
-        ingredients:["butter", "sugar", "vegetable oil", "egg", "sour cream", "vanilla", "almond extract", "baking soda", "salt", "flour"], 
-        pre:[ "1 cup softened", "2 cups", "3/4 cup", "2", "1/4 cups", "1 tsp.", "1/2 tsp.", "1/2 tsp.", "1 tsp.", "5-6 cups"],
-        instructions:"Cream butter and sugar, add oil, eggs and sour cream, mix well. Add vanilla, almond extract, baking soda and salt, combine completely. add flour slowly until not longer sticky. Shape cookies and place on ungreased baking sheet, bake at 350 degrees",
-        tags:["cookies", "dessert", "baking"],
-        source:"Brilynn Ellsworth",
+        ingredients:["shortening", "butter", "sugar", "egg", "vanilla", "flour", "baking powder"], 
+        pre:["1/2 cup", "1/4 cup", "1 cup", "2 egg", "1/2 tsp.", "2 & 1/2 cups", "1 tsp."],
+        instructions:"Mix shortening, butter, sugar and eggs together. Mix drys together and then mix in with everything else. Chill at least 1 hour and roll into 1/4 inch. Cut into shapes and place on ungreased cookie sheet. Bake at 350 until delicately golden (barely cooked) about 7 minutes.",
+        tags:["dessert"],
+        source:"Rhea Smith",
+        optional:["frosting", "sprinkles"],
         image:["https://www.livewellbakeoften.com/wp-content/uploads/2019/12/Soft-and-Chewy-Sugar-Cookies-7.jpg"]
     },
     {
@@ -426,6 +532,17 @@ var recipes = [
         tags:["dinner", "side", "baking", "savory"],
         image: ["https://healthyhappylife.com/wp-content/uploads/2016/08/2016_08_04_bychloe_9999_24sweet-potato-fries-cream-cashew2000kathy-patalskyvegan-dip.png"]
     },
+
+    // {
+    //     name:"", 
+    //     ingredients:[""], 
+    //     pre:[""],
+    //     instructions:"",
+    //     tags:[""],
+    //     source:"",
+    //     optional:[""],
+    //     image:[""]
+    // },
 ]
 
 
@@ -433,18 +550,18 @@ var recipes = [
 var tips = [
     {message:"You have a 3% chance of reading this message."},
 
-    {message:"TIP: Do you love handwritten shopping lists? Great, Keep using it! After shopping you can manually add items directly into your pantry."},
+    {message:"TIP: Do you love handwritten shopping lists? Great, Keep using them! After shopping you can manually add items directly into your pantry."},
     {message:"TIP: If you buy an ingredient every week you can pin it to your shopping list."},
     {message:"TIP: If you buy an ingredient every week you can pin it to your shopping list."},
     {message:"TIP: You can see all of your favorite recipes that use egg by searching 'egg' and selecting the favorite star."},
     {message:"If you haven't tried dark mode you definitely should!"},
     {message:"TIP: To speed up entering a custom recipe you can use the 'TAB' button to select the next input field."},
     {message:"TIP: Make sure you add your own recipes!"},
-    {message:"TIP: Even if someone doesn't use Pantry you can easily send a custom recipe to them!"},
-    {message:"Pantry has no log in or sign up. Everything is stored locally on your device. Even if we did get hacked they would have none of your information!"},
+    {message:"TIP: Even if someone doesn't use Menu Smith you can easily send a custom recipe to them!"},
+    {message:"Menu Smith has no log in or sign up. Everything is stored locally on your device. Even if we did get hacked they would have none of your information!"},
     {message:"Your shopping list and custom recipes can only be viewed by you unless you share them. Even we can't see them!"},
     {message:"TIP: Different members of your family can add things to their own shopping list. Just make sure they share that list with you before you go shopping!"},
-    {message:"When you feel like you have nothing to cook, 'Pantry' will suggest meals using the ingredients you have."},
+    {message:"When you feel like you have nothing to cook, Menu Smith will suggest meals using the ingredients you have."},
     {message:"TIP: That green circle in the bottom right corner contains information and settings."},
     {message:"TIP: If you shop at different stores you can categorize your ingredients to correspond with different stores."},
     {message:"\"Maybe plants are really farming us, giving us oxygen until we eventually expire and turn into mulch which they can consume.\" - u/ergotpoisoning"},
@@ -457,7 +574,7 @@ var tips = [
     {message:"TIP: When adding a custom recipe try to keep the ingredient list simple. For example, you can leave off salt and water from the ingredient list and just mention them in your cooking instructions."},
     {message:"TIP: You can pin recipes you are planning to cooking this week to the top of your recipe list. That way you can find them easily!"},
     {message:"TIP: If you have a lot of recipes to enter have a friend help you add them on their phone or computer. They can then easily share those recipes with you!"},
-    {message:"TIP: You should only have pantry open in one tab on your device. Close all other tabs otherwise you could loose your recent data."},
+    {message:"TIP: You should only have Menu Smith open in one tab on your device. Close all other tabs otherwise you could loose your recent data."},
     {message:"If something doesn't seem to be working please contact us immediately using the form in the settings menu."},
     {message:"TIP: A lot of ingredients can be substituted for other ingredients. For example, if a recipe calls for lime juice you could probably also use lemon juice."},
     {message:"TIP: The mini tutorials can get in the way and add clutter. Make sure to close them when you know what you are doing!"},
