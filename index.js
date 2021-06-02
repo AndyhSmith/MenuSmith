@@ -784,7 +784,7 @@ function customIngredientToPantry() {
  * Called From Ingredient Search userAddFood().
  */
 function customIngredientToShoppingList() {
-    let customIngredientName = document.getElementById("add-food").value
+    let customIngredientName = document.getElementById("add-food").value.toLowerCase()
     addCustomIngredient(customIngredientName)
     addToShoppingListExtra(getIngredientID(customIngredientName))
     toast(customIngredientName + " Added", successToast);
