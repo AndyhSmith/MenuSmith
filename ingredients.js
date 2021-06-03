@@ -116,7 +116,7 @@ var ingredients = [
     {name:"hot dog"},
     {name:"ice cream"},
     {name:"jam"},
-    {name:"jalapeno peppers"},
+    {name:"jalapeño peppers"},
     {name:"jelly"},
     {name:"kale"},
     {name:"ketchup"},
@@ -164,6 +164,7 @@ var ingredients = [
     {name:"peas"},
     {name:"pecans"},
     {name:"pepper"},
+    {name:"pepperoni"},
     {name:"pesto"},
     {name:"pineapple"},
     {name:"pinto beans"},
@@ -210,6 +211,7 @@ var ingredients = [
     {name:"sweet potatoes"},
     {name:"syrup"},
     {name:"tahini sauce"},
+    {name:"tater tots"},
     {name:"tea"},
     {name:"thyme"},
     {name:"tilapia"},
@@ -294,6 +296,14 @@ var recipes = [
     //     optional:["garlic", "parmesan", "butter", "onion powder"],
     //     tags:["bread", "baking"],
     // },
+        {
+        name:"Breakfast Burrito", 
+        ingredients:["tortillas", "egg", "cheese"], 
+        instructions:"Cook scrambled eggs and put in a tortilla with salsa cheese and anything else you would like. ",
+        tags:["breakfast"],
+        optional:["tater tots", "sausage", "onion", "jalapeño peppers", "bacon", "salsa", "ranch", "tomatillos", "tomatoes"],
+        image:["https://peasandcrayons.com/wp-content/uploads/2020/03/bacon-breakfast-burrito-recipe-.jpg"]
+    },
     //  {
     //     name:"Brownie Pudding Cake", 
     //     ingredients:["flour", "baking powder", "sugar", "salt", "cocoa powder", "milk", "vegetable oil", "vanilla", "brown sugar", "cocoa powder"], 
@@ -303,6 +313,15 @@ var recipes = [
     //     tags:["dessert", "baking", "sweet"],
     //     source:"Grandma Deanna Slade"
     // },
+
+    {
+        name:"Cheater's Pizza", 
+        ingredients:["bread","cheese"], 
+        instructions:"Cover bread with (tomato sauce or ranch) and cheese and bake in 350F oven until cheese is melter. Broil for a few minutes if you want crispy cheese. ",
+        tags:["savory"],
+        optional:["tomato sauce", "ranch", "pepperoni", "tomatoes", "sausage", "oregano", "jalapeño peppers", "tomatoes", "pineapple", "onion"],
+        image:["https://www.savingdessert.com/wp-content/uploads/2020/05/French-Bread-Pizza-10.jpg"]
+    },
     {
         name:"Cheesecake Cookies", 
         ingredients:["butter", "brown sugar", "flour", "cream cheese", "sugar", "egg"], 
@@ -357,6 +376,24 @@ var recipes = [
     },
 
     {
+        name:"Egg Sandwich", 
+        ingredients:["bread", "egg"], 
+        instructions:"Pan fry some eggs and put between two toasted slices of bread.",
+        tags:["savory"],
+        optional:["salt", "pepper", "butter", "lettuce", "tomatoes", "ham", "bacon", "avocado", "pesto"],
+        image:["https://realhousemoms.com/wp-content/uploads/Eggs-in-a-Basket-IG.jpg"]
+    },
+
+    {
+        name:"Eggs in a Basket", 
+        ingredients:["bread", "egg"], 
+        instructions:"Optionally butter both sides of a piece of bread. Use a cup or cutter to cut out the center of the bread slice. Place on hot frying pan and crack an egg into the center of the bread.",
+        tags:["breakfast"],
+        optional:["salt", "pepper", "butter"],
+        image:["https://realhousemoms.com/wp-content/uploads/Eggs-in-a-Basket-IG.jpg"]
+    },
+
+    {
         name:"Emma Noodle Sauce", 
         ingredients:["peanut butter", "soy sauce", "honey", "garlic", "ginger", "vinegar", "cayenne pepper", "hoisin"],
         pre:["1 Cup", "1/2 Cup", "1/2 Cup", "4 cloves", "1 tsp.", "2 T", "1/2 tsp.", "2 T"],
@@ -384,6 +421,25 @@ var recipes = [
         image:["https://www.theidearoom.net/wp-content/uploads/2018/12/german-pancakes-theidearoom-4.jpg"]
     },
     {
+        name:"Gordon Ramsay's Scrambled Eggs", 
+        ingredients:["butter", "egg"], 
+        instructions:"Crack eggs into a cold sauce pan with butter. Mix eggs quickly with spatula as you heat to high heat. Move the eggs on and off the high heat stirring continuously. This will allow you to cook them on high heat without overcooking them. Once curds start to form move off heat and add salt and pepper. The eggs will continue to cook off heat.",
+        tags:["quick"],
+        optional:["salt", "pepper"],
+        source:"Gordon Ramsay <a target='_blank' href='https://www.youtube.com/watch?v=PUP7U5vTMM0&t=3s'>LINK</a>",
+
+        image:["https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fit,w_696,h_464/k%2FRamsayEggs"]
+    },
+    {
+        name:"Grilled Cheese", 
+        ingredients:["bread", "cheese"], 
+        pre:["2 slices", "sliced"],
+        instructions:"Optionally butter bread. Place on a medium-hot frying pan with sliced cheese between the slices of bread.",
+        tags:["savory"],
+        optional:["butter"],
+        image:["https://www.cookedbyjulie.com/wp-content/uploads/2020/10/air-fryer-grilled-cheese-one.jpg"]
+    },
+    {
         name:"Hummus", 
         ingredients:["chickpeas", "lemon juice", "tahini sauce", "garlic", "olive oil", "cumin"], 
         pre:[ "1 (15 oz. can)", "1/4 cup", "1/4 cup", "1 small clove", "2 T", "1/2 tsp."],
@@ -402,6 +458,14 @@ var recipes = [
         tags:["dessert"],
         source:"Northside Cookbook",
         image:["https://sugarspunrun.com/wp-content/uploads/2018/03/Easy-No-Bake-Cookie-Recipe-1-of-1-3.jpg"]
+    },
+    {
+        name:"Omelette", 
+        ingredients:["egg", "cheese"], 
+        instructions:"Pour two or three beaten eggs onto a low heat pan. When mostly cooked add cheese and other toppings then flip half onto the other half.",
+        tags:["breakfast"],
+        optional:["salt", "chives", "pepper", "pepperoni", "tomatoes", "bacon"],
+        image:["https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-how-to-make-an-omelette-horizontal-1542310072.png"]
     },
     
     {
@@ -468,6 +532,13 @@ var recipes = [
         tags:["dinner", "soup", "savory"],
         source:"Pioneer Women (Adapted)",
         image: ["https://houseofyumm.com/wp-content/uploads/2018/10/Potato-Soup-4.jpg"]
+    },
+    {
+        name:"Quesadilla", 
+        ingredients:["tortillas", "cheese"], 
+        instructions:"Lay out tortilla on a hot stove and cover with cheese. Add any other toppings and then cover with another tortilla.",
+        optional:["salsa", "ranch", "tomatoes", "chicken"],
+        image:["https://ohsweetbasil.com/wp-content/uploads/how-to-make-a-perfect-quesadilla-10.jpg"]
     },
     {
         name:"Rolls", 

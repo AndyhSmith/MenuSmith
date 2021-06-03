@@ -1009,7 +1009,7 @@ function emptyShoppingList() {
 function shoppingListToPantry() {
     // Add To Pantry
     for (let i in shoppingList) {
-        let ingredientID = checkIfInShoppingList(shoppingList[i].name)
+        let ingredientID = getIngredientID(shoppingList[i].name)
         
         if (shoppingList[i].quantity) { 
             for (let step = 0; step < shoppingList[i].quantity; step++) {
