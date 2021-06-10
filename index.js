@@ -256,7 +256,7 @@ function dataSaverSwitch() {
  */
 function applySettings() {
     if (settings.darkMode) {
-        darkMode()
+        settings.darkMode = true
         applyColorScheme()
         document.getElementById("dark-mode-setting").checked = true;
     }
